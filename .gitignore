@@ -6,7 +6,8 @@
 Code/.config/Code/*
 *.vscdb
 *.vscdb.backup
-
+!Code/.config/Code/User/keybindings.json
+!Code/.config/Code/User/settings.json
 # =============================================================================
 # Neovim Generated Files
 # =============================================================================
