@@ -1,0 +1,136 @@
+# 🌌 Cosmic Space Station Dotfiles - Git Ignore Rules
+
+# =============================================================================
+# VS Code Workspace & History Files
+# =============================================================================
+Code/.config/Code/*
+*.vscdb
+*.vscdb.backup
+
+# =============================================================================
+# Neovim Generated Files
+# =============================================================================
+nvim/.config/nvim/lazy-lock.json
+nvim/.config/nvim/.luarc.json
+nvim/.config/nvim/plugin/
+nvim/.config/nvim/spell/
+nvim/.config/nvim/undo/
+nvim/.config/nvim/swap/
+nvim/.config/nvim/sessions/
+
+# =============================================================================
+# System & Temporary Files
+# =============================================================================
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+*.log
+*.swp
+*.swo
+*~
+
+# =============================================================================
+# Shell History & Cache
+# =============================================================================
+zsh/.config/zsh/.zsh_history
+zsh/.config/zsh/.zcompdump*
+.zsh_sessions/
+.zcompdump*
+.zsh_history
+
+# =============================================================================
+# Application Caches & Runtime
+# =============================================================================
+# Waybar cache
+waybar/.config/waybar/cache/
+
+# Rofi cache
+rofi/.config/rofi/cache/
+
+# Hyprland logs and cache
+hypr/.config/hypr/logs/
+hypr/.config/hypr/hyprland.log
+hypr/.config/hypr/current_wallpaper
+
+# GRUB backup files
+grub/backup/
+
+# Oh My Zsh if not versioned
+.oh-my-zsh/
+
+# General caches
+.cache/
+.wakatime.cfg
+.wget-hsts
+
+# Backup/Temp files
+*.bak
+
+# =============================================================================
+# Personal Files (add your sensitive data patterns here)
+# =============================================================================
+# SSH keys (if accidentally placed in dotfiles)
+**/.ssh/id_*
+**/.ssh/known_hosts
+
+# Personal scripts with credentials
+**/secrets.*
+**/private.*
+**/*_secret*
+**/*_private*
+
+# =============================================================================
+# Package Manager Files
+# =============================================================================
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# =============================================================================
+# Git & Version Control
+# =============================================================================
+.git/
+*.orig
+*.rej
+
+# =============================================================================
+# Backup Files
+# =============================================================================
+*.backup
+*.old
+backup/
+backups/
+
+# =============================================================================
+# Documentation Generation
+# =============================================================================
+docs/_build/
+docs/build/
+
+# =============================================================================
+# IDE & Editor Files
+# =============================================================================
+.vscode/
+.idea/
+*.sublime-*
+
+# =============================================================================
+# Custom Excludes (uncomment as needed)
+# =============================================================================
+# If you want to exclude specific wallpapers or themes:
+# wallpapers/private/
+# themes/personal/
+
+# If you have machine-specific configs:
+# **/local.*
+# **/$(hostname).*

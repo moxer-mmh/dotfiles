@@ -1,0 +1,139 @@
+/* 🚀 SPACE STATION ROFI THEME 🚀 */
+/* Cosmic Nebula Application Launcher */
+
+* {
+    bg0: #0a0a0f90;
+    bg1: #1e1e2e;
+    bg2: #2a2a40;
+    fg0: #00ff88;
+    fg1: #8844ff;
+    fg2: #00aaff;
+    accent: #ff0088;
+    
+    background-color: transparent;
+    text-color: @fg0;
+    font: "JetBrains Mono Nerd Font 14";
+}
+
+window {
+    background-color: @bg0;
+    border: 3px;
+    border-color: @fg1;
+    border-radius: 20px;
+    width: 600px;
+    location: center;
+    anchor: center;
+    transparency: "real";
+}
+
+mainbox {
+    background-color: transparent;
+    children: [ inputbar, listview ];
+    spacing: 20px;
+    padding: 30px;
+}
+
+inputbar {
+    background-color: @bg1;
+    text-color: @fg0;
+    border: 2px;
+    border-color: @fg2;
+    border-radius: 15px;
+    padding: 15px 20px;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    background-color: transparent;
+    text-color: @fg1;
+    font: "JetBrains Mono Nerd Font Bold 16";
+    margin: 0px 10px 0px 0px;
+}
+
+entry {
+    background-color: transparent;
+    text-color: @fg0;
+    placeholder-color: @bg2;
+    placeholder: "🚀 Launch application...";
+    cursor: text;
+}
+
+listview {
+    background-color: transparent;
+    columns: 1;
+    lines: 8;
+    spacing: 5px;
+    cycle: true;
+    dynamic: true;
+    scrollbar: false;
+}
+
+element {
+    background-color: transparent;
+    text-color: @fg0;
+    border-radius: 12px;
+    padding: 12px;
+    orientation: horizontal;
+    children: [ element-icon, element-text ];
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color: @fg0;
+}
+
+element normal.urgent {
+    background-color: @accent;
+    text-color: @bg0;
+}
+
+element normal.active {
+    background-color: @fg1;
+    text-color: @bg0;
+}
+
+element selected.normal {
+    background-color: @fg1;
+    text-color: @bg0;
+    border: 2px;
+    border-color: @fg2;
+}
+
+element selected.urgent {
+    background-color: @accent;
+    text-color: @bg0;
+}
+
+element selected.active {
+    background-color: @fg2;
+    text-color: @bg0;
+}
+
+element alternate.normal {
+    background-color: transparent;
+    text-color: @fg0;
+}
+
+element alternate.urgent {
+    background-color: transparent;
+    text-color: @accent;
+}
+
+element alternate.active {
+    background-color: transparent;
+    text-color: @fg1;
+}
+
+element-icon {
+    background-color: transparent;
+    size: 32px;
+    margin: 0px 15px 0px 0px;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+    expand: true;
+    vertical-align: 0.5;
+    margin: 0px 0px 0px 0px;
+}

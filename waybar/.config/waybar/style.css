@@ -1,0 +1,326 @@
+/* Space Station Waybar Theme - Cosmic Nebula Aesthetic */
+
+* {
+    font-family: "JetBrains Mono Nerd Font", "Hack Nerd Font", monospace;
+    font-size: 13px;
+    font-weight: bold;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+window#waybar {
+    background: linear-gradient(135deg,
+        rgba(16, 4, 42, 0.95) 0%,
+        rgba(30, 12, 68, 0.95) 25%,
+        rgba(45, 25, 85, 0.95) 50%,
+        rgba(30, 12, 68, 0.95) 75%,
+        rgba(16, 4, 42, 0.95) 100%);
+    color: #E0E1E5;
+    border-radius: 12px;
+    box-shadow:
+        0 8px 32px rgba(138, 43, 226, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 0 1px rgba(138, 43, 226, 0.2);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+/* Workspace Module */
+#workspaces {
+    background: linear-gradient(90deg, rgba(138, 43, 226, 0.2), rgba(0, 191, 255, 0.2));
+    border-radius: 10px;
+    margin: 3px 0 3px 6px;
+    padding: 0 8px;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+#workspaces button {
+    color: #B4A7D6;
+    background: transparent;
+    border-radius: 6px;
+    margin: 2px 1px;
+    padding: 0 6px;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    border: 1px solid transparent;
+}
+
+#workspaces button:hover {
+    background: linear-gradient(45deg, rgba(138, 43, 226, 0.3), rgba(0, 191, 255, 0.3));
+    color: #00FFFF;
+    border: 1px solid rgba(0, 255, 255, 0.5);
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
+}
+
+#workspaces button.active {
+    background: linear-gradient(45deg, #8A2BE2, #00BFFF);
+    color: #FFFFFF;
+    border: 1px solid #00FFFF;
+    box-shadow:
+        0 0 16px rgba(138, 43, 226, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+#workspaces button.urgent {
+    background: linear-gradient(45deg, #FF1493, #FF6B35);
+    color: #FFFFFF;
+    border: 1px solid #FF1493;
+    box-shadow: 0 0 16px rgba(255, 20, 147, 0.6);
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Window Title */
+#window {
+    background: linear-gradient(90deg, rgba(0, 255, 127, 0.15), rgba(148, 0, 211, 0.15));
+    color: #00FF7F;
+    border-radius: 8px;
+    margin: 3px 6px;
+    padding: 0 12px;
+    border: 1px solid rgba(0, 255, 127, 0.3);
+    font-style: italic;
+}
+
+/* Clock Module */
+#clock {
+    background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(138, 43, 226, 0.2));
+    color: #FF69B4;
+    border-radius: 10px;
+    margin: 3px 6px;
+    padding: 0 16px;
+    border: 1px solid rgba(255, 105, 180, 0.4);
+    font-weight: bold;
+    box-shadow:
+        0 0 12px rgba(255, 105, 180, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Right Modules */
+#pulseaudio,
+#pulseaudio.microphone,
+#custom-fn-keys,
+#custom-camera,
+#network,
+#cpu,
+#memory,
+#temperature,
+#battery,
+#custom-spotify {
+    background: linear-gradient(45deg, rgba(0, 191, 255, 0.15), rgba(138, 43, 226, 0.15));
+    color: #E0E1E5;
+    border-radius: 8px;
+    margin: 3px 2px;
+    padding: 0 10px;
+    border: 1px solid rgba(0, 191, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+#pulseaudio:hover,
+#pulseaudio.microphone:hover,
+#custom-fn-keys:hover,
+#custom-camera:hover,
+#network:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#battery:hover,
+#custom-spotify:hover {
+    background: linear-gradient(45deg, rgba(0, 191, 255, 0.3), rgba(138, 43, 226, 0.3));
+    box-shadow: 0 0 12px rgba(0, 191, 255, 0.4);
+    border: 1px solid rgba(0, 191, 255, 0.5);
+    color: #00BFFF;
+}
+
+/* Spotify Module */
+#custom-spotify {
+    background: linear-gradient(45deg, rgba(30, 215, 96, 0.2), rgba(138, 43, 226, 0.2));
+    color: #1ED760;
+    border: 1px solid rgba(30, 215, 96, 0.4);
+}
+
+#custom-spotify:hover {
+    background: linear-gradient(45deg, rgba(30, 215, 96, 0.3), rgba(138, 43, 226, 0.3));
+    box-shadow: 0 0 12px rgba(30, 215, 96, 0.4);
+}
+
+/* Audio Module */
+#pulseaudio {
+    color: #FFD700;
+    border-color: rgba(255, 215, 0, 0.3);
+}
+
+#pulseaudio.muted {
+    color: #FF6347;
+    border-color: rgba(255, 99, 71, 0.3);
+}
+
+/* Microphone Module */
+#pulseaudio.microphone {
+    color: #00CED1;
+    border-color: rgba(0, 206, 209, 0.3);
+}
+
+#pulseaudio.microphone.source-muted {
+    color: #FF4500;
+    border-color: rgba(255, 69, 0, 0.3);
+    animation: flash 0.8s infinite;
+}
+
+/* Network Module */
+#network {
+    color: #00FF7F;
+    border-color: rgba(0, 255, 127, 0.3);
+}
+
+#network.disconnected {
+    color: #FF6347;
+    border-color: rgba(255, 99, 71, 0.3);
+}
+
+/* CPU Module */
+#cpu {
+    color: #FF69B4;
+    border-color: rgba(255, 105, 180, 0.3);
+}
+
+/* Memory Module */
+#memory {
+    color: #9370DB;
+    border-color: rgba(147, 112, 219, 0.3);
+}
+
+/* Temperature Module */
+#temperature {
+    color: #87CEEB;
+    border-color: rgba(135, 206, 235, 0.3);
+}
+
+#temperature.critical {
+    color: #FF4500;
+    background: linear-gradient(45deg, rgba(255, 69, 0, 0.3), rgba(255, 0, 0, 0.3));
+    border-color: rgba(255, 69, 0, 0.5);
+    animation: flash 0.5s infinite;
+}
+
+@keyframes flash {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* Battery Module */
+#battery {
+    color: #32CD32;
+    border-color: rgba(50, 205, 50, 0.3);
+}
+
+#battery.charging {
+    color: #FFD700;
+    border-color: rgba(255, 215, 0, 0.3);
+    animation: charging 2s infinite;
+}
+
+@keyframes charging {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+#battery.warning {
+    color: #FFA500;
+    border-color: rgba(255, 165, 0, 0.3);
+}
+
+#battery.critical {
+    color: #FF4500;
+    border-color: rgba(255, 69, 0, 0.3);
+    animation: flash 0.5s infinite;
+}
+
+/* System Tray */
+#tray {
+    background: linear-gradient(90deg, rgba(138, 43, 226, 0.15), rgba(0, 191, 255, 0.15));
+    border-radius: 8px;
+    margin: 3px 6px 3px 2px;
+    padding: 0 8px;
+    border: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: rgba(255, 20, 147, 0.3);
+    border-radius: 4px;
+}
+
+/* Tooltips */
+tooltip {
+    background: linear-gradient(135deg, rgba(16, 4, 42, 0.95), rgba(45, 25, 85, 0.95));
+    color: #E0E1E5;
+    border-radius: 8px;
+    border: 1px solid rgba(138, 43, 226, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+tooltip label {
+    color: #E0E1E5;
+    padding: 8px;
+}
+
+/* Glowing effect for active elements */
+.glow {
+    box-shadow:
+        0 0 5px currentColor,
+        0 0 10px currentColor,
+        0 0 15px currentColor,
+        0 0 20px currentColor;
+}
+
+/* Function Keys Module */
+#custom-fn-keys {
+    color: #B4A7D6;
+    border-color: rgba(180, 167, 214, 0.3);
+    font-size: 14px;
+    min-width: 60px;
+}
+
+#custom-fn-keys:hover {
+    background: linear-gradient(45deg, rgba(180, 167, 214, 0.3), rgba(138, 43, 226, 0.3));
+    box-shadow: 0 0 12px rgba(180, 167, 214, 0.4);
+    border: 1px solid rgba(180, 167, 214, 0.5);
+    color: #E0E1E5;
+}
+
+/* Camera Module */
+#custom-camera {
+    color: #FF6B35;
+    border-color: rgba(255, 107, 53, 0.3);
+    font-size: 16px;
+}
+
+#custom-camera:hover {
+    background: linear-gradient(45deg, rgba(255, 107, 53, 0.3), rgba(138, 43, 226, 0.3));
+    box-shadow: 0 0 12px rgba(255, 107, 53, 0.4);
+    border: 1px solid rgba(255, 107, 53, 0.5);
+    color: #FF4500;
+}
+
+
+#tray {
+  border-radius: 8px;
+  margin: 3px 6px 3px 2px;
+  padding: 0 8px;
+  border: 1px solid rgba(138, 43, 226, 0.3);
+  color: #00FF7F; /* comme le module #network */
+  border-color: rgba(0, 255, 127, 0.3);
+  background: linear-gradient(45deg, rgba(0, 191, 255, 0.15), rgba(138, 43, 226, 0.15));
+}
+
