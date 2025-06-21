@@ -1,0 +1,316 @@
+# ~/.config/starship.toml
+
+format = """
+[](color_orange)\
+$os\
+$username\
+$hostname\
+$kubernetes\
+$directory\
+$git_branch\
+$git_status\
+$python\
+$nodejs\
+$rust\
+$golang\
+$java\
+$docker_context\
+$cmd_duration\
+$line_break\
+[](bg:blue fg:white) $character """
+
+add_newline = true
+command_timeout = 1000
+
+# Prompt symbols 
+[character]
+success_symbol = "[龍](purple)"
+error_symbol = "[龍](red)"
+vimcmd_symbol = "[龍](green)"
+
+[os]
+format = '[$symbol](bold white) '
+disabled = false
+
+
+[os.symbols]
+Windows = "󰍉"
+
+Arch = "󰣇"
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+Artix = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
+[username]
+style_user = 'bold red'
+style_root = 'bold red'
+format = '[$user]($style) '
+disabled = false
+show_always = true
+
+# Shows the hostname
+[hostname]
+ssh_symbol = " "
+ssh_only = false
+format = 'on [$hostname](bold yellow) '
+disabled = false
+
+# Shows current directory
+[directory]
+truncation_length = 3
+truncation_symbol = "…/"
+home_symbol = "󰋜 ~"
+read_only_style = "197"
+read_only = " 󰌾"
+format = 'at [$path]($style)[$read_only]($read_only_style) '
+style = "cyan"
+
+# Shows current git branch
+[git_branch]
+symbol = " "
+format = 'via [($symbol$branch)]($style)'
+style = "bold purple"
+
+# Shows current git status
+[git_status]
+format = '([ \($all_status$ahead_behind\)]($style) )'
+style = "bold green"
+conflicted = "[ conflicted=${count}](red) "
+up_to_date = "[󰘽 up-to-date](green) "
+untracked = "[󰋗 untracked=${count}](red) "
+ahead = " ahead=${count}"
+diverged = " ahead=${ahead_count}  behind=${behind_count}"
+behind = " behind=${count}"
+stashed = "[ stashed=${count}](green) "
+modified = "[󰛿 modified=${count}](yellow) "
+staged = "[󰐗 staged=${count}](green) "
+renamed = "[󱍸 renamed=${count}](yellow) "
+deleted = "[󰍶 deleted=${count}](red) "
+
+
+# Shows kubernetes context and namespace
+[kubernetes]
+format = 'via [󱃾 $context\($namespace\)](bold purple) '
+disabled = false
+detect_files = ['k8s', 'kubernetes', 'Dockerfile', 'docker-compose.yml']
+
+# Language versions
+[python]
+symbol = " "
+format = 'via [${symbol}${version} (${virtualenv})]($style)'
+style = "bold yellow"
+pyenv_version_name = false
+
+detect_files = [
+    "requirements.txt",
+    "pyproject.toml",
+    "setup.py",
+    ".python-version",
+    "Pipfile",
+    "__init__.py",
+]
+detect_folders = ["venv", ".venv"]
+disabled = false
+
+[nodejs]
+symbol = " "
+format = 'via [${symbol}${version} ]($style)'
+style = "bold green"
+detect_files = ["package.json", ".node-version", ".nvmrc"]
+disabled = false
+
+[rust]
+symbol = "󱘗 "
+format = 'via [${symbol}${version} ]($style)'
+style = "bold red"
+detect_files = ["Cargo.toml", "rust-project.json"]
+disabled = false
+
+[golang]
+symbol = " "
+format = 'via [${symbol}${version} ]($style)'
+style = "bold cyan"
+detect_files = [
+    "go.mod",
+    "go.sum",
+    "go.work",
+    ".go-version",
+    "glide.yaml",
+    "Gopkg.yml",
+    "Gopkg.lock",
+]
+disabled = false
+
+[java]
+symbol = " "
+format = 'via [${symbol}${version} ]($style)'
+style = "bold red"
+detect_files = [
+    "pom.xml",
+    "build.gradle.kts",
+    "build.gradle",
+    ".java-version",
+    ".deps.edn",
+    "project.clj",
+    "build.boot",
+]
+disabled = false
+
+[docker_context]
+symbol = " "
+format = 'via [${symbol}${context} ]($style)'
+style = "blue bold"
+disabled = false
+detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile"]
+
+[cmd_duration]
+min_time = 2000
+format = "took [$duration](bold yellow) "
+
+
+[aws]
+symbol = "  "
+
+[buf]
+symbol = " "
+
+[c]
+symbol = " "
+
+[cmake]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[crystal]
+symbol = " "
+
+[dart]
+symbol = " "
+
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[fennel]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+
+[git_commit]
+tag_symbol = '  '
+
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+
+[julia]
+symbol = " "
+
+[kotlin]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[meson]
+symbol = "󰔷 "
+
+[nim]
+symbol = "󰆥 "
+
+[nix_shell]
+symbol = " "
+
+
+[ocaml]
+symbol = " "
+
+
+[package]
+symbol = "󰏗 "
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
+[pijul_channel]
+symbol = " "
+
+
+[rlang]
+symbol = "󰟔 "
+
+[ruby]
+symbol = " "
+
+
+[scala]
+symbol = " "
+
+[swift]
+symbol = " "
+
+[zig]
+symbol = " "
+
+[gradle]
+symbol = " "

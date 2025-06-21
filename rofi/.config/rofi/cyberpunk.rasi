@@ -1,0 +1,198 @@
+/**
+ * Rofi Cyberpunk Theme
+ * Save as ~/.config/rofi/cyberpunk.rasi
+ */
+
+* {
+    bg-col: rgba(26, 26, 46, 0.95);
+    bg-col-light: rgba(22, 33, 62, 0.8);
+    border-col: rgba(0, 255, 153, 0.4);
+    selected-col: rgba(157, 78, 221, 0.9);
+    cyan: #00ff99;
+    purple: #9d4edd;
+    pink: #ff006e;
+    orange: #fb8500;
+    yellow: #ffbe0b;
+    blue: #219ebc;
+    
+    fg-col: #ffffff;
+    fg-col2: rgba(255, 255, 255, 0.8);
+    grey: rgba(255, 255, 255, 0.4);
+    
+    width: 600;
+    font: "JetBrainsMono Nerd Font 12";
+}
+
+element-text, element-icon, mode-switcher {
+    background-color: inherit;
+    text-color: inherit;
+}
+
+window {
+    height: 400px;
+    border: 2px solid;
+    border-color: @border-col;
+    border-radius: 12px;
+    background-color: @bg-col;
+    box-shadow: 0 0 30px rgba(0, 255, 153, 0.2);
+    backdrop-filter: blur(15px);
+}
+
+mainbox {
+    background-color: transparent;
+    children: [inputbar, listview, mode-switcher];
+    spacing: 12px;
+    padding: 12px;
+}
+
+inputbar {
+    children: [prompt, entry];
+    background-color: @bg-col-light;
+    border-radius: 8px;
+    padding: 8px;
+    border: 1px solid @border-col;
+}
+
+prompt {
+    background-color: @purple;
+    color: @bg-col;
+    padding: 6px 12px;
+    border-radius: 6px;
+    margin: 0px 8px 0px 0px;
+    font-weight: bold;
+}
+
+textbox-prompt-colon {
+    expand: false;
+    str: ":";
+}
+
+entry {
+    placeholder: "Search applications...";
+    placeholder-color: @grey;
+    color: @fg-col;
+    background-color: transparent;
+    padding: 6px;
+    border-radius: 4px;
+}
+
+listview {
+    border: 0px 0px 0px;
+    padding: 6px 0px 0px;
+    columns: 1;
+    lines: 8;
+    background-color: transparent;
+    scrollbar: true;
+}
+
+scrollbar {
+    width: 4px;
+    border: 0;
+    handle-color: @purple;
+    handle-width: 8px;
+    padding: 0;
+    background-color: @bg-col-light;
+    border-radius: 4px;
+}
+
+element {
+    padding: 8px 12px;
+    background-color: transparent;
+    text-color: @fg-col2;
+    border-radius: 6px;
+    spacing: 8px;
+    margin: 2px 0px;
+    transition: all 0.3s ease;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color: @fg-col2;
+}
+
+element normal.urgent {
+    background-color: @pink;
+    text-color: @fg-col;
+}
+
+element normal.active {
+    background-color: @cyan;
+    text-color: @bg-col;
+}
+
+element selected.normal {
+    background-color: linear-gradient(45deg, @purple, @cyan);
+    text-color: @bg-col;
+    border: 1px solid @cyan;
+    font-weight: bold;
+    box-shadow: 0 2px 10px rgba(157, 78, 221, 0.3);
+}
+
+element selected.urgent {
+    background-color: @pink;
+    text-color: @fg-col;
+}
+
+element selected.active {
+    background-color: @cyan;
+    color: @bg-col;
+}
+
+element-icon {
+    size: 24px;
+    margin: 0px 8px 0px 0px;
+}
+
+element-text {
+    expand: true;
+    horizontal-align: 0;
+    vertical-align: 0.5;
+    margin: 0px 2px 0px 2px;
+    highlight: bold;
+}
+
+mode-switcher {
+    spacing: 0;
+    background-color: @bg-col-light;
+    border-radius: 8px;
+    padding: 4px;
+    border: 1px solid @border-col;
+}
+
+button {
+    padding: 8px 16px;
+    background-color: transparent;
+    text-color: @fg-col2;
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+    border-radius: 4px;
+    margin: 2px;
+    transition: all 0.3s ease;
+}
+
+button selected {
+    background-color: @purple;
+    text-color: @fg-col;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(157, 78, 221, 0.4);
+}
+
+message {
+    padding: 12px;
+    border-radius: 8px;
+    background-color: @bg-col-light;
+    border: 1px solid @border-col;
+    margin: 12px 0px 0px 0px;
+}
+
+textbox {
+    text-color: @fg-col;
+    background-color: transparent;
+    padding: 4px;
+}
+
+/* Custom animations and effects */
+element:hover {
+    background-color: rgba(0, 255, 153, 0.1);
+    border: 1px solid rgba(0, 255, 153, 0.3);
+}

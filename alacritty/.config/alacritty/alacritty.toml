@@ -1,0 +1,76 @@
+# 🚀 Space Station Alacritty Configuration
+# Cosmic Nebula Terminal with Perfect Transparency
+
+[window]
+opacity = 0.5
+decorations = "None"
+startup_mode = "Windowed"
+dynamic_title = true
+padding = { x = 20, y = 20 }
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[font]
+normal = { family = "JetBrainsMonoNL Nerd Font Mono", style = "Regular" }
+bold = { family = "JetBrainsMonoNL Nerd Font Mono", style = "Bold" }
+italic = { family = "JetBrainsMonoNL Nerd Font Mono", style = "Italic" }
+bold_italic = { family = "JetBrainsMonoNL Nerd Font Mono", style = "Bold Italic" }
+size = 12.0
+
+[colors]
+# Cosmic Nebula Color Scheme
+[colors.primary]
+background = "#0a0a0f"
+foreground = "#00ff88"
+
+[colors.cursor]
+text = "#0a0a0f"
+cursor = "#00ff88"
+
+[colors.normal]
+black = "#1e1e2e"
+red = "#ff0088"
+green = "#00ff88"
+yellow = "#ffaa00"
+blue = "#8844ff"
+magenta = "#ff44aa"
+cyan = "#00aaff"
+white = "#ffffff"
+
+[colors.bright]
+black = "#2a2a40"
+red = "#ff4488"
+green = "#44ff88"
+yellow = "#ffcc44"
+blue = "#aa66ff"
+magenta = "#ff66cc"
+cyan = "#44ccff"
+white = "#ffffff"
+
+[colors.selection]
+text = "#0a0a0f"
+background = "#8844ff"
+
+[cursor]
+style = { shape = "Block", blinking = "On" }
+blink_interval = 750
+
+[keyboard]
+# AZERTY-friendly bindings
+bindings = [
+    { key = "C", mods = "Control|Shift", action = "Copy" },
+    { key = "V", mods = "Control|Shift", action = "Paste" },
+    { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" },
+    { key = "Plus", mods = "Control", action = "IncreaseFontSize" },
+    { key = "Minus", mods = "Control", action = "DecreaseFontSize" },
+    { key = "Key0", mods = "Control", action = "ResetFontSize" },
+]
+
+[mouse]
+hide_when_typing = true
+
+[[mouse.bindings]]
+mouse = "Right"
+action = "PasteSelection"
