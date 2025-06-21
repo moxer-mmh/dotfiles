@@ -3,9 +3,11 @@
 # =============================================================================
 # VS Code Workspace & History Files
 # =============================================================================
-Code/.config/Code/*
 *.vscdb
 *.vscdb.backup
+Code/.config/Code/*
+!Code/.config/Code/User/
+Code/.config/Code/User/*
 !Code/.config/Code/User/keybindings.json
 !Code/.config/Code/User/settings.json
 # =============================================================================
