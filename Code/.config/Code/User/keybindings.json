@@ -1,0 +1,381 @@
+// Place your key bindings in this file to override the defaults
+[
+    // ===== NEOVIM EXTENSION COMPATIBILITY =====
+    
+    // Disable VSCode keybindings that conflict with Neovim
+    {
+        "key": "ctrl+a",
+        "command": "-editor.action.selectAll",
+        "when": "neovim.mode == 'normal' || neovim.mode == 'visual'"
+    },
+    {
+        "key": "ctrl+c",
+        "command": "-editor.action.clipboardCopyAction",
+        "when": "neovim.mode == 'normal' || neovim.mode == 'visual'"
+    },
+    {
+        "key": "ctrl+v",
+        "command": "-editor.action.clipboardPasteAction",
+        "when": "neovim.mode == 'normal' || neovim.mode == 'visual'"
+    },
+    {
+        "key": "ctrl+x",
+        "command": "-editor.action.clipboardCutAction",
+        "when": "neovim.mode == 'normal' || neovim.mode == 'visual'"
+    },
+    {
+        "key": "ctrl+z",
+        "command": "-undo",
+        "when": "neovim.mode == 'normal' || neovim.mode == 'visual'"
+    },
+    {
+        "key": "ctrl+y",
+        "command": "-redo",
+        "when": "neovim.mode == 'normal' || neovim.mode == 'visual'"
+    },
+    {
+        "key": "ctrl+f",
+        "command": "-actions.find",
+        "when": "neovim.mode == 'normal' || neovim.mode == 'visual'"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "-editor.action.startFindReplaceAction",
+        "when": "neovim.mode == 'normal' || neovim.mode == 'visual'"
+    },
+    {
+        "key": "ctrl+d",
+        "command": "-editor.action.addSelectionToNextFindMatch",
+        "when": "neovim.mode == 'normal' || neovim.mode == 'visual'"
+    },
+    {
+        "key": "ctrl+u",
+        "command": "-cursorUndo",
+        "when": "neovim.mode == 'normal' || neovim.mode == 'visual'"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-workbench.action.openRecent",
+        "when": "neovim.mode == 'normal' || neovim.mode == 'visual'"
+    },
+    
+    // Disable arrow key navigation in normal mode to encourage hjkl
+    {
+        "key": "up",
+        "command": "-cursorUp",
+        "when": "neovim.mode == 'normal'"
+    },
+    {
+        "key": "down",
+        "command": "-cursorDown",
+        "when": "neovim.mode == 'normal'"
+    },
+    {
+        "key": "left",
+        "command": "-cursorLeft",
+        "when": "neovim.mode == 'normal'"
+    },
+    {
+        "key": "right",
+        "command": "-cursorRight",
+        "when": "neovim.mode == 'normal'"
+    },
+    
+    // ===== AZERTY KEYBOARD SPECIFIC FIXES =====
+    
+    // Make semicolon accessible (on AZERTY it's shift+.)
+    {
+        "key": "shift+oem_period",
+        "command": "vscode-neovim.send",
+        "args": ";",
+        "when": "neovim.mode == 'normal' || neovim.mode == 'visual'"
+    },
+    
+    // Make colon accessible for command mode (on AZERTY it's shift+.)
+    {
+        "key": "shift+oem_1",
+        "command": "vscode-neovim.send",
+        "args": ":",
+        "when": "neovim.mode == 'normal' || neovim.mode == 'visual'"
+    },
+    
+    // ===== LEADER KEY MAPPINGS (SPACE AS LEADER) =====
+      // File operations
+    {
+        "key": "space f f",
+        "command": "workbench.action.quickOpen",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space f s",
+        "command": "workbench.action.files.save",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space f r",
+        "command": "workbench.action.openRecent",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+      // Buffer/Tab operations
+    {
+        "key": "space b b",
+        "command": "workbench.action.showAllEditors",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space b d",
+        "command": "workbench.action.closeActiveEditor",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space b n",
+        "command": "workbench.action.nextEditor",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space b p",
+        "command": "workbench.action.previousEditor",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+      // Search operations
+    {
+        "key": "space s s",
+        "command": "workbench.action.findInFiles",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space s p",
+        "command": "workbench.view.search",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+      // Window operations
+    {
+        "key": "space w h",
+        "command": "workbench.action.focusLeftGroup",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space w l",
+        "command": "workbench.action.focusRightGroup",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space w j",
+        "command": "workbench.action.focusBelowGroup",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space w k",
+        "command": "workbench.action.focusAboveGroup",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space w v",
+        "command": "workbench.action.splitEditor",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space w s",
+        "command": "workbench.action.splitEditorDown",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space w c",
+        "command": "workbench.action.closeEditorsInGroup",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+      // Git operations
+    {
+        "key": "space g g",
+        "command": "workbench.view.scm",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space g s",
+        "command": "git.stage",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space g c",
+        "command": "git.commit",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space g p",
+        "command": "git.push",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space g d",
+        "command": "git.openChange",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+      // Terminal
+    {
+        "key": "space t t",
+        "command": "workbench.action.terminal.toggle",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space t n",
+        "command": "workbench.action.terminal.new",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+      // LSP/Code actions
+    {
+        "key": "space l a",
+        "command": "editor.action.quickFix",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space l r",
+        "command": "editor.action.rename",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space l f",
+        "command": "editor.action.formatDocument",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space l d",
+        "command": "editor.action.revealDefinition",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space l i",
+        "command": "editor.action.goToImplementation",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    {
+        "key": "space l h",
+        "command": "editor.action.showHover",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    
+    // ===== VSCode SPECIFIC WHEN NOT IN NEOVIM MODES =====
+    
+    // Keep VSCode functionality in insert mode and command palette
+    {
+        "key": "ctrl+a",
+        "command": "editor.action.selectAll",
+        "when": "neovim.mode == 'insert' || !neovim.init"
+    },
+    {
+        "key": "ctrl+c",
+        "command": "editor.action.clipboardCopyAction",
+        "when": "neovim.mode == 'insert' || !neovim.init"
+    },
+    {
+        "key": "ctrl+v",
+        "command": "editor.action.clipboardPasteAction",
+        "when": "neovim.mode == 'insert' || !neovim.init"
+    },
+    {
+        "key": "ctrl+x",
+        "command": "editor.action.clipboardCutAction",
+        "when": "neovim.mode == 'insert' || !neovim.init"
+    },
+    {
+        "key": "ctrl+z",
+        "command": "undo",
+        "when": "neovim.mode == 'insert' || !neovim.init"
+    },
+    {
+        "key": "ctrl+y",
+        "command": "redo",
+        "when": "neovim.mode == 'insert' || !neovim.init"
+    },
+    {
+        "key": "ctrl+f",
+        "command": "actions.find",
+        "when": "neovim.mode == 'insert' || !neovim.init"
+    },
+      // ===== UNIVERSAL KEYBINDINGS FOR NON-NEOVIM CONTEXTS =====
+    
+    // Universal close editor - works in preview modes, non-text editors, etc.
+    {
+        "key": "ctrl+w",
+        "command": "workbench.action.closeActiveEditor",
+        "when": "!neovim.init || !editorTextFocus"
+    },
+    
+    // Alternative close binding that always works
+    {
+        "key": "ctrl+alt+w",
+        "command": "workbench.action.closeActiveEditor"
+    },
+    
+    // ===== ESCAPE IMPROVEMENTS =====
+    
+    // Make escape more responsive
+    {
+        "key": "escape",
+        "command": "vscode-neovim.escape",
+        "when": "neovim.mode == 'insert'"
+    },
+    {
+        "key": "ctrl+c",
+        "command": "vscode-neovim.escape",
+        "when": "neovim.mode == 'insert'"
+    },
+    
+    // ===== YOUR EXISTING CUSTOM KEYBINDINGS =====
+    
+    {
+        "key": "ctrl+alt+b",
+        "command": "editor.emmet.action.balanceOut"
+    },
+    {
+        "key": "ctrl+alt+v",
+        "command": "editor.emmet.action.balanceIn"
+    },
+    {
+        "key": "shift+oem_5",
+        "command": "code-runner.run"
+    },
+    {
+        "key": "ctrl+alt+n",
+        "command": "-code-runner.run"
+    },
+    {
+        "key": "shift+alt+z",
+        "command": "editor.action.toggleWordWrap"
+    },
+    {
+        "key": "alt+z",
+        "command": "-editor.action.toggleWordWrap"
+    },
+    {
+        "key": "alt+l",
+        "command": "expandLineSelection",
+        "when": "textInputFocus && !neovim.mode"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "-expandLineSelection",
+        "when": "textInputFocus"
+    },
+    
+    // ===== QUICK ACCESS KEYBINDINGS =====
+      // Quick access to command palette
+    {
+        "key": "space space",
+        "command": "workbench.action.showCommands",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    
+    // Toggle file explorer
+    {
+        "key": "space e",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    },
+    
+    // Quick settings
+    {
+        "key": "space comma",
+        "command": "workbench.action.openSettings",
+        "when": "neovim.mode == 'normal' && editorTextFocus"
+    }
+]
