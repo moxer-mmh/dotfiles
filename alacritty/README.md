@@ -287,6 +287,5 @@ This configuration is part of the personal dotfiles collection. Feel free to use
 
 **Happy Terminal Computing! 🚀**
 
-*Made with ❤️ and lots of ☕*
 
 </div>
