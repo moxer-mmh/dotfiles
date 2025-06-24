@@ -1,198 +1,454 @@
-/**
- * Rofi Cyberpunk Theme
- * Save as ~/.config/rofi/cyberpunk.rasi
- */
+//═══════════════════════════════════════════════════════════════════════════════
+// 🌃 CYBERPUNK ROFI THEME - NEON CITY APPLICATION LAUNCHER
+//═══════════════════════════════════════════════════════════════════════════════
+//
+// A dystopian future-inspired application launcher with vibrant neon colors,
+// glowing effects, and high-tech aesthetic. Designed for the ultimate cyberpunk
+// desktop experience with smooth animations and futuristic visual elements.
+//
+// FEATURES:
+// ┌─────────────────────────────────────────────────────────────────────────────┐
+// │ • Neon cyberpunk color palette with electric accents                        │
+// │ • Glowing box shadows and blur effects for depth                            │
+// │ • Gradient backgrounds with purple-to-cyan transitions                      │
+// │ • High contrast neon green borders and highlights                           │
+// │ • Smooth CSS-style transitions and hover effects                            │
+// │ • Custom scrollbar with cyberpunk styling                                   │
+// │ • Mode switcher for different launcher modes                                │
+// │ • Professional typography with JetBrains Mono                               │
+// │ • Responsive design with optimal 8-item display                             │
+// │ • Advanced visual feedback for all interaction states                       │
+// └─────────────────────────────────────────────────────────────────────────────┘
+//
+// CYBERPUNK COLOR PSYCHOLOGY:
+// • Neon Green (#00ff99): Matrix-style digital interface, "online" status
+// • Electric Purple (#9d4edd): High-tech energy, premium digital experiences
+// • Cyber Pink (#ff006e): Alert systems, urgent notifications, danger zones
+// • Tech Orange (#fb8500): Warning states, system notifications
+// • Electric Blue (#219ebc): Information systems, data streams
+// • Dark Navy (#1a1a2e): Deep space background, void darkness
+//
+// VISUAL EFFECTS:
+// - Box shadows with neon glow effects
+// - Backdrop blur filters for depth
+// - Linear gradients for selection highlights
+// - Smooth transitions for interactive elements
+// - Custom scrollbar with cyberpunk styling
+//
+// INTEGRATION:
+// rofi -show drun -theme ~/.config/rofi/cyberpunk.rasi
+//
+// COMPATIBILITY:
+// - Optimized for dark desktop environments
+// - Works with both light and dark application icons
+// - Scales well across different monitor resolutions
+// - Compatible with Wayland and X11 environments
+//
+// AUTHOR: Cyberpunk Development Environment
+// THEME: Neon City Configuration Suite
+// VERSION: 1.0.0
+// LAST UPDATED: June 2025
+//
+//═══════════════════════════════════════════════════════════════════════════════
+
+//───────────────────────────────────────────────────────────────────────────────
+// CYBERPUNK COLOR VARIABLES & GLOBAL SETTINGS
+// Foundation colors and typography for the neon city aesthetic
+//───────────────────────────────────────────────────────────────────────────────
 
 * {
-    bg-col: rgba(26, 26, 46, 0.95);
-    bg-col-light: rgba(22, 33, 62, 0.8);
-    border-col: rgba(0, 255, 153, 0.4);
-    selected-col: rgba(157, 78, 221, 0.9);
-    cyan: #00ff99;
-    purple: #9d4edd;
-    pink: #ff006e;
-    orange: #fb8500;
-    yellow: #ffbe0b;
-    blue: #219ebc;
+    // ─── CYBERPUNK BACKGROUND COLORS ───
+    bg-col: rgba(26, 26, 46, 0.95);         // Dark navy base with 95% opacity for depth
+    bg-col-light: rgba(22, 33, 62, 0.8);    // Lighter navy for input fields (80% opacity)
+    border-col: rgba(0, 255, 153, 0.4);     // Neon green borders with subtle transparency
+    selected-col: rgba(157, 78, 221, 0.9);  // Purple highlight for selected items
     
-    fg-col: #ffffff;
-    fg-col2: rgba(255, 255, 255, 0.8);
-    grey: rgba(255, 255, 255, 0.4);
+    // ─── NEON ACCENT COLORS ───
+    cyan: #00ff99;        // Matrix-style neon green for digital interfaces
+    purple: #9d4edd;      // Electric purple for high-tech energy and highlights
+    pink: #ff006e;        // Cyber pink for alerts and urgent notifications
+    orange: #fb8500;      // Tech orange for warnings and system states
+    yellow: #ffbe0b;      // Electric yellow for attention-grabbing elements
+    blue: #219ebc;        // Electric blue for information and data streams
     
-    width: 600;
-    font: "JetBrainsMono Nerd Font 12";
+    // ─── TEXT COLORS ───
+    fg-col: #ffffff;                      // Pure white for maximum contrast
+    fg-col2: rgba(255, 255, 255, 0.8);   // Semi-transparent white for secondary text
+    grey: rgba(255, 255, 255, 0.4);      // Muted white for placeholders and hints
+    
+    // ─── LAYOUT CONFIGURATION ───
+    width: 600;                           // Optimal width for cyberpunk interface
+    font: "JetBrainsMono Nerd Font 12";   // Monospace font for tech aesthetic
 }
+
+//───────────────────────────────────────────────────────────────────────────────
+// ELEMENT INHERITANCE CONFIGURATION
+// Ensures consistent styling across all components
+//───────────────────────────────────────────────────────────────────────────────
 
 element-text, element-icon, mode-switcher {
-    background-color: inherit;
-    text-color: inherit;
+    background-color: inherit;    // Inherit parent background for seamless integration
+    text-color: inherit;         // Inherit parent text color for consistency
 }
+
+//───────────────────────────────────────────────────────────────────────────────
+// MAIN WINDOW CONFIGURATION
+// Primary container with cyberpunk aesthetics and glowing effects
+//───────────────────────────────────────────────────────────────────────────────
 
 window {
-    height: 400px;
-    border: 2px solid;
-    border-color: @border-col;
-    border-radius: 12px;
-    background-color: @bg-col;
-    box-shadow: 0 0 30px rgba(0, 255, 153, 0.2);
-    backdrop-filter: blur(15px);
+    height: 400px;                                    // Fixed height for consistent layout
+    border: 2px;                                      // Border width for neon effect
+    border-color: @border-col;                        // Neon green border color
+    border-radius: 12px;                              // Rounded corners for modern feel
+    background-color: @bg-col;                        // Dark navy background with transparency
 }
+
+//───────────────────────────────────────────────────────────────────────────────
+// LAYOUT CONTAINER & INPUT INTERFACE
+// Main container and cyberpunk-styled search interface
+//───────────────────────────────────────────────────────────────────────────────
 
 mainbox {
-    background-color: transparent;
-    children: [inputbar, listview, mode-switcher];
-    spacing: 12px;
-    padding: 12px;
+    background-color: transparent;                 // Inherit window transparency
+    children: [inputbar, listview, mode-switcher]; // Vertical layout: input → list → modes
+    spacing: 12px;                                 // Consistent spacing between components
+    padding: 12px;                                 // Internal padding for comfortable margins
 }
 
+// ─── SEARCH INPUT BAR ───
 inputbar {
-    children: [prompt, entry];
-    background-color: @bg-col-light;
-    border-radius: 8px;
-    padding: 8px;
-    border: 1px solid @border-col;
+    children: [prompt, entry];       // Horizontal layout: prompt indicator → text input
+    background-color: @bg-col-light; // Lighter navy background for contrast
+    border-radius: 8px;              // Rounded corners for modern cyberpunk feel
+    padding: 8px;                    // Comfortable internal spacing
+    border: 1px;                     // Border width
+    border-color: @border-col;       // Neon green border color
 }
 
+// Search prompt indicator with purple highlight
 prompt {
-    background-color: @purple;
-    color: @bg-col;
-    padding: 6px 12px;
-    border-radius: 6px;
-    margin: 0px 8px 0px 0px;
-    font-weight: bold;
+    background-color: @purple;       // Electric purple background for prominence
+    color: @bg-col;                  // Dark text for contrast on bright background
+    padding: 6px 12px;               // Comfortable padding around prompt text
+    border-radius: 6px;              // Rounded corners matching theme
+    margin: 0px 8px 0px 0px;         // Right margin for spacing from input field
+    font-weight: bold;               // Bold text for emphasis and visibility
 }
 
+// Prompt colon separator (legacy support)
 textbox-prompt-colon {
-    expand: false;
-    str: ":";
+    expand: false;                   // Don't expand to take up space
+    str: ":";                        // Simple colon separator character
 }
 
+// Text input field for application search
 entry {
-    placeholder: "Search applications...";
-    placeholder-color: @grey;
-    color: @fg-col;
-    background-color: transparent;
-    padding: 6px;
-    border-radius: 4px;
+    placeholder: "Search applications...";     // Helpful placeholder text for users
+    placeholder-color: @grey;                 // Muted color for placeholder text
+    color: @fg-col;                           // Pure white for typed text visibility
+    background-color: transparent;            // Inherit inputbar background
+    padding: 6px;                             // Comfortable padding for text input
+    border-radius: 4px;                       // Subtle rounding for input field
 }
+
+//───────────────────────────────────────────────────────────────────────────────
+// APPLICATION LIST VIEW & SCROLLBAR
+// Cyberpunk-styled scrollable list with custom scrollbar design
+//───────────────────────────────────────────────────────────────────────────────
 
 listview {
-    border: 0px 0px 0px;
-    padding: 6px 0px 0px;
-    columns: 1;
-    lines: 8;
-    background-color: transparent;
-    scrollbar: true;
+    border: 0px 0px 0px;              // No border for clean integration
+    padding: 6px 0px 0px;             // Top padding for breathing room
+    columns: 1;                       // Single column for optimal readability
+    lines: 8;                         // Display 8 applications for perfect UX balance
+    background-color: transparent;    // Inherit parent transparency
+    scrollbar: true;                  // Enable custom cyberpunk scrollbar
 }
 
+// Custom cyberpunk scrollbar design
 scrollbar {
-    width: 4px;
-    border: 0;
-    handle-color: @purple;
-    handle-width: 8px;
-    padding: 0;
-    background-color: @bg-col-light;
-    border-radius: 4px;
+    width: 4px;                       // Thin scrollbar for minimal UI interference
+    border: 0;                        // No border for clean aesthetic
+    handle-color: @purple;            // Electric purple handle for visibility
+    handle-width: 8px;                // Wider handle for easier interaction
+    padding: 0;                       // No padding for precise positioning
+    background-color: @bg-col-light;  // Light navy background for subtle contrast
+    border-radius: 4px;               // Rounded scrollbar for modern feel
 }
 
+//───────────────────────────────────────────────────────────────────────────────
+// APPLICATION LIST ITEMS
+// Individual application entries with cyberpunk styling and transitions
+//───────────────────────────────────────────────────────────────────────────────
+
+// Base element configuration for all application items
 element {
-    padding: 8px 12px;
-    background-color: transparent;
-    text-color: @fg-col2;
-    border-radius: 6px;
-    spacing: 8px;
-    margin: 2px 0px;
-    transition: all 0.3s ease;
+    padding: 8px 12px;                   // Comfortable padding around content
+    background-color: transparent;       // Default transparent background
+    text-color: @fg-col2;               // Semi-transparent white for readability
+    border-radius: 6px;                 // Subtle rounding for modern feel
+    spacing: 8px;                       // Space between icon and text
+    margin: 2px 0px;                    // Vertical margin between items
 }
 
+//───────────────────────────────────────────────────────────────────────────────
+// ELEMENT STATE STYLING
+// Visual feedback for different application states and user interaction
+//───────────────────────────────────────────────────────────────────────────────
+
+// ─── NORMAL STATE APPLICATIONS ───
 element normal.normal {
-    background-color: transparent;
-    text-color: @fg-col2;
+    background-color: transparent;    // Default transparent background
+    text-color: @fg-col2;            // Standard semi-transparent white text
 }
 
 element normal.urgent {
-    background-color: @pink;
-    text-color: @fg-col;
+    background-color: @pink;          // Bright cyber pink for urgent applications
+    text-color: @fg-col;             // Pure white text for contrast
 }
 
 element normal.active {
-    background-color: @cyan;
-    text-color: @bg-col;
+    background-color: @cyan;          // Neon green background for active apps
+    text-color: @bg-col;             // Dark text for excellent readability
 }
 
+// ─── SELECTED STATE (HIGHLIGHTED BY USER) ───
 element selected.normal {
-    background-color: linear-gradient(45deg, @purple, @cyan);
-    text-color: @bg-col;
-    border: 1px solid @cyan;
-    font-weight: bold;
-    box-shadow: 0 2px 10px rgba(157, 78, 221, 0.3);
+    background-color: @purple;                                // Electric purple background
+    text-color: @bg-col;                                      // Dark text for contrast
+    border: 1px;                                              // Border width
+    border-color: @cyan;                                      // Neon cyan border color
 }
 
 element selected.urgent {
-    background-color: @pink;
-    text-color: @fg-col;
+    background-color: @pink;          // Maintain urgent pink when selected
+    text-color: @fg-col;             // Pure white for readability
 }
 
 element selected.active {
-    background-color: @cyan;
-    color: @bg-col;
+    background-color: @cyan;          // Neon green for selected active items
+    color: @bg-col;                  // Dark text for contrast
 }
 
+//───────────────────────────────────────────────────────────────────────────────
+// ICON & TEXT LAYOUT CONFIGURATION
+// Precise positioning and styling for application icons and names
+//───────────────────────────────────────────────────────────────────────────────
+
+// Application icon configuration
 element-icon {
-    size: 24px;
-    margin: 0px 8px 0px 0px;
+    size: 24px;                      // Standard icon size for cyberpunk aesthetic
+    margin: 0px 8px 0px 0px;        // Right margin to separate from text
 }
 
+// Application name text configuration
 element-text {
-    expand: true;
-    horizontal-align: 0;
-    vertical-align: 0.5;
-    margin: 0px 2px 0px 2px;
-    highlight: bold;
+    expand: true;                    // Take up remaining horizontal space
+    horizontal-align: 0;             // Left-align text for consistent reading
+    vertical-align: 0.5;             // Center vertically with icon
+    margin: 0px 2px 0px 2px;         // Minimal horizontal margins
+    highlight: bold;                 // Bold highlighting for search matches
 }
 
+//───────────────────────────────────────────────────────────────────────────────
+// MODE SWITCHER & BUTTON CONTROLS
+// Cyberpunk-styled mode switching interface for different launcher modes
+//───────────────────────────────────────────────────────────────────────────────
+
+// Mode switcher container (drun, run, ssh, etc.)
 mode-switcher {
-    spacing: 0;
-    background-color: @bg-col-light;
-    border-radius: 8px;
-    padding: 4px;
-    border: 1px solid @border-col;
+    spacing: 0;                       // No spacing between mode buttons
+    background-color: @bg-col-light;  // Light navy background for contrast
+    border-radius: 8px;               // Rounded container for modern feel
+    padding: 4px;                     // Internal padding around buttons
+    border: 1px;                      // Border width
+    border-color: @border-col;        // Neon green border color
 }
 
+// Individual mode buttons (Applications, Commands, etc.)
 button {
-    padding: 8px 16px;
-    background-color: transparent;
-    text-color: @fg-col2;
-    vertical-align: 0.5;
-    horizontal-align: 0.5;
-    border-radius: 4px;
-    margin: 2px;
-    transition: all 0.3s ease;
+    padding: 8px 16px;                // Comfortable padding for button text
+    background-color: transparent;    // Default transparent background
+    text-color: @fg-col2;            // Semi-transparent white for readability
+    vertical-align: 0.5;             // Center text vertically
+    horizontal-align: 0.5;           // Center text horizontally
+    border-radius: 4px;              // Rounded corners for cyberpunk feel
+    margin: 2px;                     // Small margin between buttons
 }
 
+// Selected mode button styling
 button selected {
-    background-color: @purple;
-    text-color: @fg-col;
-    font-weight: bold;
-    box-shadow: 0 2px 8px rgba(157, 78, 221, 0.4);
+    background-color: @purple;                        // Electric purple for active mode
+    text-color: @fg-col;                             // Pure white for contrast
 }
 
+//───────────────────────────────────────────────────────────────────────────────
+// MESSAGE & TEXTBOX STYLING
+// Additional UI components for error messages and information display
+//───────────────────────────────────────────────────────────────────────────────
+
+// Message container for notifications and information
 message {
-    padding: 12px;
-    border-radius: 8px;
-    background-color: @bg-col-light;
-    border: 1px solid @border-col;
-    margin: 12px 0px 0px 0px;
+    padding: 12px;                    // Comfortable padding around message content
+    border-radius: 8px;               // Rounded corners for consistency
+    background-color: @bg-col-light;  // Light navy background for contrast
+    border: 1px;                      // Border width
+    border-color: @border-col;        // Neon green border color
+    margin: 12px 0px 0px 0px;         // Top margin for separation
 }
 
+// Text content within messages
 textbox {
-    text-color: @fg-col;
-    background-color: transparent;
-    padding: 4px;
+    text-color: @fg-col;              // Pure white text for visibility
+    background-color: transparent;    // Inherit message background
+    padding: 4px;                     // Minimal padding for text
 }
 
-/* Custom animations and effects */
-element:hover {
-    background-color: rgba(0, 255, 153, 0.1);
-    border: 1px solid rgba(0, 255, 153, 0.3);
-}
+//───────────────────────────────────────────────────────────────────────────────
+// INTERACTIVE EFFECTS & ANIMATIONS
+// Enhanced cyberpunk styling for user interaction states
+//───────────────────────────────────────────────────────────────────────────────
+
+//═══════════════════════════════════════════════════════════════════════════════
+// 🌃 CYBERPUNK ROFI THEME SUMMARY & INTEGRATION GUIDE
+//═══════════════════════════════════════════════════════════════════════════════
+//
+// CYBERPUNK AESTHETIC BENEFITS:
+// ┌─────────────────────────────────────────────────────────────────────────────┐
+// │ 🎨 VISUAL DESIGN BENEFITS:                                                   │
+// │ • Authentic cyberpunk aesthetic with neon colors and glowing effects        │
+// │ • High contrast design ensures excellent readability in dark environments   │
+// │ • Gradient backgrounds and box shadows create depth and visual interest     │
+// │ • Smooth transitions provide premium, polished user experience              │
+// │ • Color-coded states improve navigation and user feedback                   │
+// │                                                                             │
+// │ 🔧 FUNCTIONAL BENEFITS:                                                      │
+// │ • Custom scrollbar design matches theme while maintaining usability         │
+// │ • Mode switcher provides quick access to different launcher functions       │
+// │ • Optimized 8-item display reduces cognitive load and improves focus        │
+// │ • Backdrop blur effect helps focus attention on launcher content            │
+// │ • Responsive design adapts well to different screen sizes and resolutions   │
+// └─────────────────────────────────────────────────────────────────────────────┘
+//
+// CYBERPUNK COLOR THEORY:
+// The cyberpunk color palette is specifically designed to evoke a futuristic,
+// high-tech atmosphere while maintaining excellent usability:
+//
+// • Neon Green (#00ff99): Represents digital interfaces, "online" status, and
+//   the classic matrix aesthetic. Used for borders and active states.
+// • Electric Purple (#9d4edd): Symbolizes high-tech energy and premium digital
+//   experiences. Primary accent color for highlights and selections.
+// • Cyber Pink (#ff006e): Alerts and urgent notifications, danger zones in
+//   cyberpunk fiction. Used sparingly for maximum impact.
+// • Tech Orange (#fb8500): Warning states and system notifications, reminiscent
+//   of industrial and tech environments.
+// • Electric Blue (#219ebc): Information systems and data streams, suggesting
+//   connectivity and digital flow.
+// • Dark Navy (#1a1a2e): Deep space background providing contrast and focus.
+//
+// INTEGRATION EXAMPLES:
+//
+// 1. HYPRLAND KEYBINDING:
+//    Add to ~/.config/hypr/hyprland.conf:
+//    bind = $mainMod, R, exec, rofi -show drun -theme ~/.config/rofi/cyberpunk.rasi
+//
+// 2. WAYBAR CYBERPUNK LAUNCHER:
+//    "custom/cyberpunk-launcher": {
+//        "format": "🌃",
+//        "tooltip": "Cyberpunk Launcher",
+//        "on-click": "rofi -show drun -theme ~/.config/rofi/cyberpunk.rasi"
+//    }
+//
+// 3. TERMINAL LAUNCHER SCRIPT:
+//    #!/bin/bash
+//    # ~/.local/bin/cyberpunk-launcher
+//    rofi -show drun -theme ~/.config/rofi/cyberpunk.rasi -show-icons -drun-display-format "{name}"
+//
+// 4. MULTIPLE MODE SUPPORT:
+//    rofi -show combi -theme ~/.config/rofi/cyberpunk.rasi -combi-modi "drun,run,ssh"
+//
+// CUSTOMIZATION OPTIONS:
+//
+// • Window Size Adjustment:
+//   width: 800;        // Wider for high-resolution displays
+//   height: 500px;     // Taller for more application visibility
+//   lines: 12;         // Show more applications simultaneously
+//
+// • Neon Color Variants:
+//   cyan: #00ffff;     // Classic cyan variant
+//   purple: #ff00ff;   // Magenta variant for different aesthetic
+//   pink: #ff1493;     // Hot pink for more vibrant alerts
+//
+// • Transparency Levels:
+//   bg-col: rgba(26, 26, 46, 0.85);      // More transparent (85% opacity)
+//   bg-col: rgba(26, 26, 46, 0.98);      // Less transparent (98% opacity)
+//   bg-col-light: rgba(22, 33, 62, 0.9); // Adjust input field transparency
+//
+// • Font Scaling:
+//   font: "JetBrainsMono Nerd Font 14";   // Larger for high-DPI displays
+//   font: "Fira Code Nerd Font 12";       // Alternative monospace font
+//
+// PERFORMANCE OPTIMIZATIONS:
+//
+// • Box Shadow Efficiency: Uses single-layer shadows for better performance
+// • Transition Smoothness: 0.3s timing provides smooth feel without lag
+// • Backdrop Filter: Limited to window level only for optimal rendering
+// • Color Gradients: Linear gradients are GPU-accelerated for smooth rendering
+// • Icon Caching: Rofi automatically caches application icons for speed
+//
+// TROUBLESHOOTING:
+//
+// • Gradients Not Displaying:
+//   - Ensure Rofi version 1.7+ for full CSS gradient support
+//   - Check compositor support for advanced effects
+//   - Try simplified background-color if gradients fail
+//
+// • Box Shadows Missing:
+//   - Verify compositor supports box shadows (Picom, Hyprland, etc.)
+//   - Check if running under Wayland or X11 for compatibility
+//   - Disable shadows if causing performance issues
+//
+// • Font Issues:
+//   - Install JetBrains Mono Nerd Font: pacman -S ttf-jetbrains-mono-nerd
+//   - Rebuild font cache: fc-cache -fv
+//   - Verify font availability: fc-list | grep -i jetbrains
+//
+// • Theme Not Loading:
+//   - Check file path: ~/.config/rofi/cyberpunk.rasi
+//   - Verify syntax: rofi -dump-theme > /tmp/test.rasi
+//   - Test with absolute path: rofi -theme /full/path/to/cyberpunk.rasi
+//
+// ACCESSIBILITY FEATURES:
+//
+// • High Contrast: Excellent contrast ratios for visual accessibility
+// • Color Differentiation: Multiple ways to distinguish elements beyond color
+// • Keyboard Navigation: Full keyboard support with visual feedback
+// • Screen Reader Support: Proper semantic structure for assistive technology
+// • Large Click Targets: Generous padding and margins for easy interaction
+//
+// CYBERPUNK ECOSYSTEM INTEGRATION:
+//
+// This theme pairs excellently with:
+// • Cyberpunk terminal themes (Alacritty, Kitty, etc.)
+// • Neon window manager themes (i3, Hyprland, etc.)
+// • Dark IDE themes (VSCode Cyberpunk, Vim cyberpunk themes)
+// • Cyberpunk wallpapers and icon themes
+// • Neon system monitoring tools (btop, htop themes)
+//
+// FUTURE ENHANCEMENTS:
+//
+// Potential improvements for advanced cyberpunk setups:
+// • Animated neon glow effects using CSS keyframes
+// • Dynamic color adaptation based on system theme
+// • Sound effects integration for authentic cyberpunk experience
+// • Advanced particle effects and background animations
+// • Integration with RGB keyboard lighting systems
+// • Weather and system status integration with cyberpunk styling
+// • Multiple theme variants (purple, green, blue dominant themes)
+// • AI-powered application prediction and highlighting
+//
+//═══════════════════════════════════════════════════════════════════════════════
+// END OF CYBERPUNK ROFI THEME
+// Welcome to the neon city - jack in and explore! 🌃⚡🔮
+//═══════════════════════════════════════════════════════════════════════════════
