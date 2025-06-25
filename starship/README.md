@@ -688,6 +688,7 @@ set -gx STARSHIP_CONFIG ~/.config/starship.toml
 
 *Professional shell prompt for the modern space-age developer*
 
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/moxer-mmh/dotfiles)
+[![GitHub Stars](https://img.shields.io/github/stars/moxer-mmh/dotfiles?style=social)](https://github.com/moxer-mmh/dotfiles)
+[![Last Commit](https://img.shields.io/github/last-commit/moxer-mmh/dotfiles?style=flat-square)](https://github.com/moxer-mmh/dotfiles/commits/main)
 
 </div>
