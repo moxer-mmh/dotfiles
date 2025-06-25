@@ -2,16 +2,9 @@
 
 <div align="center">
 
-```ascii
-    ███████╗████████╗ █████╗ ██████╗ ███████╗██╗  ██╗██╗██████╗
-    ██╔════╝██╔═════╝██╔══██╗██╔══██╗██╔════╝██║  ██║██║██╔══██╗
-    ███████╗██║     ███████║██████╔╝███████╗███████║██║██████╔╝
-    ╚════██║██║     ██╔══██║██╔══██╗╚════██║██╔══██║██║██╔═══╝
-    ███████║████████╗██║  ██║██║  ██║███████║██║  ██║██║██║
-    ╚══════╝╚═══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝╚═╝
+# 🚀 **STARSHIP** 🚀
 
-         🐲 Space Station Cosmic Dragon Prompt 🐲
-```
+## 🐲 Space Station Cosmic Dragon Prompt 🐲
 
 [![Starship](https://img.shields.io/badge/Starship-1.16+-blue?style=for-the-badge&logo=starship&logoColor=white)](https://starship.rs/)
 [![Shell Compatible](https://img.shields.io/badge/Shell-Zsh_Bash_Fish-green?style=for-the-badge)](https://starship.rs/guide/#🚀-installation)
@@ -70,18 +63,23 @@ Professional shell prompt configuration featuring a **cosmic dragon theme** (龍
 # Install Starship
 curl -sS https://starship.rs/install.sh | sh
 
-#or
-
-#Arch
+# Or install via package manager
+# Arch Linux
 sudo pacman -S starship
 
 # Install required Nerd Font
 sudo pacman -S ttf-jetbrains-mono-nerd  # Arch Linux
 # Or download from: https://github.com/ryanoasis/nerd-fonts
 
-# Clone dotfiles and link configuration
-git clone https://github.com/yourusername/dotfiles.git ~/.dotfiles
-ln -sf ~/.dotfiles/starship/.config/starship.toml ~/.config/starship.toml
+# Clone the dotfiles repository
+git clone https://github.com/moxer-mmh/dotfiles.git ~/dotfiles
+
+# Method 1: Using GNU Stow (recommended)
+cd ~/dotfiles
+stow starship
+
+# Method 2: Manual symlink
+ln -sf ~/dotfiles/starship/.config/starship.toml ~/.config/starship.toml
 ```
 
 ### 2. **Shell Integration**
@@ -264,17 +262,17 @@ detect_files = [                     # Go project indicators
 
 | Language          | Icon    | Detection Files                  | Style    |
 | ----------------- | ------- | -------------------------------- | -------- |
-| **Java**    |` `       | `pom.xml`, `build.gradle`    | Bold Red |
-| **C/C++**   |` `     | `CMakeLists.txt`, `Makefile` | Default  |
-| **Rust**    |`󱘗 ` | `Cargo.toml`                   | Bold Red |
-| **Ruby**    |` `      | `Gemfile`, `.ruby-version`   | Default  |
-| **PHP**     |` `    | `composer.json`                | Default  |
-| **Swift**   |` `   | `Package.swift`                | Default  |
-| **Kotlin**  |` `  | `*.kt`, `*.kts`              | Default  |
-| **Scala**   |` `  | `build.sbt`                    | Default  |
-| **Haskell** |` ` | `*.hs`, `stack.yaml`         | Default  |
-| **Julia**   |` ` | `Project.toml`                 | Default  |
-| **Zig**     |` ` | `build.zig`                    | Default  |
+| **Java**    | ` ` | `pom.xml`, `build.gradle`    | Bold Red |
+| **C/C++**   | ` ` | `CMakeLists.txt`, `Makefile` | Default  |
+| **Rust**    | `󱘗 ` | `Cargo.toml`                   | Bold Red |
+| **Ruby**    | ` ` | `Gemfile`, `.ruby-version`   | Default  |
+| **PHP**     | ` ` | `composer.json`                | Default  |
+| **Swift**   | ` ` | `Package.swift`                | Default  |
+| **Kotlin**  | ` ` | `*.kt`, `*.kts`              | Default  |
+| **Scala**   | ` ` | `build.sbt`                    | Default  |
+| **Haskell** | ` ` | `*.hs`, `stack.yaml`         | Default  |
+| **Julia**   | ` ` | `Project.toml`                 | Default  |
+| **Zig**     | ` ` | `build.zig`                    | Default  |
 
 ---
 
@@ -690,6 +688,6 @@ set -gx STARSHIP_CONFIG ~/.config/starship.toml
 
 *Professional shell prompt for the modern space-age developer*
 
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/yourusername/dotfiles)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/moxer-mmh/dotfiles)
 
 </div>
