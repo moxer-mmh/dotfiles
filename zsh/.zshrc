@@ -9,6 +9,7 @@ source $ZSH/oh-my-zsh.sh
 alias ls='lsd --color=auto --group-dirs=first'
 alias cat='bat --color=auto'
 alias poff='poweroff'
+alias rb='reboot'
 alias cls='clear'
 alias ll='ls -lah --color=auto'
 alias la='ls -A'
