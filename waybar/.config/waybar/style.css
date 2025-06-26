@@ -1,106 +1,210 @@
-/* Space Station Waybar Theme - Cosmic Nebula Aesthetic */
+/*═══════════════════════════════════════════════════════════════════════════════
+ * 🚀 SPACE STATION WAYBAR THEME - COSMIC NEBULA AESTHETIC
+ *═══════════════════════════════════════════════════════════════════════════════
+ *
+ * A futuristic status bar theme designed for the Space Station development
+ * environment. Features cosmic gradients, neon highlights, and cyberpunk
+ * aesthetics optimized for productivity and visual appeal.
+ *
+ * FEATURES:
+ * ┌─────────────────────────────────────────────────────────────────────────────┐
+ * │ • Cosmic nebula gradients with purple-cyan-pink color scheme                │
+ * │ • Dynamic hover effects with neon glow animations                           │
+ * │ • Responsive workspace indicators with visual state feedback                │
+ * │ • System monitoring modules with color-coded status indicators              │
+ * │ • Semi-transparent backgrounds with blur effects for depth                  │
+ * │ • JetBrains Mono Nerd Font for consistent developer typography              │
+ * │ • Smooth CSS transitions and cubic-bezier animations                        │
+ * │ • Battery-aware color coding and charging animations                        │
+ * │ • Network status visualization with connection state indicators             │
+ * │ • Audio controls with microphone and speaker status feedback                │
+ * └─────────────────────────────────────────────────────────────────────────────┘
+ *
+ * COLOR PALETTE:
+ * • Deep Space Purple: #10042A (16, 4, 42) - Primary background
+ * • Nebula Purple: #1E0C44 (30, 12, 68) - Secondary background  
+ * • Cosmic Purple: #2D1955 (45, 25, 85) - Accent background
+ * • Electric Purple: #8A2BE2 (138, 43, 226) - Primary accent
+ * • Neon Cyan: #00BFFF (0, 191, 255) - Secondary accent
+ * • Matrix Green: #00FF7F (0, 255, 127) - Success/Network states
+ * • Hot Pink: #FF69B4 (255, 105, 180) - Clock and emphasis
+ * • Warning Orange: #FFA500 (255, 165, 0) - Warning states
+ * • Critical Red: #FF4500 (255, 69, 0) - Error/Critical states
+ *
+ * INTEGRATION:
+ * - Matches Hyprland window borders and effects
+ * - Complements Alacritty terminal cosmic theme
+ * - Coordinates with Rofi launcher aesthetics
+ * - Supports both dark and light application icons
+ *
+ * AUTHOR: Space Station Development Environment
+ * THEME: Cosmic Waybar Configuration Suite
+ * VERSION: 1.0.0
+ * LAST UPDATED: June 2025
+ *
+ *═══════════════════════════════════════════════════════════════════════════════*/
+
+/*───────────────────────────────────────────────────────────────────────────────
+ * GLOBAL FOUNDATION STYLES
+ * Base typography and reset styles for consistent cosmic theme application
+ *───────────────────────────────────────────────────────────────────────────────*/
 
 * {
-    font-family: "JetBrains Mono Nerd Font", "Hack Nerd Font", monospace;
-    font-size: 13px;
-    font-weight: bold;
-    border: none;
-    border-radius: 0;
-    min-height: 0;
+    font-family: "JetBrains Mono Nerd Font", "Hack Nerd Font", monospace; /* Developer-focused typography */
+    font-size: 13px;                    /* Optimal readability size */
+    font-weight: bold;                   /* Enhanced visibility */
+    border: none;                        /* Clean foundation */
+    border-radius: 0;                    /* Reset for custom styling */
+    min-height: 0;                       /* Flexible sizing */
 }
+
+/*───────────────────────────────────────────────────────────────────────────────
+ * MAIN WAYBAR WINDOW CONTAINER
+ * Primary status bar with cosmic nebula gradient and glowing effects
+ *───────────────────────────────────────────────────────────────────────────────*/
 
 window#waybar {
+    /* Cosmic nebula gradient background with layered depth */
     background: linear-gradient(135deg,
-        rgba(16, 4, 42, 0.95) 0%,
-        rgba(30, 12, 68, 0.95) 25%,
-        rgba(45, 25, 85, 0.95) 50%,
-        rgba(30, 12, 68, 0.95) 75%,
-        rgba(16, 4, 42, 0.95) 100%);
-    color: #E0E1E5;
-    border-radius: 12px;
+        rgba(16, 4, 42, 0.95) 0%,      /* Deep space purple */
+        rgba(30, 12, 68, 0.95) 25%,    /* Nebula purple */
+        rgba(45, 25, 85, 0.95) 50%,    /* Cosmic purple center */
+        rgba(30, 12, 68, 0.95) 75%,    /* Nebula purple */
+        rgba(16, 4, 42, 0.95) 100%);   /* Deep space purple */
+    
+    color: #E0E1E5;                    /* Light text for contrast */
+    border-radius: 12px;               /* Smooth cosmic edges */
+    
+    /* Multi-layer shadow system for depth and glow */
     box-shadow:
-        0 8px 32px rgba(138, 43, 226, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 0 0 1px rgba(138, 43, 226, 0.2);
-    border: 1px solid rgba(138, 43, 226, 0.3);
+        0 8px 32px rgba(138, 43, 226, 0.3),        /* Purple ambient glow */
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),    /* Inner highlight */
+        0 0 0 1px rgba(138, 43, 226, 0.2);         /* Subtle border glow */
+    
+    border: 1px solid rgba(138, 43, 226, 0.3);     /* Electric purple border */
 }
 
-/* Workspace Module */
+/*───────────────────────────────────────────────────────────────────────────────
+ * WORKSPACE NAVIGATION MODULE
+ * Visual workspace indicators with cosmic gradient and dynamic states
+ *───────────────────────────────────────────────────────────────────────────────*/
+
 #workspaces {
-    background: linear-gradient(90deg, rgba(138, 43, 226, 0.2), rgba(0, 191, 255, 0.2));
-    border-radius: 10px;
-    margin: 3px 0 3px 6px;
-    padding: 0 8px;
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    /* Purple-cyan gradient container for workspace buttons */
+    background: linear-gradient(90deg, 
+        rgba(138, 43, 226, 0.2),     /* Electric purple start */
+        rgba(0, 191, 255, 0.2));     /* Neon cyan end */
+    
+    border-radius: 10px;             /* Smooth cosmic container */
+    margin: 3px 0 3px 6px;           /* Left-aligned positioning */
+    padding: 0 8px;                  /* Internal spacing for buttons */
+    border: 1px solid rgba(0, 255, 255, 0.3);  /* Cyan border glow */
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);  /* Inner highlight */
 }
 
 #workspaces button {
-    color: #B4A7D6;
-    background: transparent;
-    border-radius: 6px;
-    margin: 2px 1px;
-    padding: 0 6px;
-    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-    border: 1px solid transparent;
+    /* Default workspace button styling with subtle visibility */
+    color: #B4A7D6;                  /* Muted purple text */
+    background: transparent;          /* Clean background for inactive */
+    border-radius: 6px;              /* Individual button rounding */
+    margin: 2px 1px;                 /* Spacing between buttons */
+    padding: 0 6px;                  /* Horizontal button padding */
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);  /* Smooth animation */
+    border: 1px solid transparent;   /* Hidden border for hover states */
 }
 
 #workspaces button:hover {
-    background: linear-gradient(45deg, rgba(138, 43, 226, 0.3), rgba(0, 191, 255, 0.3));
-    color: #00FFFF;
-    border: 1px solid rgba(0, 255, 255, 0.5);
-    box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
+    /* Hover state with cyan-purple glow effect */
+    background: linear-gradient(45deg, 
+        rgba(138, 43, 226, 0.3),     /* Electric purple */
+        rgba(0, 191, 255, 0.3));     /* Neon cyan */
+    
+    color: #00FFFF;                  /* Bright cyan text */
+    border: 1px solid rgba(0, 255, 255, 0.5);    /* Visible cyan border */
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.4); /* Outer cyan glow */
 }
 
 #workspaces button.active {
-    background: linear-gradient(45deg, #8A2BE2, #00BFFF);
-    color: #FFFFFF;
-    border: 1px solid #00FFFF;
+    /* Active workspace with full cosmic gradient and glow */
+    background: linear-gradient(45deg, #8A2BE2, #00BFFF);  /* Full gradient */
+    color: #FFFFFF;                  /* Pure white text for contrast */
+    border: 1px solid #00FFFF;      /* Bright cyan border */
+    
+    /* Multi-layer glow system for prominence */
     box-shadow:
-        0 0 16px rgba(138, 43, 226, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        0 0 16px rgba(138, 43, 226, 0.6),        /* Purple outer glow */
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);  /* Inner highlight */
 }
 
 #workspaces button.urgent {
-    background: linear-gradient(45deg, #FF1493, #FF6B35);
-    color: #FFFFFF;
-    border: 1px solid #FF1493;
-    box-shadow: 0 0 16px rgba(255, 20, 147, 0.6);
-    animation: pulse 1s infinite;
+    /* Critical attention state with pulsing red-orange gradient */
+    background: linear-gradient(45deg, #FF1493, #FF6B35);  /* Hot pink to orange */
+    color: #FFFFFF;                  /* White text for visibility */
+    border: 1px solid #FF1493;      /* Pink border accent */
+    box-shadow: 0 0 16px rgba(255, 20, 147, 0.6);  /* Pink glow effect */
+    animation: pulse 1s infinite;   /* Continuous pulse animation */
 }
+
+/*───────────────────────────────────────────────────────────────────────────────
+ * PULSE ANIMATION
+ * Breathing effect for urgent workspace notifications
+ *───────────────────────────────────────────────────────────────────────────────*/
 
 @keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.7; }
-    100% { opacity: 1; }
+    0% { opacity: 1; }               /* Full opacity */
+    50% { opacity: 0.7; }            /* Dimmed state */
+    100% { opacity: 1; }             /* Return to full */
 }
 
-/* Window Title */
+/*───────────────────────────────────────────────────────────────────────────────
+ * WINDOW TITLE DISPLAY MODULE
+ * Shows current focused window with matrix green aesthetic
+ *───────────────────────────────────────────────────────────────────────────────*/
+
 #window {
-    background: linear-gradient(90deg, rgba(0, 255, 127, 0.15), rgba(148, 0, 211, 0.15));
-    color: #00FF7F;
-    border-radius: 8px;
-    margin: 3px 6px;
-    padding: 0 12px;
-    border: 1px solid rgba(0, 255, 127, 0.3);
-    font-style: italic;
+    /* Green-purple gradient for active window identification */
+    background: linear-gradient(90deg, 
+        rgba(0, 255, 127, 0.15),     /* Matrix green start */
+        rgba(148, 0, 211, 0.15));    /* Dark violet end */
+    
+    color: #00FF7F;                  /* Matrix green text */
+    border-radius: 8px;              /* Smooth container edges */
+    margin: 3px 6px;                 /* Centered positioning */
+    padding: 0 12px;                 /* Horizontal text padding */
+    border: 1px solid rgba(0, 255, 127, 0.3);  /* Green border glow */
+    font-style: italic;              /* Stylized window title display */
 }
 
-/* Clock Module */
+/*───────────────────────────────────────────────────────────────────────────────
+ * DIGITAL CLOCK MODULE
+ * Hot pink cosmic time display with enhanced visibility
+ *───────────────────────────────────────────────────────────────────────────────*/
+
 #clock {
-    background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(138, 43, 226, 0.2));
-    color: #FF69B4;
-    border-radius: 10px;
-    margin: 3px 6px;
-    padding: 0 16px;
-    border: 1px solid rgba(255, 105, 180, 0.4);
-    font-weight: bold;
+    /* Pink-purple gradient for prominent time display */
+    background: linear-gradient(135deg, 
+        rgba(255, 105, 180, 0.2),    /* Hot pink start */
+        rgba(138, 43, 226, 0.2));    /* Electric purple end */
+    
+    color: #FF69B4;                  /* Hot pink text */
+    border-radius: 10px;             /* Rounded time container */
+    margin: 3px 6px;                 /* Balanced positioning */
+    padding: 0 16px;                 /* Extra padding for prominence */
+    border: 1px solid rgba(255, 105, 180, 0.4);  /* Pink border accent */
+    font-weight: bold;               /* Enhanced time readability */
+    
+    /* Multi-layer glow effect for time prominence */
     box-shadow:
-        0 0 12px rgba(255, 105, 180, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        0 0 12px rgba(255, 105, 180, 0.3),       /* Pink ambient glow */
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);  /* Inner highlight */
 }
 
-/* Right Modules */
+/*───────────────────────────────────────────────────────────────────────────────
+ * SYSTEM MONITORING MODULES
+ * Audio, network, system stats, and custom modules with unified cosmic styling
+ *───────────────────────────────────────────────────────────────────────────────*/
+
+/* Universal styling for all right-side system modules */
 #pulseaudio,
 #pulseaudio.microphone,
 #custom-fn-keys,
@@ -111,15 +215,20 @@ window#waybar {
 #temperature,
 #battery,
 #custom-spotify {
-    background: linear-gradient(45deg, rgba(0, 191, 255, 0.15), rgba(138, 43, 226, 0.15));
-    color: #E0E1E5;
-    border-radius: 8px;
-    margin: 3px 2px;
-    padding: 0 10px;
-    border: 1px solid rgba(0, 191, 255, 0.3);
-    transition: all 0.3s ease;
+    /* Cyan-purple gradient base for system modules */
+    background: linear-gradient(45deg, 
+        rgba(0, 191, 255, 0.15),     /* Neon cyan start */
+        rgba(138, 43, 226, 0.15));   /* Electric purple end */
+    
+    color: #E0E1E5;                  /* Light text for visibility */
+    border-radius: 8px;              /* Consistent module rounding */
+    margin: 3px 2px;                 /* Tight spacing between modules */
+    padding: 0 10px;                 /* Horizontal content padding */
+    border: 1px solid rgba(0, 191, 255, 0.3);  /* Cyan border base */
+    transition: all 0.3s ease;      /* Smooth hover transitions */
 }
 
+/* Universal hover effects with enhanced cyan glow */
 #pulseaudio:hover,
 #pulseaudio.microphone:hover,
 #custom-fn-keys:hover,
@@ -130,197 +239,301 @@ window#waybar {
 #temperature:hover,
 #battery:hover,
 #custom-spotify:hover {
-    background: linear-gradient(45deg, rgba(0, 191, 255, 0.3), rgba(138, 43, 226, 0.3));
-    box-shadow: 0 0 12px rgba(0, 191, 255, 0.4);
-    border: 1px solid rgba(0, 191, 255, 0.5);
-    color: #00BFFF;
+    /* Enhanced gradient on hover with increased opacity */
+    background: linear-gradient(45deg, 
+        rgba(0, 191, 255, 0.3),      /* Brighter cyan */
+        rgba(138, 43, 226, 0.3));    /* Brighter purple */
+    
+    box-shadow: 0 0 12px rgba(0, 191, 255, 0.4);  /* Cyan outer glow */
+    border: 1px solid rgba(0, 191, 255, 0.5);     /* Brighter border */
+    color: #00BFFF;                               /* Bright cyan text */
 }
 
-/* Spotify Module */
+/*───────────────────────────────────────────────────────────────────────────────
+ * SPOTIFY MUSIC PLAYER MODULE
+ * Dedicated styling for music integration with Spotify green branding
+ *───────────────────────────────────────────────────────────────────────────────*/
+
 #custom-spotify {
-    background: linear-gradient(45deg, rgba(30, 215, 96, 0.2), rgba(138, 43, 226, 0.2));
-    color: #1ED760;
-    border: 1px solid rgba(30, 215, 96, 0.4);
+    /* Spotify green with purple accent gradient */
+    background: linear-gradient(45deg, 
+        rgba(30, 215, 96, 0.2),      /* Spotify green */
+        rgba(138, 43, 226, 0.2));    /* Electric purple accent */
+    
+    color: #1ED760;                  /* Official Spotify green */
+    border: 1px solid rgba(30, 215, 96, 0.4);  /* Green border accent */
 }
 
 #custom-spotify:hover {
-    background: linear-gradient(45deg, rgba(30, 215, 96, 0.3), rgba(138, 43, 226, 0.3));
-    box-shadow: 0 0 12px rgba(30, 215, 96, 0.4);
+    /* Enhanced Spotify green glow on interaction */
+    background: linear-gradient(45deg, 
+        rgba(30, 215, 96, 0.3),      /* Brighter green */
+        rgba(138, 43, 226, 0.3));    /* Brighter purple */
+    
+    box-shadow: 0 0 12px rgba(30, 215, 96, 0.4);  /* Green glow effect */
 }
 
-/* Audio Module */
+/*───────────────────────────────────────────────────────────────────────────────
+ * AUDIO CONTROL MODULES
+ * PulseAudio speaker and microphone controls with state-aware styling
+ *───────────────────────────────────────────────────────────────────────────────*/
+
+/* Speaker/Audio Output Module */
 #pulseaudio {
-    color: #FFD700;
-    border-color: rgba(255, 215, 0, 0.3);
+    color: #FFD700;                  /* Gold for audio output */
+    border-color: rgba(255, 215, 0, 0.3);  /* Gold border accent */
 }
 
 #pulseaudio.muted {
-    color: #FF6347;
-    border-color: rgba(255, 99, 71, 0.3);
+    color: #FF6347;                  /* Tomato red for muted state */
+    border-color: rgba(255, 99, 71, 0.3);  /* Red border for muted */
 }
 
-/* Microphone Module */
+/* Microphone Input Module */
 #pulseaudio.microphone {
-    color: #00CED1;
-    border-color: rgba(0, 206, 209, 0.3);
+    color: #00CED1;                  /* Dark turquoise for mic active */
+    border-color: rgba(0, 206, 209, 0.3);  /* Turquoise border */
 }
 
 #pulseaudio.microphone.source-muted {
-    color: #FF4500;
-    border-color: rgba(255, 69, 0, 0.3);
-    animation: flash 0.8s infinite;
+    color: #FF4500;                  /* Orange-red for muted mic */
+    border-color: rgba(255, 69, 0, 0.3);   /* Orange border */
+    animation: flash 0.8s infinite;  /* Flashing alert for muted mic */
 }
 
-/* Network Module */
+/*───────────────────────────────────────────────────────────────────────────────
+ * NETWORK CONNECTION MODULE
+ * WiFi and ethernet status with connection state visualization
+ *───────────────────────────────────────────────────────────────────────────────*/
+
 #network {
-    color: #00FF7F;
-    border-color: rgba(0, 255, 127, 0.3);
+    color: #00FF7F;                  /* Matrix green for connected state */
+    border-color: rgba(0, 255, 127, 0.3);  /* Green border for active */
 }
 
 #network.disconnected {
-    color: #FF6347;
-    border-color: rgba(255, 99, 71, 0.3);
+    color: #FF6347;                  /* Tomato red for disconnected */
+    border-color: rgba(255, 99, 71, 0.3);  /* Red border for offline */
 }
 
-/* CPU Module */
+/*───────────────────────────────────────────────────────────────────────────────
+ * SYSTEM PERFORMANCE MODULES
+ * CPU, Memory, and Temperature monitoring with color-coded status indicators
+ *───────────────────────────────────────────────────────────────────────────────*/
+
+/* CPU Usage Monitor */
 #cpu {
-    color: #FF69B4;
-    border-color: rgba(255, 105, 180, 0.3);
+    color: #FF69B4;                  /* Hot pink for CPU activity */
+    border-color: rgba(255, 105, 180, 0.3);  /* Pink border accent */
 }
 
-/* Memory Module */
+/* Memory Usage Monitor */
 #memory {
-    color: #9370DB;
-    border-color: rgba(147, 112, 219, 0.3);
+    color: #9370DB;                  /* Medium purple for RAM usage */
+    border-color: rgba(147, 112, 219, 0.3);  /* Purple border accent */
 }
 
-/* Temperature Module */
+/* System Temperature Monitor */
 #temperature {
-    color: #87CEEB;
-    border-color: rgba(135, 206, 235, 0.3);
+    color: #87CEEB;                  /* Sky blue for normal temps */
+    border-color: rgba(135, 206, 235, 0.3);  /* Light blue border */
 }
 
 #temperature.critical {
-    color: #FF4500;
-    background: linear-gradient(45deg, rgba(255, 69, 0, 0.3), rgba(255, 0, 0, 0.3));
-    border-color: rgba(255, 69, 0, 0.5);
-    animation: flash 0.5s infinite;
+    /* Critical temperature alert with red gradient and flash animation */
+    color: #FF4500;                  /* Orange-red for overheating */
+    background: linear-gradient(45deg, 
+        rgba(255, 69, 0, 0.3),       /* Orange-red start */
+        rgba(255, 0, 0, 0.3));       /* Pure red end */
+    
+    border-color: rgba(255, 69, 0, 0.5);     /* Bright orange border */
+    animation: flash 0.5s infinite;          /* Fast flash for urgency */
 }
+
+/*───────────────────────────────────────────────────────────────────────────────
+ * FLASH ANIMATION
+ * Rapid attention-getting animation for critical system states
+ *───────────────────────────────────────────────────────────────────────────────*/
 
 @keyframes flash {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
+    0% { opacity: 1; }               /* Full visibility */
+    50% { opacity: 0.5; }            /* Half visibility */
+    100% { opacity: 1; }             /* Return to full */
 }
 
-/* Battery Module */
+/*───────────────────────────────────────────────────────────────────────────────
+ * BATTERY POWER MODULE
+ * Battery status with charge level indicators and charging animations
+ *───────────────────────────────────────────────────────────────────────────────*/
+
+/* Normal Battery State */
 #battery {
-    color: #32CD32;
-    border-color: rgba(50, 205, 50, 0.3);
+    color: #32CD32;                  /* Lime green for good battery */
+    border-color: rgba(50, 205, 50, 0.3);   /* Green border for healthy */
 }
 
+/* Charging Animation State */
 #battery.charging {
-    color: #FFD700;
-    border-color: rgba(255, 215, 0, 0.3);
-    animation: charging 2s infinite;
+    color: #FFD700;                  /* Gold color while charging */
+    border-color: rgba(255, 215, 0, 0.3);   /* Gold border accent */
+    animation: charging 2s infinite; /* Gentle pulsing while charging */
 }
+
+/*───────────────────────────────────────────────────────────────────────────────
+ * CHARGING ANIMATION
+ * Gentle pulsing effect to indicate active battery charging
+ *───────────────────────────────────────────────────────────────────────────────*/
 
 @keyframes charging {
-    0% { opacity: 1; }
-    50% { opacity: 0.7; }
-    100% { opacity: 1; }
+    0% { opacity: 1; }               /* Full brightness */
+    50% { opacity: 0.7; }            /* Dimmed for breathing effect */
+    100% { opacity: 1; }             /* Return to full brightness */
 }
 
+/* Battery Warning State (Low Battery) */
 #battery.warning {
-    color: #FFA500;
-    border-color: rgba(255, 165, 0, 0.3);
+    color: #FFA500;                  /* Orange for low battery warning */
+    border-color: rgba(255, 165, 0, 0.3);   /* Orange border alert */
 }
 
+/* Battery Critical State (Very Low Battery) */
 #battery.critical {
-    color: #FF4500;
-    border-color: rgba(255, 69, 0, 0.3);
-    animation: flash 0.5s infinite;
+    color: #FF4500;                  /* Red-orange for critical battery */
+    border-color: rgba(255, 69, 0, 0.3);    /* Red border urgency */
+    animation: flash 0.5s infinite;  /* Fast flash for immediate attention */
 }
 
-/* System Tray */
+/*───────────────────────────────────────────────────────────────────────────────
+ * SYSTEM TRAY MODULE
+ * Application icons and system notifications with adaptive styling
+ *───────────────────────────────────────────────────────────────────────────────*/
+
 #tray {
-    background: linear-gradient(90deg, rgba(138, 43, 226, 0.15), rgba(0, 191, 255, 0.15));
-    border-radius: 8px;
-    margin: 3px 6px 3px 2px;
-    padding: 0 8px;
-    border: 1px solid rgba(138, 43, 226, 0.3);
+    /* Purple-cyan gradient matching system modules */
+    background: linear-gradient(90deg, 
+        rgba(138, 43, 226, 0.15),    /* Electric purple start */
+        rgba(0, 191, 255, 0.15));    /* Neon cyan end */
+    
+    border-radius: 8px;              /* Consistent module styling */
+    margin: 3px 6px 3px 2px;         /* Right-aligned positioning */
+    padding: 0 8px;                  /* Icon spacing padding */
+    border: 1px solid rgba(138, 43, 226, 0.3);  /* Purple border accent */
+    color: #00FF7F;                  /* Matrix green for icons */
+    border-color: rgba(0, 255, 127, 0.3);       /* Green border override */
 }
 
+/* Passive (Inactive) Tray Icons */
 #tray > .passive {
-    -gtk-icon-effect: dim;
+    -gtk-icon-effect: dim;           /* Dimmed effect for inactive apps */
 }
 
+/* Attention-Seeking Tray Icons */
 #tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: rgba(255, 20, 147, 0.3);
-    border-radius: 4px;
+    -gtk-icon-effect: highlight;     /* Highlighted effect for notifications */
+    background-color: rgba(255, 20, 147, 0.3);  /* Pink background for attention */
+    border-radius: 4px;              /* Rounded highlight container */
 }
 
-/* Tooltips */
+/*───────────────────────────────────────────────────────────────────────────────
+ * TOOLTIP SYSTEM
+ * Enhanced information popups with cosmic styling and readability
+ *───────────────────────────────────────────────────────────────────────────────*/
+
 tooltip {
-    background: linear-gradient(135deg, rgba(16, 4, 42, 0.95), rgba(45, 25, 85, 0.95));
-    color: #E0E1E5;
-    border-radius: 8px;
-    border: 1px solid rgba(138, 43, 226, 0.4);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    /* Deep cosmic gradient for tooltip backgrounds */
+    background: linear-gradient(135deg, 
+        rgba(16, 4, 42, 0.95),       /* Deep space purple */
+        rgba(45, 25, 85, 0.95));     /* Cosmic purple */
+    
+    color: #E0E1E5;                  /* Light text for readability */
+    border-radius: 8px;              /* Smooth tooltip edges */
+    border: 1px solid rgba(138, 43, 226, 0.4);  /* Purple border accent */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);  /* Deep shadow for depth */
 }
 
 tooltip label {
-    color: #E0E1E5;
-    padding: 8px;
+    color: #E0E1E5;                  /* Consistent label text color */
+    padding: 8px;                    /* Internal spacing for readability */
 }
 
-/* Glowing effect for active elements */
+/*───────────────────────────────────────────────────────────────────────────────
+ * UTILITY CLASSES AND EFFECTS
+ * Reusable glow effects and enhancement classes
+ *───────────────────────────────────────────────────────────────────────────────*/
+
+/* Multi-Layer Glow Effect Class */
 .glow {
+    /* Intense glow effect using current element color */
     box-shadow:
-        0 0 5px currentColor,
-        0 0 10px currentColor,
-        0 0 15px currentColor,
-        0 0 20px currentColor;
+        0 0 5px currentColor,        /* Inner glow */
+        0 0 10px currentColor,       /* Medium glow */
+        0 0 15px currentColor,       /* Outer glow */
+        0 0 20px currentColor;       /* Extended glow */
 }
 
-/* Function Keys Module */
+/*───────────────────────────────────────────────────────────────────────────────
+ * CUSTOM FUNCTION KEYS MODULE
+ * Display and control for function key states (Fn lock, etc.)
+ *───────────────────────────────────────────────────────────────────────────────*/
+
 #custom-fn-keys {
-    color: #B4A7D6;
-    border-color: rgba(180, 167, 214, 0.3);
-    font-size: 14px;
-    min-width: 60px;
+    color: #B4A7D6;                  /* Muted purple for function keys */
+    border-color: rgba(180, 167, 214, 0.3);  /* Subtle purple border */
+    font-size: 14px;                 /* Slightly larger for visibility */
+    min-width: 60px;                 /* Minimum width for consistency */
 }
 
 #custom-fn-keys:hover {
-    background: linear-gradient(45deg, rgba(180, 167, 214, 0.3), rgba(138, 43, 226, 0.3));
-    box-shadow: 0 0 12px rgba(180, 167, 214, 0.4);
-    border: 1px solid rgba(180, 167, 214, 0.5);
-    color: #E0E1E5;
+    /* Enhanced purple glow on function key hover */
+    background: linear-gradient(45deg, 
+        rgba(180, 167, 214, 0.3),    /* Light purple */
+        rgba(138, 43, 226, 0.3));    /* Electric purple */
+    
+    box-shadow: 0 0 12px rgba(180, 167, 214, 0.4);  /* Purple glow effect */
+    border: 1px solid rgba(180, 167, 214, 0.5);     /* Brighter border */
+    color: #E0E1E5;                                  /* Light text on hover */
 }
 
-/* Camera Module */
+/*───────────────────────────────────────────────────────────────────────────────
+ * CUSTOM CAMERA MODULE
+ * Webcam status indicator with orange accent styling
+ *───────────────────────────────────────────────────────────────────────────────*/
+
 #custom-camera {
-    color: #FF6B35;
-    border-color: rgba(255, 107, 53, 0.3);
-    font-size: 16px;
+    color: #FF6B35;                  /* Orange for camera status */
+    border-color: rgba(255, 107, 53, 0.3);   /* Orange border accent */
+    font-size: 16px;                 /* Larger icon for visibility */
 }
 
 #custom-camera:hover {
-    background: linear-gradient(45deg, rgba(255, 107, 53, 0.3), rgba(138, 43, 226, 0.3));
-    box-shadow: 0 0 12px rgba(255, 107, 53, 0.4);
-    border: 1px solid rgba(255, 107, 53, 0.5);
-    color: #FF4500;
+    /* Enhanced orange glow on camera module interaction */
+    background: linear-gradient(45deg, 
+        rgba(255, 107, 53, 0.3),     /* Bright orange */
+        rgba(138, 43, 226, 0.3));    /* Purple accent */
+    
+    box-shadow: 0 0 12px rgba(255, 107, 53, 0.4);   /* Orange glow effect */
+    border: 1px solid rgba(255, 107, 53, 0.5);      /* Brighter orange border */
+    color: #FF4500;                                  /* Intense orange on hover */
 }
 
-
-#tray {
-  border-radius: 8px;
-  margin: 3px 6px 3px 2px;
-  padding: 0 8px;
-  border: 1px solid rgba(138, 43, 226, 0.3);
-  color: #00FF7F; /* comme le module #network */
-  border-color: rgba(0, 255, 127, 0.3);
-  background: linear-gradient(45deg, rgba(0, 191, 255, 0.15), rgba(138, 43, 226, 0.15));
-}
+/*═══════════════════════════════════════════════════════════════════════════════
+ * END OF SPACE STATION WAYBAR THEME
+ *
+ * This completes the cosmic status bar configuration for your development
+ * environment. All modules are now styled with consistent gradients, hover
+ * effects, and state-aware color coding for optimal productivity and aesthetics.
+ *
+ * For configuration and customization guides, refer to:
+ * • Waybar documentation: https://github.com/Alexays/Waybar/wiki
+ * • Color customization: Modify the color palette section at the top
+ * • Animation tuning: Adjust keyframe animations and transition durations
+ * • Module additions: Follow existing patterns for new custom modules
+ *
+ * INTEGRATION NOTES:
+ * • Ensure waybar.jsonc config matches these CSS class names
+ * • JetBrains Mono Nerd Font required for optimal icon display
+ * • Compatible with Hyprland compositor and cosmic window themes
+ *
+ * Last updated: June 2025 | Space Station Development Environment
+ *═══════════════════════════════════════════════════════════════════════════════*/
 
