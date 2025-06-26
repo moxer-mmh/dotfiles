@@ -1,0 +1,280 @@
+{
+    /*═══════════════════════════════════════════════════════════════════════════════
+     * 🚀 SPACE STATION WAYBAR CONFIGURATION
+     *═══════════════════════════════════════════════════════════════════════════════
+     *
+     * Cosmic-themed status bar configuration for the Space Station development
+     * environment. Features futuristic module layout, Nerd Font icons, and
+     * seamless integration with Hyprland compositor for optimal productivity.
+     *
+     * FEATURES:
+     * ┌─────────────────────────────────────────────────────────────────────────────┐
+     * │ • Cosmic workspace indicators with visual state feedback                   │
+     * │ • System monitoring: CPU, memory, temperature, battery                     │
+     * │ • Audio controls: speaker and microphone with PulseAudio integration      │
+     * │ • Digital clock with calendar popup and cosmic styling                     │
+     * │ • Spotify music integration with playback controls                         │
+     * │ • Camera status monitoring with hardware detection                         │
+     * │ • System tray for application icons and notifications                      │
+     * │ • Responsive layout with proper spacing and margins                        │
+     * └─────────────────────────────────────────────────────────────────────────────┘
+     *
+     * LAYOUT STRUCTURE:
+     * Left   : [Workspaces] [Window Title]
+     * Center : [Digital Clock with Calendar]
+     * Right  : [Spotify] [Audio] [Mic] [Camera] [Tray] [CPU] [Memory] [Temp] [Battery]
+     *
+     * INTEGRATION:
+     * - Styled with style.css cosmic theme
+     * - Compatible with Hyprland workspace management
+     * - Uses JetBrains Mono Nerd Font for consistent icons
+     * - Scripts located in ~/.config/waybar/scripts/
+     *
+     * AUTHOR: Space Station Development Environment
+     * VERSION: 1.0.0
+     * LAST UPDATED: June 2025
+     *
+     *═══════════════════════════════════════════════════════════════════════════════*/
+
+    /*───────────────────────────────────────────────────────────────────────────────
+     * GLOBAL WAYBAR WINDOW CONFIGURATION
+     * Core positioning, dimensions, and layout settings
+     *───────────────────────────────────────────────────────────────────────────────*/
+
+    "layer": "top",                 // Position above other windows (top layer)
+    "position": "top",               // Attach to top edge of screen
+    "height": 35,                    // Bar height in pixels (optimal for cosmic theme)
+    "spacing": 4,                    // Space between modules in pixels
+    "margin-top": 8,                 // Top margin for floating effect
+    "margin-bottom": 0,              // No bottom margin (attached to edge)
+    "margin-left": 12,               // Left margin for visual breathing room
+    "margin-right": 12,              // Right margin for balanced appearance
+
+    /*───────────────────────────────────────────────────────────────────────────────
+     * MODULE LAYOUT ORGANIZATION
+     * Three-section layout: workspaces/window (left), clock (center), system info (right)
+     *───────────────────────────────────────────────────────────────────────────────*/
+
+    "modules-left": ["hyprland/workspaces", "hyprland/window"],     // Left: workspace navigation and window title
+    "modules-center": ["clock"],                                    // Center: digital clock with calendar
+    "modules-right": ["custom/spotify", "pulseaudio", "pulseaudio#microphone", "custom/camera","tray","cpu", "memory", "temperature", "battery"],
+
+    /*───────────────────────────────────────────────────────────────────────────────
+     * HYPRLAND WORKSPACE MODULE
+     * Dynamic workspace indicators with custom Nerd Font icons and cosmic themes
+     *───────────────────────────────────────────────────────────────────────────────*/
+
+    "hyprland/workspaces": {
+        "format": "{icon}",              // Display custom icons instead of numbers
+        "format-icons": {
+            // Workspace-specific icons for visual identification
+            "1": "󰆍",                    // Terminal/Development workspace
+            "2": "󰖟",                    // Web browser workspace  
+            "3": "󰘦",                    // Communication workspace
+            "4": "󰓓",                    // Media/Graphics workspace
+            "5": "󰑴",                    // Files/Documents workspace
+            "6": "󰊻",                    // Gaming workspace
+            "7": "󰎄",                    // Virtualization workspace
+            "8": "󰛖",                    // System monitoring workspace
+            "9": "󰺵",                    // Testing/Experimental workspace
+            "10": "󰿉",                   // Utilities workspace
+            "urgent": "󰀪",               // Urgent attention indicator
+            "active": "󰮯",               // Currently active workspace
+            "default": "󰧞"               // Fallback icon for other workspaces
+        },
+        "persistent-workspaces": {
+            // Always show workspaces 1-10 even when empty
+            "1": [],                     // Development workspace (persistent)
+            "2": [],                     // Browser workspace (persistent)
+            "3": [],                     // Communication workspace (persistent)
+            "4": [],                     // Media workspace (persistent)
+            "5": [],                     // Files workspace (persistent)
+            "6": [],                     // Gaming workspace (persistent)
+            "7": [],                     // Virtual machines workspace (persistent)
+            "8": [],                     // System monitoring workspace (persistent)
+            "9": [],                     // Testing workspace (persistent)
+            "10": []                     // Utilities workspace (persistent)
+        },
+        "on-click": "activate"           // Click to switch to workspace
+    },
+
+    /*───────────────────────────────────────────────────────────────────────────────
+     * HYPRLAND WINDOW TITLE MODULE
+     * Displays currently focused window with cosmic icon and truncation
+     *───────────────────────────────────────────────────────────────────────────────*/
+
+    "hyprland/window": {
+        "format": "󰖲 {}",               // Window icon + application title
+        "max-length": 50,               // Truncate long window titles for space
+        "separate-outputs": true        // Show different windows on multiple monitors
+    },
+
+    /*───────────────────────────────────────────────────────────────────────────────
+     * DIGITAL CLOCK MODULE
+     * Cosmic-styled time display with calendar popup and hover effects
+     *───────────────────────────────────────────────────────────────────────────────*/
+
+    "clock": {
+        "format": "󰥔 {:%H:%M}",         // Clock icon + 24-hour time format
+        "format-alt": "󰃭 {:%A, %B %d, %Y}",  // Alt click: calendar icon + full date
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",  // Calendar in tooltip
+        "calendar": {
+            "mode": "year",             // Calendar displays full year view
+            "mode-mon-col": 3,          // 3 months per column in year view
+            "weeks-pos": "right",       // Week numbers on right side
+            "on-scroll": 1,             // Scroll to navigate months/years
+            "format": {
+                // Custom color scheme for calendar elements
+                "months": "<span color='#ffead3'><b>{}</b></span>",     // Light cream for months
+                "days": "<span color='#ecc6d9'><b>{}</b></span>",       // Light pink for days
+                "weeks": "<span color='#99ffdd'><b>W{}</b></span>",     // Light cyan for weeks
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",   // Light yellow for weekdays
+                "today": "<span color='#ff6699'><b><u>{}</u></b></span>" // Hot pink for today (underlined)
+            }
+        }
+    },
+
+    /*───────────────────────────────────────────────────────────────────────────────
+     * SPOTIFY MUSIC INTEGRATION MODULE
+     * Music playback control with Spotify green branding and interactive controls
+     *───────────────────────────────────────────────────────────────────────────────*/
+
+    "custom/spotify": {
+        "format": "󰎇 {}",               // Spotify icon + current track info
+        "max-length": 40,               // Limit track title length for space
+        "interval": 2,                  // Update every 2 seconds for responsiveness
+        "on-click": "playerctl play-pause",           // Left click: play/pause toggle
+        "on-click-right": "playerctl next",           // Right click: next track
+        "on-scroll-up": "playerctl volume 0.1+",     // Scroll up: volume +10%
+        "on-scroll-down": "playerctl volume 0.1-"    // Scroll down: volume -10%
+    },
+
+    /*───────────────────────────────────────────────────────────────────────────────
+     * AUDIO OUTPUT MODULE (SPEAKERS/HEADPHONES)
+     * PulseAudio speaker control with volume display and quick mute toggle
+     *───────────────────────────────────────────────────────────────────────────────*/
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",   // Dynamic icon + volume percentage
+        "format-muted": "󰖁 muted",      // Muted state with crossed speaker icon
+        "format-icons": {
+            // Volume-based icon progression
+            "default": ["󰕿", "󰖀", "󰕾"] // Low, medium, high volume icons
+        },
+        "on-click": "pavucontrol",      // Left click: open volume control panel
+        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle" // Right click: mute toggle
+    },
+
+    /*───────────────────────────────────────────────────────────────────────────────
+     * MICROPHONE INPUT MODULE
+     * Dedicated microphone control with input monitoring and mute detection
+     *───────────────────────────────────────────────────────────────────────────────*/
+
+    "pulseaudio#microphone": {
+        "format": "{format_source}",    // Use source-specific formatting
+        "format-source": "󰍬 {volume}%", // Microphone icon + input volume
+        "format-source-muted": "󰍭 muted", // Muted microphone with crossed icon
+        "on-click": "pavucontrol -t 4", // Left click: open input devices tab
+        "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle", // Right click: mute toggle
+        "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +2%",    // Scroll up: volume +2%
+        "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -2%",  // Scroll down: volume -2%
+        "tooltip-format": "Microphone: {source_desc}" // Tooltip shows device name
+    },
+
+    /*───────────────────────────────────────────────────────────────────────────────
+     * CAMERA STATUS MODULE
+     * Hardware camera detection with real-time usage monitoring
+     *───────────────────────────────────────────────────────────────────────────────*/
+
+    "custom/camera": {
+        "format": "{}",                 // Raw output from camera script (includes colors)
+        "exec": "~/.config/waybar/scripts/camera.sh", // Execute camera status script
+        "interval": 1,                  // Update every second for real-time status
+        "tooltip": true,                // Enable tooltip for detailed information
+        "on-click": "cheese",           // Left click: open camera application
+        "return-type": "text"           // Expect text output from script
+    },
+
+    /*───────────────────────────────────────────────────────────────────────────────
+     * SYSTEM TRAY MODULE
+     * Application icons and system notifications with cosmic integration
+     *───────────────────────────────────────────────────────────────────────────────*/
+
+    "tray": {
+        "icon-size": 18,                // Tray icon size in pixels
+        "spacing": 8,                   // Space between tray icons
+        "show-passive-items": false,    // Hide passive/inactive applications
+        "reverse-direction": false      // Normal icon order (left to right)
+    },
+
+    /*───────────────────────────────────────────────────────────────────────────────
+     * SYSTEM PERFORMANCE MONITORING MODULES
+     * CPU, memory, temperature, and battery monitoring with cosmic styling
+     *───────────────────────────────────────────────────────────────────────────────*/
+
+    "cpu": {
+        "format": "󰻠 {usage}%",         // CPU icon + usage percentage
+        "interval": 2,                  // Update every 2 seconds for smooth monitoring
+        "on-click": "alacritty -e htop" // Left click: open htop in terminal
+    },
+
+    "memory": {
+        "format": "󰍛 {percentage}%",    // Memory icon + usage percentage
+        "tooltip-format": "Used: {used:0.1f}GiB\nAvailable: {avail:0.1f}GiB\nTotal: {total:0.1f}GiB", // Detailed memory info
+        "on-click": "alacritty -e htop" // Left click: open htop for memory details
+    },
+
+    "temperature": {
+        "thermal-zone": 2,              // Monitor thermal zone 2 (CPU temp)
+        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input", // Hardware monitoring path
+        "critical-threshold": 80,       // Critical temperature threshold (80°C)
+        "format": "󰔏 {temperatureC}°C", // Thermometer icon + temperature
+        "format-critical": "󰈸 {temperatureC}°C" // Warning icon for critical temps
+    },
+
+    /*───────────────────────────────────────────────────────────────────────────────
+     * BATTERY POWER MODULE
+     * Laptop battery monitoring with charging states and time estimates
+     *───────────────────────────────────────────────────────────────────────────────*/
+
+    "battery": {
+        "states": {
+            "warning": 30,              // Warning state at 30% battery
+            "critical": 15              // Critical state at 15% battery
+        },
+        "format": "{icon} {capacity}%", // Battery icon + charge percentage
+        "format-charging": "󰂄 {capacity}%",    // Charging icon when plugged in
+        "format-plugged": "󰚥 {capacity}%",     // AC power icon when full/plugged
+        "format-alt": "{icon} {time}",          // Alt format: icon + time remaining
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"], // Battery level icons (0-100%)
+        "tooltip-format": "{timeTo}, {capacity}%" // Tooltip: time to full/empty + percentage
+    }
+
+    /*═══════════════════════════════════════════════════════════════════════════════
+     * END OF WAYBAR CONFIGURATION
+     *
+     * This completes the Space Station Waybar configuration with comprehensive
+     * cosmic-themed modules for optimal development productivity and system monitoring.
+     *
+     * CUSTOMIZATION NOTES:
+     * • Module order in modules-left/center/right arrays determines visual layout
+     * • Icon fonts require JetBrains Mono Nerd Font for proper symbol display
+     * • Colors and animations are controlled by the companion style.css file
+     * • Script paths assume standard ~/.config/waybar/scripts/ directory structure
+     *
+     * TROUBLESHOOTING:
+     * • Validate JSON syntax with: jsonlint config.jsonc
+     * • Test individual modules by temporarily removing others
+     * • Check script permissions: chmod +x ~/.config/waybar/scripts/*.sh
+     * • Verify dependencies: playerctl, pavucontrol, v4l2-ctl, htop
+     *
+     * INTEGRATION COMMANDS:
+     * waybar                          # Start waybar with this config
+     * pkill waybar && waybar &        # Restart waybar to apply changes
+     * waybar --log-level debug        # Debug mode for troubleshooting
+     *
+     * Space Station Development Environment | Cosmic Waybar Configuration Suite
+     * Version 1.0.0 | Last Updated: June 2025
+     *═══════════════════════════════════════════════════════════════════════════════*/
+
+}
