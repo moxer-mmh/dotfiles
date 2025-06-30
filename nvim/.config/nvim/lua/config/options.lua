@@ -15,6 +15,8 @@ vim.cmd("set scrolloff=8")
 vim.cmd("set sidescrolloff=8")
 vim.cmd("set signcolumn=yes")
 vim.cmd("set termguicolors")
+vim.cmd("set background=dark")
+vim.cmd("set noshowmode ")
 
 vim.cmd("set ignorecase")
 vim.cmd("set smartcase")
