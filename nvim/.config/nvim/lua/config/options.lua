@@ -1,47 +1,47 @@
 vim.g.mapleader = " "
 
-vim.cmd("set expandtab")
-vim.cmd("set tabstop=2")
-vim.cmd("set softtabstop=2")
-vim.cmd("set shiftwidth=2")
-vim.cmd("set smartindent")
+local opt = vim.opt
 
-vim.cmd("set number")
-vim.cmd("set relativenumber")
+opt.expandtab = true
+opt.tabstop = 2
+opt.softtabstop = 2
+opt.shiftwidth = 2
+opt.smartindent = true
 
-vim.cmd("set cursorline")
-vim.cmd("set nowrap")
-vim.cmd("set scrolloff=8")
-vim.cmd("set sidescrolloff=8")
-vim.cmd("set signcolumn=yes")
-vim.cmd("set termguicolors")
-vim.cmd("set background=dark")
-vim.cmd("set noshowmode ")
+opt.number = true
+opt.relativenumber = true
 
-vim.cmd("set ignorecase")
-vim.cmd("set smartcase")
-vim.cmd("set hlsearch")
-vim.cmd("set incsearch")
+opt.cursorline = true
+opt.wrap = false
+opt.scrolloff = 8
+opt.sidescrolloff = 8
+opt.signcolumn = "yes"
+opt.termguicolors = true
+opt.background = "dark"
+opt.showmode = false
+opt.wildmenu = true
 
-vim.cmd("set noswapfile")
-vim.cmd("set nobackup")
-vim.cmd("set nowritebackup")
-vim.cmd("set undofile")
-vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"
+opt.ignorecase = true
+opt.smartcase = true
+opt.hlsearch = true
+opt.incsearch = true
 
+opt.swapfile = false
+opt.backup = false
+opt.writebackup = false
+opt.undofile = true
+opt.undodir = vim.fn.stdpath("data") .. "/undo"
 
-vim.cmd("set updatetime=300")
-vim.cmd("set timeoutlen=500")
-vim.cmd("set mouse=a")
-vim.cmd("set clipboard=unnamedplus")
+opt.updatetime = 300
+opt.timeoutlen = 500
+opt.mouse = "a"
+opt.clipboard = "unnamedplus"
 
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+opt.splitbelow = true
+opt.splitright = true
 
-vim.cmd("set completeopt=menuone,noselect")
-vim.cmd("set pumheight=10")
+opt.completeopt = { "menuone", "noselect" }
+opt.pumheight = 10
 
-vim.cmd("set lazyredraw")
-vim.cmd("set hidden")
-
-vim.cmd("set wildmenu")
+opt.lazyredraw = true
+opt.hidden = true
