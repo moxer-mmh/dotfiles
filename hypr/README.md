@@ -123,6 +123,9 @@ sudo pacman -S hyprland hyprlock hypridle waybar rofi alacritty
 # Additional dependencies
 sudo pacman -S swww swaync brightnessctl playerctl
 
+# Audio system (PipeWire)
+sudo pacman -S pipewire pipewire-pulse pipewire-alsa pavucontrol wireplumber
+
 # Clipboard management
 sudo pacman -S cliphist wl-clipboard
 
