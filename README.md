@@ -39,6 +39,7 @@
 - **📊 Waybar Status Bar**: Space station control panel with system monitoring
 - **🚀 Rofi Application Launcher**: Cyberpunk and space station themed menus
 - **🐲 Starship Prompt**: Cross-shell cosmic dragon prompt with language detection
+- **📋 Smart Clipboard Manager**: Persistent clipboard history with text and image support
 - **🌊 Seamless Integration**: All components work together harmoniously
 
 ### 💻 **Development Environment**
@@ -78,6 +79,9 @@ All components share the same cosmic DNA:
 sudo pacman -S hyprland hypridle hyprlock waybar alacritty rofi starship zsh
 sudo pacman -S swww swaync brightnessctl playerctl pavucontrol
 sudo pacman -S ttf-jetbrains-mono-nerd stow git
+
+# Clipboard management
+sudo pacman -S cliphist wl-clipboard
 
 # Enhanced CLI tools
 sudo pacman -S lsd bat neovim oh-my-zsh-git

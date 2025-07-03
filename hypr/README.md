@@ -62,6 +62,7 @@
 - **Dynamic wallpaper rotation** from cosmic collection
 - **Workspace-based app assignment** for development workflow
 - **Real-time system monitoring** with visual feedback
+- **Persistent clipboard management** with text and image history
 
 ---
 
@@ -121,6 +122,9 @@ sudo pacman -S hyprland hyprlock hypridle waybar rofi alacritty
 
 # Additional dependencies
 sudo pacman -S swww swaync brightnessctl playerctl
+
+# Clipboard management
+sudo pacman -S cliphist wl-clipboard
 
 # Font requirements
 sudo pacman -S ttf-jetbrains-mono-nerd
@@ -209,6 +213,7 @@ tail -f /tmp/space-station-startup.log
 | `Super + Q` | Close Window | Kill active window |
 | `Super + E` | File Manager | Open Nautilus |
 | `Super + Space` | App Launcher | Open Rofi application menu |
+| `Super + V` | Clipboard History | Open clipboard manager with Rofi |
 | `Super + X` | Lock Screen | Activate Hyprlock immediately |
 | `Super + F` | Fullscreen | Toggle fullscreen mode |
 | `Super + T` | Split Direction | Toggle window split orientation |
