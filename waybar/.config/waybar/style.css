@@ -22,7 +22,7 @@
  *
  * COLOR PALETTE:
  * • Deep Space Purple: #10042A (16, 4, 42) - Primary background
- * • Nebula Purple: #1E0C44 (30, 12, 68) - Secondary background  
+ * • Nebula Purple: #1E0C44 (30, 12, 68) - Secondary background
  * • Cosmic Purple: #2D1955 (45, 25, 85) - Accent background
  * • Electric Purple: #8A2BE2 (138, 43, 226) - Primary accent
  * • Neon Cyan: #00BFFF (0, 191, 255) - Secondary accent
@@ -71,16 +71,16 @@ window#waybar {
         rgba(45, 25, 85, 0.95) 50%,    /* Cosmic purple center */
         rgba(30, 12, 68, 0.95) 75%,    /* Nebula purple */
         rgba(16, 4, 42, 0.95) 100%);   /* Deep space purple */
-    
+
     color: #E0E1E5;                    /* Light text for contrast */
     border-radius: 12px;               /* Smooth cosmic edges */
-    
+
     /* Multi-layer shadow system for depth and glow */
     box-shadow:
         0 8px 32px rgba(138, 43, 226, 0.3),        /* Purple ambient glow */
         inset 0 1px 0 rgba(255, 255, 255, 0.1),    /* Inner highlight */
         0 0 0 1px rgba(138, 43, 226, 0.2);         /* Subtle border glow */
-    
+
     border: 1px solid rgba(138, 43, 226, 0.3);     /* Electric purple border */
 }
 
@@ -91,10 +91,10 @@ window#waybar {
 
 #workspaces {
     /* Purple-cyan gradient container for workspace buttons */
-    background: linear-gradient(90deg, 
+    background: linear-gradient(90deg,
         rgba(138, 43, 226, 0.2),     /* Electric purple start */
         rgba(0, 191, 255, 0.2));     /* Neon cyan end */
-    
+
     border-radius: 10px;             /* Smooth cosmic container */
     margin: 3px 0 3px 6px;           /* Left-aligned positioning */
     padding: 0 8px;                  /* Internal spacing for buttons */
@@ -115,10 +115,10 @@ window#waybar {
 
 #workspaces button:hover {
     /* Hover state with cyan-purple glow effect */
-    background: linear-gradient(45deg, 
+    background: linear-gradient(45deg,
         rgba(138, 43, 226, 0.3),     /* Electric purple */
         rgba(0, 191, 255, 0.3));     /* Neon cyan */
-    
+
     color: #00FFFF;                  /* Bright cyan text */
     border: 1px solid rgba(0, 255, 255, 0.5);    /* Visible cyan border */
     box-shadow: 0 0 12px rgba(0, 255, 255, 0.4); /* Outer cyan glow */
@@ -129,7 +129,7 @@ window#waybar {
     background: linear-gradient(45deg, #8A2BE2, #00BFFF);  /* Full gradient */
     color: #FFFFFF;                  /* Pure white text for contrast */
     border: 1px solid #00FFFF;      /* Bright cyan border */
-    
+
     /* Multi-layer glow system for prominence */
     box-shadow:
         0 0 16px rgba(138, 43, 226, 0.6),        /* Purple outer glow */
@@ -163,10 +163,10 @@ window#waybar {
 
 #window {
     /* Green-purple gradient for active window identification */
-    background: linear-gradient(90deg, 
+    background: linear-gradient(90deg,
         rgba(0, 255, 127, 0.15),     /* Matrix green start */
         rgba(148, 0, 211, 0.15));    /* Dark violet end */
-    
+
     color: #00FF7F;                  /* Matrix green text */
     border-radius: 8px;              /* Smooth container edges */
     margin: 3px 6px;                 /* Centered positioning */
@@ -182,17 +182,17 @@ window#waybar {
 
 #clock {
     /* Pink-purple gradient for prominent time display */
-    background: linear-gradient(135deg, 
+    background: linear-gradient(135deg,
         rgba(255, 105, 180, 0.2),    /* Hot pink start */
         rgba(138, 43, 226, 0.2));    /* Electric purple end */
-    
+
     color: #FF69B4;                  /* Hot pink text */
     border-radius: 10px;             /* Rounded time container */
     margin: 3px 6px;                 /* Balanced positioning */
     padding: 0 16px;                 /* Extra padding for prominence */
     border: 1px solid rgba(255, 105, 180, 0.4);  /* Pink border accent */
     font-weight: bold;               /* Enhanced time readability */
-    
+
     /* Multi-layer glow effect for time prominence */
     box-shadow:
         0 0 12px rgba(255, 105, 180, 0.3),       /* Pink ambient glow */
@@ -207,6 +207,8 @@ window#waybar {
 /* Universal styling for all right-side system modules */
 #pulseaudio,
 #pulseaudio.microphone,
+#custom-audio,
+#custom-microphone,
 #custom-fn-keys,
 #custom-camera,
 #network,
@@ -216,10 +218,10 @@ window#waybar {
 #battery,
 #custom-spotify {
     /* Cyan-purple gradient base for system modules */
-    background: linear-gradient(45deg, 
+    background: linear-gradient(45deg,
         rgba(0, 191, 255, 0.15),     /* Neon cyan start */
         rgba(138, 43, 226, 0.15));   /* Electric purple end */
-    
+
     color: #E0E1E5;                  /* Light text for visibility */
     border-radius: 8px;              /* Consistent module rounding */
     margin: 3px 2px;                 /* Tight spacing between modules */
@@ -231,6 +233,8 @@ window#waybar {
 /* Universal hover effects with enhanced cyan glow */
 #pulseaudio:hover,
 #pulseaudio.microphone:hover,
+#custom-audio:hover,
+#custom-microphone:hover,
 #custom-fn-keys:hover,
 #custom-camera:hover,
 #network:hover,
@@ -240,10 +244,10 @@ window#waybar {
 #battery:hover,
 #custom-spotify:hover {
     /* Enhanced gradient on hover with increased opacity */
-    background: linear-gradient(45deg, 
+    background: linear-gradient(45deg,
         rgba(0, 191, 255, 0.3),      /* Brighter cyan */
         rgba(138, 43, 226, 0.3));    /* Brighter purple */
-    
+
     box-shadow: 0 0 12px rgba(0, 191, 255, 0.4);  /* Cyan outer glow */
     border: 1px solid rgba(0, 191, 255, 0.5);     /* Brighter border */
     color: #00BFFF;                               /* Bright cyan text */
@@ -256,20 +260,20 @@ window#waybar {
 
 #custom-spotify {
     /* Spotify green with purple accent gradient */
-    background: linear-gradient(45deg, 
+    background: linear-gradient(45deg,
         rgba(30, 215, 96, 0.2),      /* Spotify green */
         rgba(138, 43, 226, 0.2));    /* Electric purple accent */
-    
+
     color: #1ED760;                  /* Official Spotify green */
     border: 1px solid rgba(30, 215, 96, 0.4);  /* Green border accent */
 }
 
 #custom-spotify:hover {
     /* Enhanced Spotify green glow on interaction */
-    background: linear-gradient(45deg, 
+    background: linear-gradient(45deg,
         rgba(30, 215, 96, 0.3),      /* Brighter green */
         rgba(138, 43, 226, 0.3));    /* Brighter purple */
-    
+
     box-shadow: 0 0 12px rgba(30, 215, 96, 0.4);  /* Green glow effect */
 }
 
@@ -299,6 +303,79 @@ window#waybar {
     color: #FF4500;                  /* Orange-red for muted mic */
     border-color: rgba(255, 69, 0, 0.3);   /* Orange border */
     animation: flash 0.8s infinite;  /* Flashing alert for muted mic */
+}
+
+/*───────────────────────────────────────────────────────────────────────────────
+ * CUSTOM AUDIO CONTROL MODULES
+ * Custom PipeWire audio and microphone controls with state-aware styling
+ *───────────────────────────────────────────────────────────────────────────────*/
+
+/* Custom Audio/Speaker Output Module */
+#custom-audio {
+    color: #FFFF00;                               /* Yellow text on hover */
+    border-color: rgba(255, 215, 0, 0.3);   /* Cyan border accent */
+}
+
+#custom-audio:hover {
+    /* Enhanced yellow glow on audio module interaction */
+    background: linear-gradient(45deg,
+        rgba(255, 215, 0, 0.3),      /* Bright yellow */
+        rgba(138, 43, 226, 0.3));    /* Purple accent */
+
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);   /* Yellow glow effect */
+    border: 1px solid rgba(255, 215, 0, 0.5);      /* Brighter yellow border */
+    color: #FFFF00;                               /* Yellow text on hover */
+}
+
+/* Audio Muted State */
+#custom-audio.muted {
+    color: #FF4500;                  /* Red-orange for muted audio */
+    border-color: rgba(255, 69, 0, 0.3);    /* Red border for muted */
+}
+
+/* Audio Muted Hover State */
+#custom-audio.muted:hover {
+    background: linear-gradient(45deg,
+        rgba(255, 69, 0, 0.3),       /* Bright red */
+        rgba(138, 43, 226, 0.3));    /* Purple accent */
+
+    box-shadow: 0 0 12px rgba(255, 69, 0, 0.4);    /* Red glow effect */
+    border: 1px solid rgba(255, 69, 0, 0.5);       /* Brighter red border */
+    color: #FF4500;                                /* Red text on hover when muted */
+}
+
+/* Custom Microphone Input Module */
+#custom-microphone {
+    color: #00CED1;                               /* Turquoise text on hover */
+    border-color: rgba(0, 206, 209, 0.3);  /* Turquoise border */
+}
+
+#custom-microphone:hover {
+    /* Enhanced blue glow on mic module interaction */
+    background: linear-gradient(45deg,
+        rgba(0, 206, 209, 0.3),      /* Bright turquoise/blue */
+        rgba(138, 43, 226, 0.3));    /* Purple accent */
+
+    box-shadow: 0 0 12px rgba(0, 206, 209, 0.4);   /* Blue glow effect */
+    border: 1px solid rgba(0, 206, 209, 0.5);      /* Brighter blue border */
+    color: #00CED1;                               /* Turquoise text on hover */
+}
+
+/* Microphone Muted State */
+#custom-microphone.muted {
+    color: #FF4500;                  /* Red-orange for muted mic */
+    border-color: rgba(255, 69, 0, 0.3);    /* Red border for muted */
+}
+
+/* Microphone Muted Hover State */
+#custom-microphone.muted:hover {
+    background: linear-gradient(45deg,
+        rgba(255, 69, 0, 0.3),       /* Bright red */
+        rgba(138, 43, 226, 0.3));    /* Purple accent */
+
+    box-shadow: 0 0 12px rgba(255, 69, 0, 0.4);    /* Red glow effect */
+    border: 1px solid rgba(255, 69, 0, 0.5);       /* Brighter red border */
+    color: #FF4500;                                /* Red text on hover when muted */
 }
 
 /*───────────────────────────────────────────────────────────────────────────────
@@ -342,10 +419,10 @@ window#waybar {
 #temperature.critical {
     /* Critical temperature alert with red gradient and flash animation */
     color: #FF4500;                  /* Orange-red for overheating */
-    background: linear-gradient(45deg, 
+    background: linear-gradient(45deg,
         rgba(255, 69, 0, 0.3),       /* Orange-red start */
         rgba(255, 0, 0, 0.3));       /* Pure red end */
-    
+
     border-color: rgba(255, 69, 0, 0.5);     /* Bright orange border */
     animation: flash 0.5s infinite;          /* Fast flash for urgency */
 }
@@ -410,10 +487,10 @@ window#waybar {
 
 #tray {
     /* Purple-cyan gradient matching system modules */
-    background: linear-gradient(90deg, 
+    background: linear-gradient(90deg,
         rgba(138, 43, 226, 0.15),    /* Electric purple start */
         rgba(0, 191, 255, 0.15));    /* Neon cyan end */
-    
+
     border-radius: 8px;              /* Consistent module styling */
     margin: 3px 6px 3px 2px;         /* Right-aligned positioning */
     padding: 0 8px;                  /* Icon spacing padding */
@@ -441,10 +518,10 @@ window#waybar {
 
 tooltip {
     /* Deep cosmic gradient for tooltip backgrounds */
-    background: linear-gradient(135deg, 
+    background: linear-gradient(135deg,
         rgba(16, 4, 42, 0.95),       /* Deep space purple */
         rgba(45, 25, 85, 0.95));     /* Cosmic purple */
-    
+
     color: #E0E1E5;                  /* Light text for readability */
     border-radius: 8px;              /* Smooth tooltip edges */
     border: 1px solid rgba(138, 43, 226, 0.4);  /* Purple border accent */
@@ -485,10 +562,10 @@ tooltip label {
 
 #custom-fn-keys:hover {
     /* Enhanced purple glow on function key hover */
-    background: linear-gradient(45deg, 
+    background: linear-gradient(45deg,
         rgba(180, 167, 214, 0.3),    /* Light purple */
         rgba(138, 43, 226, 0.3));    /* Electric purple */
-    
+
     box-shadow: 0 0 12px rgba(180, 167, 214, 0.4);  /* Purple glow effect */
     border: 1px solid rgba(180, 167, 214, 0.5);     /* Brighter border */
     color: #E0E1E5;                                  /* Light text on hover */
@@ -507,10 +584,10 @@ tooltip label {
 
 #custom-camera:hover {
     /* Enhanced orange glow on camera module interaction */
-    background: linear-gradient(45deg, 
+    background: linear-gradient(45deg,
         rgba(255, 107, 53, 0.3),     /* Bright orange */
         rgba(138, 43, 226, 0.3));    /* Purple accent */
-    
+
     box-shadow: 0 0 12px rgba(255, 107, 53, 0.4);   /* Orange glow effect */
     border: 1px solid rgba(255, 107, 53, 0.5);      /* Brighter orange border */
     color: #FF4500;                                  /* Intense orange on hover */

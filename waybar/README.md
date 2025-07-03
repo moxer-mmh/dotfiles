@@ -97,7 +97,7 @@ Spotify Green:     #1ED760 (30, 215, 96)    /* Music integration */
 
 ### Optional Dependencies
 
-- **Audio Control**: `pulseaudio`, `pavucontrol`
+- **Audio Control**: `pipewire`, `pipewire-pulse`, `pavucontrol`, `wireplumber`
 - **Music Integration**: `playerctl`, `spotify`
 - **System Monitoring**: `lm-sensors`, `htop`
 - **Camera Detection**: `v4l2-ctl`, `lsof`
@@ -212,7 +212,7 @@ waybar/
 
 #### **Audio Controls**
 
-- **Left Click**: Open volume control (PulseAudio)
+- **Left Click**: Open volume control (PipeWire/PulseAudio compatible)
 - **Right Click**: Toggle mute
 - **Scroll**: Adjust volume (±2% for microphone)
 
