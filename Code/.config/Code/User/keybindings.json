@@ -81,61 +81,82 @@
         "when": "neovim.mode == 'normal'"
     },
     
-    // ===== AZERTY KEYBOARD SPECIFIC FIXES =====
+    // ===== COLON KEY FIX FOR COMMAND MODE - CONTEXT RESTRICTED =====
     
-    // Make semicolon accessible (on AZERTY it's shift+.)
+    // Allow normal colon typing in chat and input fields FIRST
     {
-        "key": "shift+oem_period",
-        "command": "vscode-neovim.send",
-        "args": ";",
-        "when": "neovim.mode == 'normal' || neovim.mode == 'visual'"
+        "key": "shift+oem_1",
+        "command": "-vscode-neovim.send",
+        "when": "inChat || inputFocus || terminalFocus || !editorTextFocus"
     },
     
-    // Make colon accessible for command mode (on AZERTY it's shift+.)
+    // Make colon accessible for command mode ONLY in text editor
     {
         "key": "shift+oem_1",
         "command": "vscode-neovim.send",
         "args": ":",
-        "when": "neovim.mode == 'normal' || neovim.mode == 'visual'"
+        "when": "neovim.mode == 'normal' && editorTextFocus && !inChat && !inputFocus && !terminalFocus"
+    },
+    {
+        "key": "shift+oem_1",
+        "command": "vscode-neovim.send",
+        "args": ":",
+        "when": "neovim.mode == 'visual' && editorTextFocus && !inChat && !inputFocus && !terminalFocus"
+    },
+    
+    // Alternative colon mapping for reliability
+    {
+        "key": "ctrl+shift+oem_1",
+        "command": "vscode-neovim.send", 
+        "args": ":",
+        "when": "(neovim.mode == 'normal' || neovim.mode == 'visual') && editorTextFocus && !inChat && !inputFocus && !terminalFocus"
+    },
+    
+    // Make semicolon accessible but also context-restricted
+    {
+        "key": "shift+oem_period",
+        "command": "vscode-neovim.send",
+        "args": ";",
+        "when": "(neovim.mode == 'normal' || neovim.mode == 'visual') && editorTextFocus && !inChat && !inputFocus && !terminalFocus"
     },
     
     // ===== LEADER KEY MAPPINGS (SPACE AS LEADER) =====
-      // File operations
+    // File operations
     {
         "key": "space f f",
         "command": "workbench.action.quickOpen",
-        "when": "neovim.mode == 'normal' && editorTextFocus"
+        "when": "neovim.mode == 'normal' && editorTextFocus && !inChat && !inputFocus"
     },
     {
         "key": "space f s",
         "command": "workbench.action.files.save",
-        "when": "neovim.mode == 'normal' && editorTextFocus"
+        "when": "neovim.mode == 'normal' && editorTextFocus && !inChat && !inputFocus"
     },
     {
         "key": "space f r",
         "command": "workbench.action.openRecent",
-        "when": "neovim.mode == 'normal' && editorTextFocus"
+        "when": "neovim.mode == 'normal' && editorTextFocus && !inChat && !inputFocus"
     },
-      // Buffer/Tab operations
+    // Buffer/Tab operations
     {
         "key": "space b b",
         "command": "workbench.action.showAllEditors",
-        "when": "neovim.mode == 'normal' && editorTextFocus"
+        "when": "neovim.mode == 'normal' && editorTextFocus && !inChat && !inputFocus"
     },
     {
         "key": "space b d",
         "command": "workbench.action.closeActiveEditor",
-        "when": "neovim.mode == 'normal' && editorTextFocus"
+        "when": "neovim.mode == 'normal' && editorTextFocus && !inChat && !inputFocus"
     },
     {
         "key": "space b n",
         "command": "workbench.action.nextEditor",
-        "when": "neovim.mode == 'normal' && editorTextFocus"
+        "when": "neovim.mode == 'normal' && editorTextFocus && !inChat && !inputFocus"
     },
     {
         "key": "space b p",
         "command": "workbench.action.previousEditor",
-        "when": "neovim.mode == 'normal' && editorTextFocus"
+        "when": "neovim.mode == 'normal' && editorTextFocus && !inChat && !inputFocus"
     },
       // Search operations
     {
