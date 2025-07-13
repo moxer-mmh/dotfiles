@@ -72,6 +72,7 @@ alias rmd='rm -rf'                              # Recursive directory removal
 
 # System control shortcuts
 alias poff='poweroff'                           # Quick system shutdown
+alias po='poweroff'                           # Quick system shutdown
 alias rb='reboot'                               # Quick system restart
 alias cls='clear'                               # Clear terminal screen
 
@@ -95,6 +96,9 @@ eval "$(starship init zsh)"             # Load cosmic-themed prompt configuratio
 # Java Development Kit Configuration
 export JAVA_HOME="/usr/lib/jvm/java-24-openjdk"    # Java 24 OpenJDK installation path
 export PATH="$JAVA_HOME/bin:$PATH"                 # Add Java binaries to PATH
+
+# Neovim configuration for development
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH" # Mason toolchain for Neovim
 
 #═══════════════════════════════════════════════════════════════════════════════
 # END OF ZSH CONFIGURATION
