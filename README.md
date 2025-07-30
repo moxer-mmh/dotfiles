@@ -131,7 +131,7 @@ done
 
 # 4. Deploy the cosmic configuration
 stow alacritty
-stow hypr  
+stow hypr
 stow rofi
 stow starship
 stow waybar
@@ -157,7 +157,7 @@ stow alacritty    # 🚀 Cosmic terminal
 stow hypr         # 🌌 Window manager with space station scripts
 stow waybar       # 📊 Status bar with cosmic modules
 
-# Enhanced user experience  
+# Enhanced user experience
 stow rofi         # 🎮 Application launcher themes
 stow starship     # 🐲 Cosmic dragon shell prompt
 stow zsh          # 🐚 Enhanced shell with modern tools
@@ -245,7 +245,7 @@ exec zsh
 edit ~/.config/waybar/style.css
 # Look for: --deep-space, --electric-purple, --neon-cyan
 
-# Terminal colors in Alacritty  
+# Terminal colors in Alacritty
 edit ~/.config/alacritty/alacritty.toml
 # Look for: [colors] section
 
@@ -304,7 +304,7 @@ Super + Space           # Rofi application launcher
 
 # Git workflow (with Oh My Zsh git plugin)
 gst                    # git status
-gco main               # git checkout main  
+gco main               # git checkout main
 ga .                   # git add .
 gcmsg "commit message" # git commit -m
 ```
@@ -314,7 +314,7 @@ gcmsg "commit message" # git commit -m
 ```bash
 # Waybar modules show real-time info:
 # - CPU usage with click-to-htop
-# - Memory monitoring  
+# - Memory monitoring
 # - Battery status with health optimization
 # - Audio controls with mute indicators
 # - Camera privacy status
@@ -346,7 +346,7 @@ dotfiles/
 │   └── .config/alacritty/
 │       └── alacritty.toml  # Color scheme, transparency, font
 │
-├── 🌌 hypr/               # Hyprland window manager  
+├── 🌌 hypr/               # Hyprland window manager
 │   ├── README.md           # WM documentation
 │   └── .config/hypr/
 │       ├── hyprland.conf   # Main compositor config
@@ -359,7 +359,7 @@ dotfiles/
 │           └── camera-toggle.sh
 │
 ├── 🎮 rofi/               # Application launcher themes
-│   ├── README.md           # Launcher documentation  
+│   ├── README.md           # Launcher documentation
 │   └── .config/rofi/
 │       ├── space-station.rasi    # Cosmic nebula theme
 │       └── cyberpunk.rasi        # Neon city theme

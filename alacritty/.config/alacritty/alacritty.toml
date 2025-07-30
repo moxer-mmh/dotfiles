@@ -1,159 +1,81 @@
-# =============================================================================
-# 🚀 Space Station Alacritty Configuration
-# Cosmic Nebula Terminal with Perfect Transparency
-# =============================================================================
-# 
-# This configuration creates a highly customized terminal experience with:
-# - Semi-transparent background for a modern aesthetic
-# - Cosmic-themed color scheme with vibrant neon colors
-# - JetBrains Mono Nerd Font for excellent readability and icon support
-# - Optimized keyboard shortcuts for productivity
-# - Enhanced visual effects
-#
-# Author: moxer_mmh
-# Last Updated: June 2025
-# Compatible with: Alacritty 0.13+
-# =============================================================================
-
-# -----------------------------------------------------------------------------
-# WINDOW CONFIGURATION
-# Controls the appearance and behavior of the terminal window
-# -----------------------------------------------------------------------------
 [window]
-# Set window transparency (0.0 = fully transparent, 1.0 = fully opaque)
-# 0.5 provides a nice balance between aesthetics and readability
 opacity = 0.5
 
-# Remove window decorations (title bar, borders) for a clean, minimal look
-# Options: "Full", "None", "Transparent", "Buttonless"
 decorations = "None"
 
-# Window startup mode
-# Options: "Windowed", "Maximized", "Fullscreen", "SimpleFullscreen"
 startup_mode = "Windowed"
 
-# Allow applications to change the window title dynamically
-# Useful for showing current directory, running command, etc.
 dynamic_title = true
 
-# Add padding around the terminal content for visual breathing room
-# x = horizontal padding, y = vertical padding (in pixels)
 padding = { x = 20, y = 20 }
 
-# -----------------------------------------------------------------------------
-# SCROLLING CONFIGURATION
-# Controls the scrollback buffer and scrolling behavior
-# -----------------------------------------------------------------------------
 [scrolling]
-# Number of lines to keep in scrollback buffer
-# 10000 lines provide extensive history while maintaining performance
 history = 10000
 
-# Scrolling speed multiplier
-# Higher values = faster scrolling (default is 3)
 multiplier = 3
 
-# -----------------------------------------------------------------------------
-# FONT CONFIGURATION
-# Defines the font family, styles, and size for the terminal
-# -----------------------------------------------------------------------------
 [font]
-# Main font variants for different text styles
-# Using JetBrains Mono Nerd Font for excellent code readability and icon support
 normal = { family = "JetBrainsMonoNL Nerd Font Mono", style = "Regular" }
 bold = { family = "JetBrainsMonoNL Nerd Font Mono", style = "Bold" }
 italic = { family = "JetBrainsMonoNL Nerd Font Mono", style = "Italic" }
 bold_italic = { family = "JetBrainsMonoNL Nerd Font Mono", style = "Bold Italic" }
 
-# Font size in points - 12.0 provides good balance between readability and screen real estate
 size = 12.0
 
-# -----------------------------------------------------------------------------
-# COLOR SCHEME CONFIGURATION
-# Defines the "Cosmic Nebula" color theme with vibrant neon colors
-# -----------------------------------------------------------------------------
 [colors]
-# Cosmic Nebula Color Scheme - inspired by space and cyberpunk aesthetics
 
-# Primary colors - the base background and foreground
 [colors.primary]
-background = "#0a0a0f"  # Deep space black with subtle blue tint
-foreground = "#00ff88"  # Bright neon green for text
+background = "#0a0a0f"
+foreground = "#00ff88"
 
-# Cursor appearance colors
 [colors.cursor]
-text = "#0a0a0f"        # Text color under cursor (matches background)
-cursor = "#00ff88"      # Cursor color (matches foreground for consistency)
+text = "#0a0a0f"
+cursor = "#00ff88"
 
-# Standard ANSI colors (0-7) - normal intensity
 [colors.normal]
-black = "#1e1e2e"       # Soft dark gray instead of pure black
-red = "#ff0088"         # Hot pink/magenta red
-green = "#00ff88"       # Bright neon green (matches foreground)
-yellow = "#ffaa00"      # Warm orange-yellow
-blue = "#8844ff"        # Electric purple-blue
-magenta = "#ff44aa"     # Bright pink-magenta
-cyan = "#00aaff"        # Electric blue-cyan
-white = "#ffffff"       # Pure white
+black = "#1e1e2e"
+red = "#ff0088"
+green = "#00ff88"
+yellow = "#ffaa00"
+blue = "#8844ff"
+magenta = "#ff44aa"
+cyan = "#00aaff"
+white = "#ffffff"
 
-# Bright ANSI colors (8-15) - high intensity variants
 [colors.bright]
-black = "#2a2a40"       # Lighter gray
-red = "#ff4488"         # Lighter hot pink
-green = "#44ff88"       # Lighter neon green
-yellow = "#ffcc44"      # Lighter warm yellow
-blue = "#aa66ff"        # Lighter electric purple
-magenta = "#ff66cc"     # Lighter bright pink
-cyan = "#44ccff"        # Lighter electric cyan
-white = "#ffffff"       # Pure white (same as normal)
+black = "#2a2a40"
+red = "#ff4488"
+green = "#44ff88"
+yellow = "#ffcc44"
+blue = "#aa66ff"
+magenta = "#ff66cc"
+cyan = "#44ccff"
+white = "#ffffff"
 
-# Text selection colors
 [colors.selection]
-text = "#0a0a0f"        # Selected text color (dark for contrast)
-background = "#8844ff"  # Selection background (electric purple)
+text = "#0a0a0f"
+background = "#8844ff"
 
-# -----------------------------------------------------------------------------
-# CURSOR CONFIGURATION
-# Controls the appearance and behavior of the terminal cursor
-# -----------------------------------------------------------------------------
 [cursor]
-# Cursor style configuration
-# shape: "Block", "Underline", "Beam"
-# blinking: "Never", "Off", "On", "Always"
 style = { shape = "Block", blinking = "On" }
 
-# Blink interval in milliseconds (how fast the cursor blinks)
 blink_interval = 750
 
-# -----------------------------------------------------------------------------
-# KEYBOARD CONFIGURATION
-# Defines custom keyboard shortcuts and bindings
-# -----------------------------------------------------------------------------
 [keyboard]
-# Custom key bindings optimized for AZERTY keyboards and productivity
 bindings = [
-    # Text operations
-    { key = "C", mods = "Control|Shift", action = "Copy" },           # Copy selected text
-    { key = "V", mods = "Control|Shift", action = "Paste" },          # Paste from clipboard
-    
-    # Window management
-    { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" }, # Open new terminal window
-    
-    # Font size controls
-    { key = "Plus", mods = "Control", action = "IncreaseFontSize" },    # Increase font size
-    { key = "Minus", mods = "Control", action = "DecreaseFontSize" },   # Decrease font size
-    { key = "Key0", mods = "Control", action = "ResetFontSize" },       # Reset font size to default
+    { key = "C", mods = "Control|Shift", action = "Copy" },
+    { key = "V", mods = "Control|Shift", action = "Paste" },
+
+    { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" },
+
+    { key = "Plus", mods = "Control", action = "IncreaseFontSize" },
+    { key = "Minus", mods = "Control", action = "DecreaseFontSize" },
+    { key = "Key0", mods = "Control", action = "ResetFontSize" },
 ]
 
-# -----------------------------------------------------------------------------
-# MOUSE CONFIGURATION
-# Controls mouse behavior and bindings
-# -----------------------------------------------------------------------------
 [mouse]
-# Hide mouse cursor when typing to reduce distractions
 hide_when_typing = true
 
-# Mouse button bindings
 [[mouse.bindings]]
-mouse = "Right"                 # Right mouse button
-action = "PasteSelection"       # Paste the current selection (Unix-style)
+mouse = "Right"
+action = "PasteSelection"
