@@ -1,64 +1,3 @@
-#═══════════════════════════════════════════════════════════════════════════════
-# 🚀 STARSHIP PROMPT CONFIGURATION - SPACE STATION THEME
-#═══════════════════════════════════════════════════════════════════════════════
-#
-# A highly customized, performance-oriented shell prompt designed for the
-# Space Station development environment. Features cosmic aesthetics, intelligent
-# context awareness, and comprehensive language/tool support.
-#
-# FEATURES:
-# ┌─────────────────────────────────────────────────────────────────────────────┐
-# │ • Dragon symbol (龍) prompt character with status color coding               │
-# │ • Comprehensive OS detection with Nerd Font icons                           │
-# │ • Intelligent Git status with detailed file change indicators               │
-# │ • Multi-language version detection (Python, Node, Rust, Go, Java, etc.)    │
-# │ • Kubernetes context awareness for cloud-native development                 │
-# │ • Docker context integration for containerized workflows                    │
-# │ • Command duration tracking for performance monitoring                      │
-# │ • Hostname display for SSH and multi-machine development                    │
-# │ • Directory truncation with home symbol for clean navigation               │
-# │ • Color-coded status indicators for immediate visual feedback               │
-# └─────────────────────────────────────────────────────────────────────────────┘
-#
-# PROMPT STRUCTURE:
-# [OS] username on hostname at directory via git(status) via lang tools took duration
-# 龍 (command input)
-#
-# COLOR SCHEME:
-# • Orange accent: Prompt separators and highlights
-# • Purple: Git branches and success states
-# • Red: Errors and warning states
-# • Green: Success and up-to-date status
-# • Yellow: Warnings and duration indicators
-# • Cyan: Directories and Go language
-# • Blue: Background accents and Docker
-# • White: OS symbols and primary text
-#
-# INTEGRATION:
-# - Works with Zsh, Bash, Fish, and PowerShell
-# - Optimized for Alacritty terminal with cosmic theme
-# - Complements Hyprland window manager aesthetics
-# - Nerd Font icons require JetBrains Mono Nerd Font
-#
-# PERFORMANCE:
-# - 1000ms command timeout prevents hanging on slow operations
-# - Intelligent file detection minimizes unnecessary version checks
-# - Modular design allows easy customization and optimization
-#
-# AUTHOR: Space Station Development Environment
-# THEME: Cosmic Shell Prompt Configuration
-# VERSION: 1.0.0
-# LAST UPDATED: June 2025
-#
-#═══════════════════════════════════════════════════════════════════════════════
-
-#───────────────────────────────────────────────────────────────────────────────
-# GLOBAL PROMPT CONFIGURATION
-# Core settings that define the overall prompt behavior and structure
-#───────────────────────────────────────────────────────────────────────────────
-
-# Define the complete prompt format with cosmic dragon theme
-# Each $variable represents a module that appears when relevant
 format = """
 [](color_orange)\
 $os\
@@ -78,482 +17,298 @@ $cmd_duration\
 $line_break\
 [](bg:blue fg:white) $character """
 
-# Global behavior settings
-add_newline = true                    # Add blank line before each prompt for readability
-command_timeout = 1000               # Maximum time (ms) to wait for command output
+add_newline = true
+command_timeout = 1000
 
-#───────────────────────────────────────────────────────────────────────────────
-# PROMPT CHARACTER CONFIGURATION
-# Dragon symbol (龍) with dynamic status-based color coding
-#───────────────────────────────────────────────────────────────────────────────
 
 [character]
-success_symbol = "[龍](purple)"      # Purple dragon for successful commands
-error_symbol = "[龍](red)"           # Red dragon for failed commands
-vimcmd_symbol = "[龍](green)"        # Green dragon when in vim command mode
+success_symbol = "[龍](purple)"
+error_symbol = "[龍](red)"
+vimcmd_symbol = "[龍](green)"
 
-#───────────────────────────────────────────────────────────────────────────────
-# OPERATING SYSTEM DETECTION & DISPLAY
-# Comprehensive OS identification with Nerd Font icons for visual clarity
-#───────────────────────────────────────────────────────────────────────────────
 
 [os]
-format = '[$symbol](bold white) '    # White OS icon with bold styling
-disabled = false                     # Always show OS information
+format = '[$symbol](bold white) '
+disabled = false
 
 
-# Operating system symbol mappings using Nerd Font icons
-# Each OS gets a distinctive icon for immediate visual identification
 [os.symbols]
-Windows = "󰍉"                      # Windows 10/11 logo
-Arch = "󰣇"                         # Arch Linux logo (primary development OS)
-Alpaquita = " "                    # Alpaquita Linux logo
-Alpine = " "                       # Alpine Linux logo
-AlmaLinux = " "                    # AlmaLinux logo
-Amazon = " "                      # Amazon Linux logo
-Android = " "                      # Android logo
-Artix = " "                       # Artix Linux logo
-CentOS = " "                      # CentOS logo
-Debian = " "                      # Debian logo
-DragonFly = " "                   # DragonFly BSD logo
-Emscripten = " "                  # Emscripten logo
-EndeavourOS = " "                 # EndeavourOS logo
-Fedora = " "                      # Fedora logo
-FreeBSD = " "                     # FreeBSD logo
-Garuda = "󰛓 "                     # Garuda Linux logo
-Gentoo = " "                      # Gentoo Linux logo
-HardenedBSD = "󰞌 "                # HardenedBSD logo
-Illumos = "󰈸 "                     # Illumos logo
-Kali = " "                        # Kali Linux logo
-Linux = " "                       # Linux logo
-Mabox = " "                       # Mabox Linux logo
-Macos = " "                       # macOS logo
-Manjaro = " "                     # Manjaro Linux logo
-Mariner = " "                     # Mariner Linux logo
-MidnightBSD = " "                 # MidnightBSD logo
-Mint = " "                        # Linux Mint logo
-NetBSD = " "                      # NetBSD logo
-NixOS = " "                       # NixOS logo
-OpenBSD = "󰈺 "                     # OpenBSD logo
-openSUSE = " "                    # openSUSE logo
-OracleLinux = "󰌷 "                # Oracle Linux logo
-Pop = " "                        # Pop!_OS logo
-Raspbian = " "                    # Raspbian logo
-Redhat = " "                      # Red Hat logo
-RedHatEnterprise = " "            # Red Hat Enterprise logo
-RockyLinux = " "                   # Rocky Linux logo
-Redox = "󰀘 "                      # Redox OS logo
-Solus = "󰠳 "                      # Solus logo
-SUSE = " "                        # SUSE Linux logo
-Ubuntu = " "                      # Ubuntu logo
-Unknown = " "                     # Unknown OS logo
-Void = " "                        # Void Linux logo
-
-#───────────────────────────────────────────────────────────────────────────────
-# USER AUTHENTICATION & IDENTITY
-# Username display with security-conscious root highlighting
-#───────────────────────────────────────────────────────────────────────────────
+Windows = "󰍉"
+Arch = "󰣇"
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+Artix = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
 
 [username]
-style_user = 'bold red'              # Bold red for regular users (security awareness)
-style_root = 'bold red'              # Bold red for root user (critical security warning)
-format = '[$user]($style) '          # Display username with appropriate styling
-disabled = false                     # Always show username for security context
-show_always = true                   # Display username even in local sessions
-
-#───────────────────────────────────────────────────────────────────────────────
-# HOSTNAME & NETWORK IDENTITY
-# System hostname display for multi-machine development environments
-#───────────────────────────────────────────────────────────────────────────────
+style_user = 'bold red'
+style_root = 'bold red'
+format = '[$user]($style) '
+disabled = false
+show_always = true
 
 [hostname]
-ssh_symbol = " "                   # SSH icon for remote connections
-ssh_only = false                     # Show hostname in both local and remote sessions
-format = 'on [$hostname](bold yellow) ' # Yellow hostname for visibility
-disabled = false                     # Always display hostname for context
-
-#───────────────────────────────────────────────────────────────────────────────
-# DIRECTORY NAVIGATION & FILE SYSTEM
-# Current working directory with intelligent truncation and visual indicators
-#───────────────────────────────────────────────────────────────────────────────
+ssh_symbol = " "
+ssh_only = false
+format = 'on [$hostname](bold yellow) '
+disabled = false
 
 [directory]
-truncation_length = 3                # Show up to 3 directory levels for context
-truncation_symbol = "…/"             # Unicode ellipsis for truncated paths
-home_symbol = "󰋜 ~"                 # Home icon with tilde for user directory
-read_only_style = "197"              # Red color code for read-only directories
-read_only = " 󰌾"                    # Lock icon for read-only directories
-format = 'at [$path]($style)[$read_only]($read_only_style) ' # Format with read-only indicator
-style = "cyan"                       # Cyan color for directory paths
-
-#───────────────────────────────────────────────────────────────────────────────
-# GIT VERSION CONTROL INTEGRATION
-# Comprehensive Git status with branch info and detailed change indicators
-#───────────────────────────────────────────────────────────────────────────────
+truncation_length = 3
+truncation_symbol = "…/"
+home_symbol = "󰋜 ~"
+read_only_style = "197"
+read_only = " 󰌾"
+format = 'at [$path]($style)[$read_only]($read_only_style) '
+style = "cyan"
 
 [git_branch]
-symbol = " "                       # Git branch icon
-format = 'via [($symbol$branch)]($style)' # Display format with branch name
-style = "bold purple"                # Purple color for Git branches
+symbol = " "
+format = 'via [($symbol$branch)]($style)'
+style = "bold purple"
 
 [git_status]
-format = '([ \($all_status$ahead_behind\)]($style) )' # Comprehensive status format
-style = "bold green"                 # Green base color for Git status
-conflicted = "[ conflicted=${count}](red) "     # Red for merge conflicts
-up_to_date = "[󰘽 up-to-date](green) "          # Green checkmark for clean status
-untracked = "[󰋗 untracked=${count}](red) "      # Red for untracked files
-ahead = " ahead=${count}"           # Ahead indicator for unpushed commits
-diverged = " ahead=${ahead_count}  behind=${behind_count}" # Diverged branch status
-behind = " behind=${count}"         # Behind indicator for unpulled commits
-stashed = "[ stashed=${count}](green) "         # Green for stashed changes
-modified = "[󰛿 modified=${count}](yellow) "     # Yellow for modified files
-staged = "[󰐗 staged=${count}](green) "          # Green for staged changes
-renamed = "[󱍸 renamed=${count}](yellow) "       # Yellow for renamed files
-deleted = "[󰍶 deleted=${count}](red) "          # Red for deleted files
-
-#───────────────────────────────────────────────────────────────────────────────
-# KUBERNETES & CONTAINER ORCHESTRATION
-# Cloud-native development context with cluster and namespace awareness
-#───────────────────────────────────────────────────────────────────────────────
+format = '([ \($all_status$ahead_behind\)]($style) )'
+style = "bold green"
+conflicted = "[ conflicted=${count}](red) "
+up_to_date = "[󰘽 up-to-date](green) "
+untracked = "[󰋗 untracked=${count}](red) "
+ahead = " ahead=${count}"
+diverged = " ahead=${ahead_count}  behind=${behind_count}"
+behind = " behind=${count}"
+stashed = "[ stashed=${count}](green) "
+modified = "[󰛿 modified=${count}](yellow) "
+staged = "[󰐗 staged=${count}](green) "
+renamed = "[󱍸 renamed=${count}](yellow) "
+deleted = "[󰍶 deleted=${count}](red) "
 
 [kubernetes]
-format = 'via [󱃾 $context\($namespace\)](bold purple) ' # Purple format with Kubernetes icon
-disabled = false                     # Enable Kubernetes context detection
-detect_files = ['k8s', 'kubernetes', 'Dockerfile', 'docker-compose.yml'] # Auto-detect K8s projects
+format = 'via [󱃾 $context\($namespace\)](bold purple) '
+disabled = false
+detect_files = ['k8s', 'kubernetes', 'Dockerfile', 'docker-compose.yml']
 
-#───────────────────────────────────────────────────────────────────────────────
-# PROGRAMMING LANGUAGE VERSION DETECTION
-# Intelligent language runtime detection with virtual environment support
-#───────────────────────────────────────────────────────────────────────────────
-
-# ─── PYTHON DEVELOPMENT ENVIRONMENT ───
 [python]
-symbol = " "                       # Python logo icon
-format = 'via [${symbol}${version} (${virtualenv})]($style)' # Show version and venv
-style = "bold yellow"                # Yellow color for Python
-pyenv_version_name = false           # Show version number instead of pyenv name
-detect_files = [                     # Python project indicators
-    "requirements.txt",              # pip requirements
-    "pyproject.toml",                # Modern Python projects
-    "setup.py",                      # Legacy setup files
-    ".python-version",               # pyenv version file
-    "Pipfile",                       # pipenv projects
-    "__init__.py",                   # Python packages
+symbol = " "
+format = 'via [${symbol}${version} (${virtualenv})]($style)'
+style = "bold yellow"
+pyenv_version_name = false
+detect_files = [
+    "requirements.txt",
+    "pyproject.toml",
+    "setup.py",
+    ".python-version",
+    "Pipfile",
+    "__init__.py",
 ]
-detect_folders = ["venv", ".venv"]   # Virtual environment directories
-disabled = false                     # Always show when detected
+detect_folders = ["venv", ".venv"]
+disabled = false
 
-# ─── NODE.JS DEVELOPMENT ENVIRONMENT ───
+
 [nodejs]
-symbol = " "                      # Node.js logo icon
-format = 'via [${symbol}${version} ]($style)' # Display Node version
-style = "bold green"                 # Green color for Node.js
-detect_files = [                     # Node.js project indicators
-    "package.json",                  # npm/yarn projects
-    ".node-version",                 # Node version file
-    ".nvmrc"                         # nvm version file
+symbol = " "
+format = 'via [${symbol}${version} ]($style)'
+style = "bold green"
+detect_files = [
+    "package.json",
+    ".node-version",
+    ".nvmrc"
 ]
-disabled = false                     # Always show when detected
+disabled = false
 
-# ─── RUST DEVELOPMENT ENVIRONMENT ───
+
 [rust]
-symbol = "󱘗 "                       # Rust logo icon
-format = 'via [${symbol}${version} ]($style)' # Display Rust version
-style = "bold red"                   # Red color for Rust (rustacean orange)
-detect_files = [                     # Rust project indicators
-    "Cargo.toml",                    # Cargo project file
-    "rust-project.json"              # Rust-analyzer project
+symbol = "󱘗 "
+format = 'via [${symbol}${version} ]($style)'
+style = "bold red"
+detect_files = [
+    "Cargo.toml",
+    "rust-project.json"
 ]
-disabled = false                     # Always show when detected
+disabled = false
 
-# ─── GO DEVELOPMENT ENVIRONMENT ───
+
 [golang]
-symbol = " "                      # Go gopher icon
-format = 'via [${symbol}${version} ]($style)' # Display Go version
-style = "bold cyan"                  # Cyan color for Go
-detect_files = [                     # Go project indicators
-    "go.mod",                        # Go modules file
-    "go.sum",                        # Go dependencies checksum
-    "go.work",                       # Go workspace file
-    ".go-version",                   # Go version file
-    "glide.yaml",                    # Legacy Glide dependency manager
-    "Gopkg.yml",                     # Legacy Dep dependency manager
-    "Gopkg.lock",                    # Legacy Dep lock file
+symbol = " "
+format = 'via [${symbol}${version} ]($style)'
+style = "bold cyan"
+detect_files = [
+    "go.mod",
+    "go.sum",
+    "go.work",
+    ".go-version",
+    "glide.yaml",
+    "Gopkg.yml",
+    "Gopkg.lock",
 ]
-disabled = false                     # Always show when detected
+disabled = false
 
-# ─── JAVA DEVELOPMENT ENVIRONMENT ───
+
 [java]
-symbol = " "                      # Java logo icon
-format = 'via [${symbol}${version} ]($style)' # Display Java version
-style = "bold red"                   # Red color for Java
-detect_files = [                     # Java project indicators
-    "pom.xml",                       # Maven projects
-    "build.gradle.kts",              # Kotlin Gradle scripts
-    "build.gradle",                  # Gradle projects
-    ".java-version",                 # Java version file
-    ".deps.edn",                     # Clojure deps
-    "project.clj",                   # Leiningen projects
-    "build.boot",                    # Boot build tool
+symbol = " "
+format = 'via [${symbol}${version} ]($style)'
+style = "bold red"
+detect_files = [
+    "pom.xml",
+    "build.gradle.kts",
+    "build.gradle",
+    ".java-version",
+    ".deps.edn",
+    "project.clj",
+    "build.boot",
 ]
-disabled = false                     # Always show when detected
-
-#───────────────────────────────────────────────────────────────────────────────
-# CONTAINERIZATION & DEPLOYMENT
-# Docker context and containerized development workflow support
-#───────────────────────────────────────────────────────────────────────────────
+disabled = false
 
 [docker_context]
-symbol = " "                      # Docker whale icon
-format = 'via [${symbol}${context} ]($style)' # Display Docker context name
-style = "blue bold"                  # Bold blue for Docker
-disabled = false                     # Always show when detected
-detect_files = [                     # Container project indicators
-    "docker-compose.yml",            # Docker Compose v1
-    "docker-compose.yaml",           # Docker Compose v2
-    "Dockerfile"                     # Docker build file
+symbol = " "
+format = 'via [${symbol}${context} ]($style)'
+style = "blue bold"
+disabled = false
+detect_files = [
+    "docker-compose.yml",
+    "docker-compose.yaml",
+    "Dockerfile"
 ]
 
-#───────────────────────────────────────────────────────────────────────────────
-# PERFORMANCE MONITORING
-# Command execution time tracking for development workflow optimization
-#───────────────────────────────────────────────────────────────────────────────
-
 [cmd_duration]
-min_time = 2000                      # Show duration for commands taking 2+ seconds
-format = "took [$duration](bold yellow) " # Yellow duration indicator
+min_time = 2000
+format = "took [$duration](bold yellow) "
 
-#───────────────────────────────────────────────────────────────────────────────
-# ADDITIONAL LANGUAGE & TOOL SYMBOLS
-# Extended language support with consistent Nerd Font iconography
-#───────────────────────────────────────────────────────────────────────────────
-
-# Cloud & Infrastructure Tools
 [aws]
-symbol = "  "                     # Amazon Web Services logo
+symbol = "  "
 
-# Development Tools & Frameworks
+
 [buf]
-symbol = " "                      # Protocol Buffers build tool
+symbol = " "
 
 [c]
-symbol = " "                       # C programming language
+symbol = " "
 
 [cmake]
-symbol = " "                       # CMake build system
+symbol = " "
 
 [conda]
-symbol = " "                      # Conda package manager
+symbol = " "
 
 [crystal]
-symbol = " "                      # Crystal programming language
+symbol = " "
 
 [dart]
-symbol = " "                       # Dart programming language
+symbol = " "
 
 [elixir]
-symbol = " "                       # Elixir programming language
+symbol = " "
 
 [elm]
-symbol = " "                       # Elm functional language
+symbol = " "
 
 [fennel]
-symbol = " "                       # Fennel Lisp for Lua
+symbol = " "
 
 [fossil_branch]
-symbol = " "                       # Fossil version control
+symbol = " "
 
 [git_commit]
-tag_symbol = '  '                  # Git commit tag symbol
+tag_symbol = '  '
 
 [guix_shell]
-symbol = " "                       # GNU Guix shell environment
+symbol = " "
 
 [haskell]
-symbol = " "                       # Haskell functional language
+symbol = " "
 
 [haxe]
-symbol = " "                       # Haxe cross-platform language
+symbol = " "
 
 [hg_branch]
-symbol = " "                       # Mercurial version control
+symbol = " "
 
 [julia]
-symbol = " "                       # Julia scientific computing
+symbol = " "
 
 [kotlin]
-symbol = " "                       # Kotlin programming language
+symbol = " "
 
 [lua]
-symbol = " "                       # Lua scripting language
+symbol = " "
 
 [memory_usage]
-symbol = "󰍛 "                      # System memory usage indicator
+symbol = "󰍛 "
 
 [meson]
-symbol = "󰔷 "                      # Meson build system
+symbol = "󰔷 "
 
 [nim]
-symbol = "󰆥 "                      # Nim programming language
+symbol = "󰆥 "
 
 [nix_shell]
-symbol = " "                       # Nix shell environment
+symbol = " "
 
 [ocaml]
-symbol = " "                       # OCaml functional language
+symbol = " "
 
 [package]
-symbol = "󰏗 "                      # Generic package indicator
+symbol = "󰏗 "
 
 [perl]
-symbol = " "                       # Perl programming language
+symbol = " "
 
 [php]
-symbol = " "                       # PHP web development language
+symbol = " "
 
 [pijul_channel]
-symbol = " "                       # Pijul version control
+symbol = " "
 
 [rlang]
-symbol = "󰟔 "                      # R statistical computing language
+symbol = "󰟔 "
 
 [ruby]
-symbol = " "                       # Ruby programming language
+symbol = " "
 
 [scala]
-symbol = " "                       # Scala programming language
+symbol = " "
 
 [swift]
-symbol = " "                       # Swift programming language
+symbol = " "
 
 [zig]
-symbol = " "                       # Zig systems programming language
+symbol = " "
 
 [gradle]
-symbol = " "                       # Gradle build automation tool
-
-#═══════════════════════════════════════════════════════════════════════════════
-# 🚀 STARSHIP PROMPT CONFIGURATION SUMMARY & INTEGRATION GUIDE
-#═══════════════════════════════════════════════════════════════════════════════
-#
-# COSMIC DRAGON PROMPT BENEFITS:
-# ┌─────────────────────────────────────────────────────────────────────────────┐
-# │ 🎨 VISUAL DESIGN BENEFITS:                                                   │
-# │ • Dragon symbol (龍) provides unique, memorable prompt character             │
-# │ • Color-coded status indicators give instant visual feedback                 │
-# │ • Comprehensive OS detection with Nerd Font icons for clarity               │
-# │ • Intelligent spacing and formatting for optimal readability                │
-# │ • Cosmic color scheme matches Space Station environment theme               │
-# │                                                                             │
-# │ 🔧 FUNCTIONAL BENEFITS:                                                      │
-# │ • Multi-language detection saves manual environment checking                 │
-# │ • Git integration provides detailed repository status at a glance           │
-# │ • Performance monitoring with command duration tracking                     │
-# │ • Kubernetes context awareness for cloud-native development                 │
-# │ • Docker integration for containerized workflow visibility                  │
-# │ • Intelligent file detection minimizes performance impact                   │
-# │                                                                             │
-# │ 🚀 PRODUCTIVITY BENEFITS:                                                    │
-# │ • Reduces cognitive load with consistent visual language                     │
-# │ • Eliminates need for manual `git status` and version checks                │
-# │ • SSH and hostname awareness for multi-machine development                  │
-# │ • Virtual environment detection prevents deployment mistakes                 │
-# │ • Fast command timeout prevents shell hanging on slow operations            │
-# └─────────────────────────────────────────────────────────────────────────────┘
-#
-# CONFIGURATION EXAMPLES:
-#
-# 1. SHELL INTEGRATION:
-#    Add to ~/.zshrc, ~/.bashrc, or ~/.config/fish/config.fish:
-#    eval "$(starship init zsh)"      # For Zsh
-#    eval "$(starship init bash)"     # For Bash
-#    starship init fish | source      # For Fish
-#
-# 2. NERD FONT REQUIREMENTS:
-#    Install JetBrains Mono Nerd Font for full icon support:
-#    # Arch Linux
-#    sudo pacman -S ttf-jetbrains-mono-nerd
-#    # Or manual installation
-#    wget -O ~/.local/share/fonts/JetBrainsMono.zip \
-#      "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip"
-#
-# 3. TERMINAL COMPATIBILITY:
-#    Optimized for terminals with true color support:
-#    • Alacritty (recommended)
-#    • Kitty
-#    • iTerm2
-#    • Windows Terminal
-#    • GNOME Terminal
-#
-# 4. ENVIRONMENT VARIABLES:
-#    Optional performance optimizations:
-#    export STARSHIP_CONFIG=~/.config/starship.toml
-#    export STARSHIP_CACHE=~/.cache/starship
-#
-# CUSTOMIZATION OPTIONS:
-#
-# • Modify Colors:
-#   Change any style= property to customize colors
-#   Available colors: black, red, green, yellow, blue, purple, cyan, white
-#
-# • Add Languages:
-#   Copy any language block and modify for additional tools
-#
-# • Adjust Performance:
-#   Increase command_timeout for slower systems
-#   Disable unused modules with disabled = true
-#
-# • Custom Format:
-#   Modify the main format= string to reorder or remove elements
-#
-# TROUBLESHOOTING:
-#
-# • Icons Not Displaying:
-#   - Install a Nerd Font and configure your terminal to use it
-#   - Verify terminal supports Unicode and has proper font fallback
-#
-# • Slow Performance:
-#   - Increase command_timeout value
-#   - Disable unused language modules
-#   - Check if Git repositories are on slow network drives
-#
-# • Git Status Issues:
-#   - Ensure Git is installed and accessible in PATH
-#   - Check repository permissions and network connectivity
-#
-# • Language Detection Problems:
-#   - Verify language runtimes are installed and in PATH
-#   - Check detect_files patterns match your project structure
-#
-# INTEGRATION WITH SPACE STATION ENVIRONMENT:
-#
-# This Starship configuration is designed to complement:
-# • Alacritty terminal with cosmic color scheme
-# • Hyprland window manager with purple accent colors
-# • Rofi application launcher with matching aesthetics
-# • ZSH shell with coordinated prompt themes
-# • Development tools configured for consistent visual identity
-#
-# The dragon symbol (龍) was chosen for its association with:
-# • Power and wisdom in Eastern philosophy
-# • Transformation and adaptation (like a developer's workflow)
-# • Mythical strength suitable for a "Space Station" theme
-# • Unicode compatibility across different systems and fonts
-#
-# FUTURE ENHANCEMENTS:
-#
-# Potential improvements for advanced cosmic-themed setups:
-# • Custom modules for system monitoring (CPU, memory, network)
-# • Integration with tmux session information
-# • Dynamic color adaptation based on time of day
-# • Weather information integration
-# • Calendar and task management integration
-# • Advanced Git statistics and repository health metrics
-# • Container orchestration status beyond basic Docker context
-# • Cloud platform integration (AWS, GCP, Azure status)
-# • Security context indicators (VPN status, SSH agent, etc.)
-#
-#═══════════════════════════════════════════════════════════════════════════════
-# END OF STARSHIP SPACE STATION CONFIGURATION
-# May your code compile and your deployments succeed! 🚀✨龍
-#═══════════════════════════════════════════════════════════════════════════════
+symbol = " "
