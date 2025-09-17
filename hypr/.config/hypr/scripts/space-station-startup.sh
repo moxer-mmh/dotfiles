@@ -4,14 +4,14 @@ STARTUP_LOG="/tmp/space-station-startup.log"
 exec 1> >(tee -a "$STARTUP_LOG")
 exec 2>&1
 
-echo "$(date '+%Y-%m-%d %H:%M:%S') - 🚀 Launching Space Station Services..."
-echo "$(date '+%Y-%m-%d %H:%M:%S') - 📍 Startup sequence initiated by: $(whoami)"
-echo "$(date '+%Y-%m-%d %H:%M:%S') - 🌌 Environment: $XDG_CURRENT_DESKTOP"
+echo "🚀 Launching Space Station Services..."
+echo "📍 Startup sequence initiated by: $(whoami)"
+echo "🌌 Environment: $XDG_CURRENT_DESKTOP"
 
-echo "$(date '+%Y-%m-%d %H:%M:%S') - ⏳ Waiting for Hyprland compositor to stabilize..."
+echo "⏳ Waiting for Hyprland compositor to stabilize..."
 sleep 2
 
-echo "$(date '+%Y-%m-%d %H:%M:%S') - 🧹 Cleaning up existing processes..."
+echo "🧹 Cleaning up existing processes..."
 
 if pgrep waybar > /dev/null; then
     echo "$(date '+%Y-%m-%d %H:%M:%S') - 🎮 Terminating existing Waybar instances..."

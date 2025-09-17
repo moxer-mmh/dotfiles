@@ -8,12 +8,13 @@ return {
 		local null_ls = require("null-ls")
 
 		null_ls.setup({
-      debug = true,
+			debug = true,
 			sources = {
 				null_ls.builtins.formatting.stylua,
 
 				null_ls.builtins.formatting.prettier,
 				require("none-ls.diagnostics.eslint_d"),
+        -- null_ls.builtins.diagnostics.jsonlint,
 
 				null_ls.builtins.formatting.black,
 				require("none-ls.diagnostics.ruff"),
@@ -22,7 +23,7 @@ return {
 				null_ls.builtins.diagnostics.golangci_lint,
 
 				null_ls.builtins.diagnostics.dotenv_linter.with({
-					filetypes = { "dotenv"},
+					filetypes = { "dotenv" },
 				}),
 
 				null_ls.builtins.diagnostics.hadolint,
@@ -30,10 +31,12 @@ return {
 
 				null_ls.builtins.diagnostics.markdownlint,
 
-        null_ls.builtins.formatting.shfmt,
+				null_ls.builtins.formatting.shfmt,
 			},
 		})
 		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
-		vim.keymap.set("n", "<leader>od", vim.diagnostic.open_float)
+		vim.keymap.set("n", "<leader>od", function()
+			vim.diagnostic.open_float(nil, { scope = "cursor", focusable = false })
+		end, { desc = "Open diagnostic float at cursor" })
 	end,
 }

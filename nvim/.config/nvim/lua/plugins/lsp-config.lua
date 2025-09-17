@@ -56,10 +56,28 @@ return {
 				capabilities = capabilities,
 			})
 
+			lspconfig.jsonls.setup({
+				capabilities = capabilities,
+				settings = {
+					json = {
+						schemas = {
+							{
+								fileMatch = { "components*.json" },
+								url = "https://ui.shadcn.com/schema.json",
+							},
+							{
+								fileMatch = { "package.json" },
+								url = "https://json.schemastore.org/package.json",
+							},
+						},
+					},
+				},
+			})
+
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 		end,
 	},
 }

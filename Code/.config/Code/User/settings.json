@@ -1,80 +1,8 @@
-// ===== RECOMMENDED NEOVIM SETTINGS FOR VSCODE =====
-// Copy these settings to your main settings.json file
-
 {
-  // ===== NEOVIM EXTENSION OPTIMIZATIONS =====
-  
-  // Neovim extension settings
-  "vscode-neovim.useCtrlKeysForInsertMode": false,
-  "vscode-neovim.useCtrlKeysForNormalMode": false,
-  "vscode-neovim.compositeKeys": {
-    "jj": {
-      "command": "vscode-neovim.escape"
-    },
-    "jk": {
-      "command": "vscode-neovim.escape"
-    }
-  },
-  
-  // Better editor behavior for Neovim
-  "editor.scrollBeyondLastLine": false,
-  "editor.lineNumbers": "relative",
-  "editor.cursorSurroundingLines": 8,
-  "editor.scrollbar.vertical": "hidden",
-  "editor.scrollbar.horizontal": "hidden",
-  "editor.folding": false,
-  "editor.glyphMargin": false,
-  "editor.occurrencesHighlight": "off",
-  "editor.selectionHighlight": false,
-  "editor.wordHighlight": false,
-  "editor.hover.delay": 1000,
-  "editor.acceptSuggestionOnEnter": "off",
-  "editor.suggest.snippetsPreventQuickSuggestions": false,
-  "editor.parameterHints.enabled": false,
-  "editor.lightBulb.enabled": false,
-  "editor.codeLens": false,
-  "editor.rulers": [80, 120],
-  
-  // Disable conflicting features
-  "editor.tabCompletion": "off",
-  "editor.wordBasedSuggestions": "off",
-  "editor.quickSuggestionsDelay": 10000,
-  "editor.bracketPairColorization.enabled": false,
-  "editor.guides.bracketPairs": false,
-  "breadcrumbs.enabled": false,
-  
-  // Workbench optimizations for Neovim workflow
-  "workbench.activityBar.location": "hidden",
-  "workbench.editor.showTabs": "single",
-  "workbench.editor.tabCloseButton": "off",
-  "workbench.startupEditor": "none",
-  "workbench.list.automaticKeyboardNavigation": false,
-  
-  // File explorer optimizations
-  "explorer.autoReveal": false,
-  "explorer.confirmDelete": false,
-  "explorer.openEditors.visible": 0,
-  
-  // Search optimizations
-  "search.showLineNumbers": true,
-  "search.smartCase": true,
-  
-  // Git integration (less intrusive)
-  "git.decorations.enabled": false,
-  "scm.diffDecorations": "none",
-  "workbench.editor.tabActionCloseVisibility": false,
-  "extensions.experimental.affinity": {
-    "asvetliakov.vscode-neovim": 1
-  },
-  "workbench.colorTheme": "Night Owl",
-  "vscode-office.editorTheme": "Github Dark",
-  "vscode-office.openOutline": false,
-  "workbench.iconTheme": "material-icon-theme",
-  "redhat.telemetry.enabled": true,
-  "editor.fontSize": 17,
-  "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
-  "editor.fontFamily": "JetBrainsMono Nerd Font Mono",
-  "glassit.alpha": 210,
-  "github.copilot.nextEditSuggestions.enabled": true,
-
+    "glassit.alpha": 220,
+    "workbench.colorTheme": "Night Owl",
+    "vscode-office.editorTheme": "Github Dark",
+    "docker.extension.enableComposeLanguageServer": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "github.copilot.nextEditSuggestions.enabled": true
 }
