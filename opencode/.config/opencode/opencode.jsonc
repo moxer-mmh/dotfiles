@@ -1,0 +1,59 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "theme": "system",
+  "autoupdate": true,
+  "tui": {
+    "scroll_speed": 3,
+  },
+  "share": "manual",
+  "mcp": {
+    /*
+    "mcp_everything": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-everything"
+      ],
+      "enabled": true,
+    },
+    */
+    "nlq-rag": {
+      "type": "remote",
+      "url": "https://nlq-rag-platform-gfxkv.ondigitalocean.app/mcp",
+      "enabled": true,
+    },
+    /*
+    "digitalocean": {
+      "type": "local",
+      "command": [
+        "npx",
+        "@digitalocean/mcp",
+        "--services",
+        "apps"
+      ],
+      "enabled": true,
+      "environment": {
+        "DIGITALOCEAN_TOKEN": "${DIGITALOCEAN_API_TOKEN}",
+      },
+    },
+    "playwright": {
+      "type": "local",
+      "command": [
+        "npx",
+        "@playwright/mcp@latest"
+      ],
+      "enabled": true,
+    },
+    "sequential-thinking": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking",
+      ],
+      "enabled": true,
+    },
+    */
+  },
+}

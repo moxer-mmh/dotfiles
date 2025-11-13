@@ -35,7 +35,7 @@ return {
 			},
 		})
 		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
-		vim.keymap.set("n", "<leader>od", function()
+		vim.keymap.set("n", "<leader>sd", function()
 			vim.diagnostic.open_float(nil, { scope = "cursor", focusable = false })
 		end, { desc = "Open diagnostic float at cursor" })
 	end,

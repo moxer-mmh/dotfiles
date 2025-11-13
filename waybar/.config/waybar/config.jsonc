@@ -19,6 +19,7 @@
     "custom/audio",
     "custom/microphone",
     "custom/camera",
+    "custom/nvidia",
     "tray",
     "cpu",
     "memory",
@@ -94,7 +95,7 @@
     "interval": 1,
     "tooltip": true,
     "on-click": "~/.config/waybar/scripts/camera.sh",
-    "return-type": "text"
+    "return-type": "text",
   },
   "tray": {
     "icon-size": 18,
@@ -161,5 +162,12 @@
     "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+",
     "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
     "tooltip": false,
+  },
+  "custom/nvidia": {
+    "exec": "~/.config/waybar/scripts/nvidia.sh",
+    "interval": 5,
+    "return-type": "json",
+    "tooltip": true,
+    "on-click": "alacritty -e watch -n1 nvidia-smi",
   },
 }

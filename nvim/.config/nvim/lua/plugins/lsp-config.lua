@@ -12,35 +12,55 @@ return {
 		},
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "ts_ls", "pyright", "gopls", "dockerls", "yamlls", "marksman" },
+				ensure_installed = {
+					"lua_ls",
+					"ts_ls",
+					"pyright",
+					"gopls",
+					"dockerls",
+					"yamlls",
+					"marksman",
+					"jsonls",
+				},
 			})
 		end,
 	},
 	{
-
 		"neovim/nvim-lspconfig",
 		config = function()
+			-- capabilities (with nvim-cmp)
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			-- keep your encoding override if you need UTF-16 (e.g. some TS plugins/tools)
 			capabilities.positionEncoding = { "utf-16" }
 
-			local lspconfig = require("lspconfig")
-			lspconfig.lua_ls.setup({
+			-- Per-server configs (formerly lspconfig.<server>.setup({...}))
+			vim.lsp.config("lua_ls", {
 				capabilities = capabilities,
+				settings = {
+					Lua = {
+						diagnostics = { globals = { "vim" } },
+						workspace = { checkThirdParty = false },
+					},
+				},
 			})
-			lspconfig.ts_ls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.pyright.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.gopls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.dockerls.setup({
+
+			vim.lsp.config("ts_ls", {
 				capabilities = capabilities,
 			})
 
-			lspconfig.yamlls.setup({
+			vim.lsp.config("pyright", {
+				capabilities = capabilities,
+			})
+
+			vim.lsp.config("gopls", {
+				capabilities = capabilities,
+			})
+
+			vim.lsp.config("dockerls", {
+				capabilities = capabilities,
+			})
+
+			vim.lsp.config("yamlls", {
 				capabilities = capabilities,
 				settings = {
 					yaml = {
@@ -52,11 +72,11 @@ return {
 				},
 			})
 
-			lspconfig.marksman.setup({
+			vim.lsp.config("marksman", {
 				capabilities = capabilities,
 			})
 
-			lspconfig.jsonls.setup({
+			vim.lsp.config("jsonls", {
 				capabilities = capabilities,
 				settings = {
 					json = {
@@ -74,10 +94,23 @@ return {
 				},
 			})
 
+			-- Enable them (auto-start per filetype)
+			vim.lsp.enable({
+				"lua_ls",
+				"ts_ls",
+				"pyright",
+				"gopls",
+				"dockerls",
+				"yamlls",
+				"marksman",
+				"jsonls",
+			})
+
+			-- Keymaps (unchanged)
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+			vim.keymap.set({ "n", "v" }, "<leader>fa", vim.lsp.buf.code_action, { desc = "Code Action" })
 		end,
 	},
 }

@@ -456,3 +456,41 @@ tooltip label {
   border: 1px solid rgba(255, 107, 53, 0.5);
   color: #ff4500;
 }
+
+#custom-nvidia {
+  /* <-- add this line */
+  background: linear-gradient(
+    45deg,
+    rgba(0, 191, 255, 0.15),
+    rgba(138, 43, 226, 0.15)
+  );
+  color: #e0e1e5;
+  border-radius: 8px;
+  margin: 3px 2px;
+  padding: 0 10px;
+  border: 1px solid rgba(0, 191, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+#custom-nvidia:hover {
+  /* <-- add this line */
+  background: linear-gradient(
+    45deg,
+    rgba(0, 191, 255, 0.3),
+    rgba(138, 43, 226, 0.3)
+  );
+  box-shadow: 0 0 12px rgba(0, 191, 255, 0.4);
+  border: 1px solid rgba(0, 191, 255, 0.5);
+  color: #00bfff;
+}
+
+/* When the script returns "class": "off" or "on" */
+#custom-nvidia.off {
+  color: #b4a7d6; /* matches your lavender accents */
+  border-color: rgba(180, 167, 214, 0.3);
+}
+
+#custom-nvidia.on {
+  color: #00ff7f; /* same green you use elsewhere */
+  border-color: rgba(0, 255, 127, 0.3);
+}
