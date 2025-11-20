@@ -1,0 +1,223 @@
+# Yazi Theme - Cyberpunk/Cosmic Theme
+# Matching terminal color scheme
+
+[flavor]
+use = "dark"
+
+# Manager (file list)
+[manager]
+cwd = { fg = "#00ff88", bold = true }
+
+# Hovered (current selection)
+hovered = { fg = "#1a1a2e", bg = "#00ff88", bold = true }
+preview_hovered = { underline = true }
+
+# Find
+find_keyword = { fg = "#ffaa00", italic = true }
+find_position = { fg = "#ff44aa", bg = "reset", italic = true }
+
+# Marker (selected files)
+marker_selected = { fg = "#00ff88", bg = "#00ff88" }
+marker_copied = { fg = "#ffaa00", bg = "#ffaa00" }
+marker_cut = { fg = "#ff0088", bg = "#ff0088" }
+
+# Tab
+tab_active = { fg = "#1a1a2e", bg = "#00ff88", bold = true }
+tab_inactive = { fg = "#45475a", bg = "#1e1e2e" }
+tab_width = 1
+
+# Border
+border_symbol = ""
+border_style = { fg = "#8844ff" }
+
+# Highlighting
+syntect_theme = ""
+
+# Status bar
+[status]
+separator_open = ""
+separator_close = ""
+separator_style = { fg = "#1e1e2e", bg = "#1e1e2e" }
+
+# Mode
+mode_normal = { fg = "#1a1a2e", bg = "#00ff88", bold = true }
+mode_select = { fg = "#1a1a2e", bg = "#ffaa00", bold = true }
+mode_unset = { fg = "#1a1a2e", bg = "#ff44aa", bold = true }
+
+# Progress
+progress_label = { fg = "#ffffff", bold = true }
+progress_normal = { fg = "#00ff88", bg = "#1e1e2e" }
+progress_error = { fg = "#ff0088", bg = "#1e1e2e" }
+
+# Permissions
+permissions_t = { fg = "#00ff88" }
+permissions_r = { fg = "#ffaa00" }
+permissions_w = { fg = "#ff0088" }
+permissions_x = { fg = "#8844ff" }
+permissions_s = { fg = "#45475a" }
+
+# Input
+[input]
+border = { fg = "#8844ff" }
+title = { fg = "#00ff88" }
+value = { fg = "#ffffff" }
+selected = { reversed = true }
+
+# Completion
+[completion]
+border = { fg = "#8844ff" }
+active = { bg = "#16213e" }
+inactive = { fg = "#6c7086" }
+
+# Icon
+icon_prepend = " "
+icon_append = " "
+
+# Tasks
+[tasks]
+border = { fg = "#8844ff" }
+title = { fg = "#00ff88" }
+hovered = { underline = true }
+
+# Which (command palette)
+[which]
+mask = { bg = "#1a1a2e" }
+cand = { fg = "#00aaff" }
+rest = { fg = "#6c7086" }
+desc = { fg = "#ff44aa" }
+separator = "  "
+separator_style = { fg = "#45475a" }
+
+# Help
+[help]
+on = { fg = "#00ff88" }
+run = { fg = "#8844ff" }
+desc = { fg = "#6c7086" }
+hovered = { bg = "#16213e", bold = true }
+footer = { fg = "#1e1e2e", bg = "#ffffff" }
+
+# Confirm dialog
+[confirm]
+border = { fg = "#ff0088" }
+title = { fg = "#ff0088" }
+content = { fg = "#ffffff" }
+
+# File types
+[filetype]
+
+rules = [
+    # Images
+    { mime = "image/*", fg = "#ff44aa" },
+
+    # Videos
+    { mime = "video/*", fg = "#ffaa00" },
+    { mime = "audio/*", fg = "#ffaa00" },
+
+    # Archives
+    { mime = "application/zip", fg = "#ff0088" },
+    { mime = "application/gzip", fg = "#ff0088" },
+    { mime = "application/x-tar", fg = "#ff0088" },
+    { mime = "application/x-bzip", fg = "#ff0088" },
+    { mime = "application/x-7z-compressed", fg = "#ff0088" },
+    { mime = "application/x-rar", fg = "#ff0088" },
+
+    # Documents
+    { mime = "application/pdf", fg = "#8844ff" },
+    { mime = "text/*", fg = "#00ff88" },
+
+    # Code
+    { name = "*.rs", fg = "#ff4488" },
+    { name = "*.py", fg = "#ffcc44" },
+    { name = "*.js", fg = "#ffaa00" },
+    { name = "*.ts", fg = "#00aaff" },
+    { name = "*.jsx", fg = "#00aaff" },
+    { name = "*.tsx", fg = "#00aaff" },
+    { name = "*.go", fg = "#00aaff" },
+    { name = "*.java", fg = "#ff4488" },
+    { name = "*.c", fg = "#00aaff" },
+    { name = "*.cpp", fg = "#00aaff" },
+    { name = "*.h", fg = "#8844ff" },
+    { name = "*.sh", fg = "#00ff88" },
+    { name = "*.lua", fg = "#aa66ff" },
+
+    # Config files
+    { name = "*.toml", fg = "#ff66cc" },
+    { name = "*.yaml", fg = "#ff66cc" },
+    { name = "*.yml", fg = "#ff66cc" },
+    { name = "*.json", fg = "#ffaa00" },
+    { name = "*.conf", fg = "#6c7086" },
+    { name = "*.ini", fg = "#6c7086" },
+
+    # Special files
+    { name = "Dockerfile", fg = "#00aaff" },
+    { name = "Makefile", fg = "#ff4488" },
+    { name = "README*", fg = "#00ff88", bold = true },
+    { name = "LICENSE*", fg = "#ffaa00" },
+    { name = ".gitignore", fg = "#6c7086" },
+    { name = ".env", fg = "#ffaa00" },
+]
+
+# Icons (using nerd fonts)
+[icon]
+
+# Directory icons
+dirs = [
+    { name = ".config/", text = "" },
+    { name = ".git/", text = "" },
+    { name = "Desktop/", text = "" },
+    { name = "Documents/", text = "" },
+    { name = "Downloads/", text = "" },
+    { name = "Pictures/", text = "" },
+    { name = "Music/", text = "" },
+    { name = "Videos/", text = "" },
+]
+
+# File icons
+files = [
+    { name = ".gitignore", text = "" },
+    { name = ".gitconfig", text = "" },
+    { name = "README.md", text = "" },
+    { name = "Dockerfile", text = "" },
+    { name = "docker-compose.yml", text = "" },
+]
+
+# Extension icons
+exts = [
+    { name = "rs", text = "" },
+    { name = "py", text = "" },
+    { name = "js", text = "" },
+    { name = "ts", text = "" },
+    { name = "jsx", text = "" },
+    { name = "tsx", text = "" },
+    { name = "go", text = "" },
+    { name = "java", text = "" },
+    { name = "c", text = "" },
+    { name = "cpp", text = "" },
+    { name = "h", text = "" },
+    { name = "sh", text = "" },
+    { name = "lua", text = "" },
+    { name = "vim", text = "" },
+    { name = "md", text = "" },
+    { name = "toml", text = "" },
+    { name = "yaml", text = "" },
+    { name = "yml", text = "" },
+    { name = "json", text = "" },
+    { name = "html", text = "" },
+    { name = "css", text = "" },
+    { name = "png", text = "" },
+    { name = "jpg", text = "" },
+    { name = "jpeg", text = "" },
+    { name = "gif", text = "" },
+    { name = "svg", text = "" },
+    { name = "mp3", text = "" },
+    { name = "mp4", text = "" },
+    { name = "zip", text = "" },
+    { name = "tar", text = "" },
+    { name = "gz", text = "" },
+    { name = "pdf", text = "" },
+    { name = "txt", text = "" },
+]
+
+# Default icons
+cwd = { text = "" }
+default = { text = "" }

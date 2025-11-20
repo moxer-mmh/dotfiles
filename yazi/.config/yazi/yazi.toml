@@ -1,0 +1,93 @@
+# Yazi Configuration
+
+[manager]
+# Layout ratio: [parent, current, preview]
+ratio = [1, 4, 3]
+
+# Sorting options
+sort_by = "natural"
+sort_sensitive = false
+sort_reverse = false
+sort_dir_first = true
+sort_translit = false
+
+# Display options
+linemode = "size"
+show_hidden = true
+show_symlink = true
+scrolloff = 5
+
+# Mouse events
+mouse_events = ["click", "scroll"]
+
+# Terminal title format
+title_format = "Yazi: {cwd}"
+
+[preview]
+# Text preview
+wrap = "no"
+tab_size = 2
+
+# Image preview
+max_width = 1920
+max_height = 1080
+cache_dir = ""
+image_delay = 30
+image_filter = "lanczos3"
+image_quality = 80
+
+[opener]
+# Text editor - explicitly use neovim
+edit = [
+    { run = '/usr/bin/nvim "$@"', block = true, desc = "Edit with Neovim" },
+]
+
+# Image viewer
+view = [
+    { run = 'imv "$@"', orphan = true, desc = "View with imv" },
+]
+
+# Archive extractor
+extract = [
+    { run = 'aunpack "$@"', desc = "Extract archive" },
+]
+
+# Video player
+play = [
+    { run = 'mpv "$@"', orphan = true, desc = "Play with mpv" },
+]
+
+# Browser
+browser = [
+    { run = 'brave "$@"', orphan = true, desc = "Open in Brave" },
+]
+
+[open]
+# File associations
+rules = [
+    # Text and code files - open with neovim
+    { name = "*.{md,txt,json,toml,yaml,yml,conf,sh,zsh,bash,fish}", use = "edit" },
+    { name = "*.{rs,py,js,ts,jsx,tsx,go,java,c,cpp,h,hpp,lua,vim}", use = "edit" },
+    { name = "*.{css,scss,sass,html,htm,xml,svg}", use = "edit" },
+    { name = "*.{env,gitignore,gitconfig,cfg,ini}", use = "edit" },
+    { name = "Dockerfile", use = "edit" },
+    { name = "Makefile", use = "edit" },
+    { name = "README*", use = "edit" },
+    { name = "LICENSE*", use = "edit" },
+
+    # Media files
+    { name = "*.{jpg,jpeg,png,gif,bmp,webp}", use = "view" },
+    { name = "*.{mp4,mkv,avi,mov,webm}", use = "play" },
+    { name = "*.{mp3,flac,wav,ogg}", use = "play" },
+
+    # Archives
+    { name = "*.{zip,tar,gz,bz2,xz,7z,rar}", use = "extract" },
+]
+
+[tasks]
+micro_workers = 5
+macro_workers = 10
+bizarre_retry = 5
+suppress_preload = false
+image_alloc = 536870912  # 512MB
+image_bound = [0, 0]

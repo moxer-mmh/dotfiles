@@ -2,6 +2,9 @@ export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME=""
 
+export EDITOR='nvim'
+export VISUAL='nvim'
+
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
@@ -24,10 +27,11 @@ alias cls='clear'
 alias ngpu='prime-run'
 
 alias n='nvim'
-alias dt='cd ~/dotfiles && nvim .'
-alias tdt="tmux new-session -A -s Dragon-Config \; send-keys -t Dragon-Config 'cd ~/dotfiles && nvim .' Enter \; attach-session -t Dragon-Config"Copied!
-alias vl='cd ~/gdrive/Dragon-Vault && nvim .'
-alias tvl="tmux new-session -A -s Dragon-Vault \; send-keys -t Dragon-Vault 'cd ~/gdrive/Dragon-Vault && nvim .' Enter \; attach-session -t Dragon-Vault"
+alias y='yazi'
+alias dt='cd ~/dotfiles && yazi .'
+alias tdt="tmux new-session -A -s Dragon-Config \; send-keys -t Dragon-Config 'cd ~/dotfiles && yazi .' Enter \; attach-session -t Dragon-Config"Copied!
+alias vl='cd ~/gdrive/Dragon-Vault && yazi .'
+alias tvl="tmux new-session -A -s Dragon-Vault \; send-keys -t Dragon-Vault 'cd ~/gdrive/Dragon-Vault && yazi .' Enter \; attach-session -t Dragon-Vault"
 alias ta='tmux attach'
 alias tl='tmux ls'
 
