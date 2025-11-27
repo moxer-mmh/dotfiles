@@ -1,6 +1,6 @@
 # Yazi Configuration
 
-[manager]
+[mgr]
 # Layout ratio: [parent, current, preview]
 ratio = [1, 4, 3]
 

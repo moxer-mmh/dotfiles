@@ -5,7 +5,7 @@
 use = "dark"
 
 # Manager (file list)
-[manager]
+[mgr]
 cwd = { fg = "#00ff88", bold = true }
 
 # Hovered (current selection)
@@ -27,7 +27,7 @@ tab_inactive = { fg = "#45475a", bg = "#1e1e2e" }
 tab_width = 1
 
 # Border
-border_symbol = ""
+# border_symbol = ""  # Commented out - was causing TOML parse error
 border_style = { fg = "#8844ff" }
 
 # Highlighting

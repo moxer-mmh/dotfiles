@@ -40,6 +40,8 @@ map("n", "<leader>w", ":w<CR>", "Save file")
 map("n", "<leader>q", ":q<CR>", "Quit")
 map("n", "<leader>Q", ":qa<CR>", "Quit all")
 
+map("n", "<leader>r", "<C-r>", "Redo")
+
 map("n", "<leader>ft", "za", "Toggle fold")
 map("n", "<leader>fo", "zR", "Open all folds")
 map("n", "<leader>fc", "zM", "Close all folds")

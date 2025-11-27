@@ -19,8 +19,8 @@
     "custom/audio",
     "custom/microphone",
     "custom/camera",
-    "custom/nvidia",
     "tray",
+    "custom/nvidia",
     "cpu",
     "memory",
     "temperature",
@@ -168,6 +168,6 @@
     "interval": 5,
     "return-type": "json",
     "tooltip": true,
-    "on-click": "alacritty -e watch -n1 nvidia-smi",
+    "on-click": "kitty -e watch -n1 nvidia-smi",
   },
 }

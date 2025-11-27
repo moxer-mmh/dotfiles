@@ -114,6 +114,9 @@ venv/
 backup/
 backups/
 
+# Yazi timestamp backup files
+yazi/.config/yazi/*.toml-*
+
 # =============================================================================
 # Documentation Generation
 # =============================================================================
