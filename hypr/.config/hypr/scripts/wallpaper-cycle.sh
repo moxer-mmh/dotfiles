@@ -9,13 +9,13 @@ set_wallpaper() {
 
     ln -sf "$wallpaper" "$CURRENT_WALLPAPER"
 
-    swww img "$wallpaper" --transition-type fade --transition-duration 2
+    awww img "$wallpaper" --transition-type fade --transition-duration 2
 
     pkill -USR2 hyprlock 2>/dev/null
 }
 
 cycle_wallpapers() {
-    mapfile -t wallpapers < <(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) | shuf)
+    mapfile -t wallpapers < <(find -L "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) | shuf)
 
     if [ ${#wallpapers[@]} -eq 0 ]; then
         echo "❌ No wallpapers found in $WALLPAPER_DIR"
@@ -49,9 +49,9 @@ if [ ! -d "$WALLPAPER_DIR" ]; then
     exit 1
 fi
 
-if ! command -v swww >/dev/null 2>&1; then
-    echo "❌ Error: SWWW wallpaper daemon not found"
-    echo "📦 Please install SWWW: sudo pacman -S swww"
+if ! command -v awww >/dev/null 2>&1; then
+    echo "❌ Error: AWWW wallpaper daemon not found"
+    echo "📦 Please install AWWW: sudo pacman -S awww"
     exit 1
 fi
 

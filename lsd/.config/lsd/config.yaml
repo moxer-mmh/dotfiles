@@ -1,0 +1,36 @@
+# lsd configuration - Cosmic Cyberpunk Theme
+# Configured for custom ll command with table formatting
+
+classic: false
+blocks:
+  - permission
+  - user
+  - group
+  - size
+  - date
+  - name
+color:
+  when: always
+date: relative
+dereference: false
+display: all
+sorting:
+  column: name
+  reverse: false
+  dir-grouping: first
+header: true
+hyperlink: never
+ignore-globs: []
+indicators: false
+layout: grid
+recursion:
+  enabled: false
+  depth: 1
+size: default
+no-symlink: false
+total-size: false
+symlink-arrow: "⇒"
+icons:
+  when: never
+  theme: fancy
+  separator: " "

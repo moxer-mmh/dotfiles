@@ -18,9 +18,9 @@ if pgrep waybar > /dev/null; then
     pkill waybar 2>/dev/null
 fi
 
-if pgrep swww-daemon > /dev/null; then
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - 🌌 Terminating existing SWWW daemon..."
-    pkill swww-daemon 2>/dev/null
+if pgrep awww-daemon > /dev/null; then
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - 🌌 Terminating existing AWWW daemon..."
+    pkill awww-daemon 2>/dev/null
 fi
 
 if pgrep -f wallpaper-cycle > /dev/null; then
@@ -30,8 +30,8 @@ fi
 
 sleep 1
 
-echo "$(date '+%Y-%m-%d %H:%M:%S') - 🌌 Starting SWWW wallpaper daemon..."
-swww-daemon &
+echo "$(date '+%Y-%m-%d %H:%M:%S') - 🌌 Starting AWWW wallpaper daemon..."
+awww-daemon &
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') - 🎨 Creating initial cosmic wallpaper symlink..."
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
@@ -97,14 +97,14 @@ else
     echo "$(date '+%Y-%m-%d %H:%M:%S') - 💡 Install with: sudo pacman -S swaync"
 fi
 
-echo "$(date '+%Y-%m-%d %H:%M:%S') - ⏰ Starting intelligent idle management (Hypridle)..."
-if command -v hypridle >/dev/null 2>&1; then
-    hypridle &
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - ✅ Idle management system activated"
-else
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - ⚠️  Warning: Hypridle not found - automatic power management disabled"
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - 💡 Install with: sudo pacman -S hypridle"
-fi
+#echo "$(date '+%Y-%m-%d %H:%M:%S') - ⏰ Starting intelligent idle management (Hypridle)..."
+#if command -v hypridle >/dev/null 2>&1; then
+#    hypridle &
+#    echo "$(date '+%Y-%m-%d %H:%M:%S') - ✅ Idle management system activated"
+#else
+#    echo "$(date '+%Y-%m-%d %H:%M:%S') - ⚠️  Warning: Hypridle not found - automatic power management disabled"
+#    echo "$(date '+%Y-%m-%d %H:%M:%S') - 💡 Install with: sudo pacman -S hypridle"
+#fi
 
 
 udiskie -A -n &
@@ -118,8 +118,8 @@ WALLPAPER=$(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -
 if [[ -n "$WALLPAPER" && -f "$WALLPAPER" ]]; then
     echo "$(date '+%Y-%m-%d %H:%M:%S') - 🌌 Selected wallpaper: $(basename "$WALLPAPER")"
 
-    if command -v swww >/dev/null 2>&1; then
-        swww img "$WALLPAPER" --transition-type fade --transition-duration 2
+    if command -v awww >/dev/null 2>&1; then
+        awww img "$WALLPAPER" --transition-type fade --transition-duration 2
         echo "$(date '+%Y-%m-%d %H:%M:%S') - ✅ Cosmic wallpaper applied successfully"
 
         ln -sf "$WALLPAPER" "$WALLPAPER_SYMLINK"
@@ -141,12 +141,12 @@ echo "$(date '+%Y-%m-%d %H:%M:%S') - ══════════════�
 
 services_status=()
 
-if pgrep swww-daemon > /dev/null; then
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - 🌌 SWWW Wallpaper Daemon: ✅ ACTIVE"
-    services_status+=("swww:active")
+if pgrep awww-daemon > /dev/null; then
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - 🌌 AWWW Wallpaper Daemon: ✅ ACTIVE"
+    services_status+=("awww:active")
 else
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - 🌌 SWWW Wallpaper Daemon: ❌ INACTIVE"
-    services_status+=("swww:inactive")
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - 🌌 AWWW Wallpaper Daemon: ❌ INACTIVE"
+    services_status+=("awww:inactive")
 fi
 
 if pgrep waybar > /dev/null; then
@@ -173,13 +173,13 @@ else
     services_status+=("notifications:inactive")
 fi
 
-if pgrep hypridle > /dev/null; then
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - ⏰ Idle Management: ✅ ACTIVE"
-    services_status+=("idle:active")
-else
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - ⏰ Idle Management: ❌ INACTIVE"
-    services_status+=("idle:inactive")
-fi
+#if pgrep hypridle > /dev/null; then
+#    echo "$(date '+%Y-%m-%d %H:%M:%S') - ⏰ Idle Management: ✅ ACTIVE"
+#    services_status+=("idle:active")
+#else
+#    echo "$(date '+%Y-%m-%d %H:%M:%S') - ⏰ Idle Management: ❌ INACTIVE"
+#    services_status+=("idle:inactive")
+#fi
 
 if pgrep -f wallpaper-cycle > /dev/null; then
     echo "$(date '+%Y-%m-%d %H:%M:%S') - 🖼️  Wallpaper Cycling: ✅ ACTIVE"

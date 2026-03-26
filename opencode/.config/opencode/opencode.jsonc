@@ -1,13 +1,25 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "theme": "system",
   "autoupdate": true,
-  "tui": {
-    "scroll_speed": 3,
-  },
   "share": "manual",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama Local",
+      "options": {
+        "baseURL": "http://localhost:11434/v1",
+      },
+      "models": {
+        "qwen2.5-coder:7b": {
+          "name": "Qwen Coder 7B",
+        },
+        "deepseek-r1:7b": {
+          "name": "DeepSeek R1 7B",
+        },
+      },
+    },
+  },
   "mcp": {
-    /*
     "mcp_everything": {
       "type": "local",
       "command": [
@@ -17,13 +29,11 @@
       ],
       "enabled": true,
     },
-    */
     "nlq-rag": {
       "type": "remote",
       "url": "https://nlq-rag-platform-gfxkv.ondigitalocean.app/mcp",
       "enabled": true,
     },
-    /*
     "digitalocean": {
       "type": "local",
       "command": [
@@ -54,6 +64,65 @@
       ],
       "enabled": true,
     },
-    */
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "ctx7sk-5a551860-18d1-4361-aa24-5c256b7968a9",
+      },
+      "enabled": true,
+    },
+    // --- Migrated from Claude Code ---
+    // Stitch (local stdio — same as Claude Code)
+    "stitch": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "stitch-mcp-auto"
+      ],
+      "enabled": true,
+      "environment": {
+        "GOOGLE_CLOUD_PROJECT": "stitch-ui-project-489209",
+      },
+    },
+    // Supabase — remote OAuth (browser login on first use)
+    "supabase": {
+      "type": "remote",
+      "url": "https://mcp.supabase.com/mcp",
+      "enabled": true,
+    },
+    // Figma — remote OAuth (browser login on first use)
+    "figma": {
+      "type": "remote",
+      "url": "https://mcp.figma.com/mcp",
+      "enabled": true,
+    },
+    // Notion — remote OAuth (browser login on first use)
+    "notion": {
+      "type": "remote",
+      "url": "https://mcp.notion.com/mcp",
+      "enabled": true,
+    },
+    // Atlassian (Jira + Confluence) — remote OAuth (browser login on first use)
+    "atlassian": {
+      "type": "remote",
+      "url": "https://mcp.atlassian.com/v1/mcp",
+      "enabled": true,
+    },
+    // Stripe — local stdio, requires STRIPE_SECRET_KEY env var
+    // Set it with: export STRIPE_SECRET_KEY=sk_...
+    "stripe": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@stripe/mcp"
+      ],
+      "enabled": true,
+      "environment": {
+        "STRIPE_SECRET_KEY": "${STRIPE_SECRET_KEY}",
+      },
+    },
   },
 }

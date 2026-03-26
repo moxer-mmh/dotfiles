@@ -121,7 +121,7 @@ hypr/
 sudo pacman -S hyprland hyprlock hypridle waybar rofi alacritty
 
 # Additional dependencies
-sudo pacman -S swww swaync brightnessctl playerctl
+sudo pacman -S awww swaync brightnessctl playerctl
 
 # Audio system (PipeWire)
 sudo pacman -S pipewire pipewire-pulse pipewire-alsa pavucontrol wireplumber
@@ -386,7 +386,7 @@ exec-once = ~/.config/hypr/scripts/space-station-startup.sh
 - **Random Selection**: Prevents predictable wallpaper order
 - **Smooth Transitions**: 2-second fade effects between wallpapers
 - **Multi-Format Support**: JPG, JPEG, and PNG files
-- **SWWW Integration**: Uses modern Wayland wallpaper daemon
+- **AWWW Integration**: Uses modern Wayland wallpaper daemon
 
 #### Configuration:
 ```bash
@@ -573,10 +573,10 @@ chmod +x ~/.config/hypr/scripts/*.sh
 #### Missing Dependencies
 ```bash
 # Check for required packages
-which waybar swww swaync hypridle
+which waybar awww swaync hypridle
 
 # Install missing packages (Arch Linux)
-sudo pacman -S waybar swww swaync hypridle
+sudo pacman -S waybar awww swaync hypridle
 ```
 
 ### 🖼️ **Wallpaper Problems**
@@ -586,11 +586,11 @@ sudo pacman -S waybar swww swaync hypridle
 # Check wallpaper directory
 ls ~/Pictures/Wallpapers/
 
-# Test SWWW daemon
-pgrep swww-daemon || swww-daemon &
+# Test AWWW daemon
+pgrep awww-daemon || awww-daemon &
 
 # Manual wallpaper test
-swww img ~/Pictures/Wallpapers/test-image.jpg
+awww img ~/Pictures/Wallpapers/test-image.jpg
 ```
 
 #### Wallpaper Not Changing
@@ -703,7 +703,7 @@ hyprctl monitors
 ### 📖 **Documentation**
 - [Official Hyprland Wiki](https://wiki.hyprland.org/)
 - [Wayland Protocols](https://wayland.freedesktop.org/docs/html/)
-- [SWWW Documentation](https://github.com/Horus645/swww)
+- [AWWW Documentation](https://codeberg.org/LGFae/awww)
 
 ### 🛠️ **Development Tools**
 - [Hyprland Debug Info](https://wiki.hyprland.org/Crashes-and-Bugs/)
@@ -735,7 +735,7 @@ hyprctl monitors
 ### 🙏 **Special Thanks**
 - **Hyprland Team** - Amazing Wayland compositor
 - **Waybar Contributors** - Excellent status bar
-- **SWWW Team** - Beautiful wallpaper management
+- **AWWW Team** - Beautiful wallpaper management
 - **Arch Linux Community** - Package maintenance and support
 
 ### 📄 **License**

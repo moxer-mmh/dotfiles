@@ -77,7 +77,7 @@ All components share the same cosmic DNA:
 ```bash
 # Arch Linux / Manjaro (recommended)
 sudo pacman -S hyprland hypridle hyprlock waybar alacritty rofi starship zsh
-sudo pacman -S swww swaync brightnessctl playerctl
+sudo pacman -S awww swaync brightnessctl playerctl
 
 # Audio system (PipeWire)
 sudo pacman -S pipewire pipewire-pulse pipewire-alsa pavucontrol wireplumber

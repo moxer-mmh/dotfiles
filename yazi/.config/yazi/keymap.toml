@@ -46,8 +46,9 @@ prepend_keymap = [
     # Sorting & filtering
     { on = ["s"], run = "sort", desc = "Sort menu" },
     { on = ["f"], run = "filter", desc = "Filter" },
-    { on = ["/"], run = "search fd", desc = "Search with fd" },
-    { on = ["?"], run = "search rg", desc = "Search with ripgrep" },
+    { on = ["f", "g"], run = "search fd", desc = "Search with fd" },
+    { on = ["f", "r"], run = "search rg", desc = "Search with ripgrep" },
+    { on = ["?"], run = "help", desc = "Show help" },
 
     # Display
     { on = ["z", "h"], run = "hidden toggle", desc = "Toggle hidden files" },
@@ -69,8 +70,10 @@ prepend_keymap = [
     # Tasks
     { on = ["w"], run = "tasks_show", desc = "Show tasks" },
 
+    # Archive
+    { on = ["c", "a"], run = "plugin compress", desc = "Archive selected files" },
+
     # Misc
-    { on = ["~"], run = "help", desc = "Show help" },
     { on = ["q"], run = "quit", desc = "Quit" },
     { on = ["Q"], run = "quit --no-cwd-file", desc = "Quit without saving cwd" },
     { on = ["<C-z>"], run = "suspend", desc = "Suspend Yazi" },

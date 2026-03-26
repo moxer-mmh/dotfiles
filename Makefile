@@ -174,9 +174,9 @@ hypr-reload:
 wallpaper-fix:
 	@echo "$(CYAN)🖼️  Fixing cosmic wallpaper cycling...$(RESET)"
 	@pkill -f wallpaper-cycle || true
-	@pkill swww-daemon || true
+	@pkill awww-daemon || true
 	@sleep 2
-	@swww-daemon &
+	@awww-daemon &
 	@sleep 1
 	@~/.config/hypr/scripts/wallpaper-cycle.sh &
 	@echo "$(GREEN)✅ Wallpaper cycling restored!$(RESET)"
