@@ -1,0 +1,377 @@
+#!/usr/bin/env bash
+# wt — git worktree manager
+# Simplifies worktree operations for multi-agent workflows and gh-dash integration.
+#
+# Usage:
+#   wt list                    List all worktrees
+#   wt checkout <branch>       Switch to (or create) worktree for branch
+#   wt checkout pr:<number>    Checkout a PR into a worktree
+#   wt create <branch> [base]  Create new worktree from base (default: origin/main)
+#   wt remove <branch>         Remove a worktree and optionally its branch
+#   wt sync                    Fetch + rebase current worktree onto origin/main
+#   wt push                    Push with upstream tracking (-u origin HEAD)
+#   wt clean                   Prune stale worktrees and delete merged branches
+#   wt status                  Health check of all worktrees
+
+set -euo pipefail
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+CYAN='\033[0;36m'
+PURPLE='\033[0;35m'
+RESET='\033[0m'
+BOLD='\033[1m'
+
+# Find the main repo root (not the worktree root)
+find_main_repo() {
+    local git_common_dir
+    git_common_dir=$(git rev-parse --git-common-dir 2>/dev/null) || {
+        echo -e "${RED}Not in a git repository${RESET}" >&2
+        exit 1
+    }
+    # git-common-dir returns the .git dir of the main repo
+    dirname "$git_common_dir"
+}
+
+# Default worktree base directory (sibling to main repo)
+worktree_base() {
+    local main_repo
+    main_repo=$(find_main_repo)
+    local repo_name
+    repo_name=$(basename "$main_repo")
+    echo "$(dirname "$main_repo")/.worktrees-${repo_name}"
+}
+
+# Sanitize branch name for directory use
+sanitize_name() {
+    echo "$1" | sed 's|/|--|g'
+}
+
+cmd_list() {
+    echo -e "${BOLD}${PURPLE}Worktrees${RESET}"
+    echo -e "${CYAN}────────────────────────────────────────${RESET}"
+    local current_branch
+    current_branch=$(git branch --show-current 2>/dev/null || echo "DETACHED")
+
+    git worktree list --porcelain | awk '
+        /^worktree / { path=$2 }
+        /^branch /   { branch=$2; sub(/refs\/heads\//, "", branch) }
+        /^HEAD /     { head=$2 }
+        /^bare$/     { next }
+        /^$/ {
+            if (path != "") {
+                printf "%s\t%s\t%s\n", path, branch, head
+                path=""; branch=""; head=""
+            }
+        }
+        END {
+            if (path != "") {
+                printf "%s\t%s\t%s\n", path, branch, head
+            }
+        }
+    ' | while IFS=$'\t' read -r path branch head; do
+        local marker=" "
+        if [ "$branch" = "$current_branch" ]; then
+            marker="*"
+        fi
+        if [ -z "$branch" ]; then
+            branch="(detached: ${head:0:8})"
+        fi
+        echo -e "  ${GREEN}${marker}${RESET} ${BOLD}${branch}${RESET}"
+        echo -e "    ${CYAN}${path}${RESET}"
+    done
+}
+
+cmd_checkout() {
+    local target="$1"
+
+    # Handle pr:<number> syntax
+    if [[ "$target" =~ ^pr:([0-9]+)$ ]]; then
+        local pr_number="${BASH_REMATCH[1]}"
+        echo -e "${CYAN}Fetching PR #${pr_number}...${RESET}"
+
+        local pr_branch
+        pr_branch=$(gh pr view "$pr_number" --json headRefName --jq '.headRefName' 2>/dev/null) || {
+            echo -e "${RED}Failed to fetch PR #${pr_number}. Does it exist?${RESET}" >&2
+            exit 1
+        }
+
+        # Fetch the PR branch
+        git fetch origin "$pr_branch" 2>/dev/null || true
+        target="$pr_branch"
+    fi
+
+    # Check if worktree already exists for this branch
+    local existing_path
+    existing_path=$(git worktree list --porcelain | awk -v branch="refs/heads/$target" '
+        /^worktree / { path=$2 }
+        /^branch /   { if ($2 == branch) print path }
+    ')
+
+    if [ -n "$existing_path" ]; then
+        echo -e "${GREEN}Worktree exists at:${RESET} ${BOLD}${existing_path}${RESET}"
+        echo -e "  ${CYAN}cd ${existing_path}${RESET}"
+        # If running in a subshell context, print path for the caller
+        echo "$existing_path"
+        return 0
+    fi
+
+    # Create new worktree
+    local base_dir
+    base_dir=$(worktree_base)
+    mkdir -p "$base_dir"
+
+    local dir_name
+    dir_name=$(sanitize_name "$target")
+    local wt_path="${base_dir}/${dir_name}"
+
+    echo -e "${CYAN}Creating worktree for ${BOLD}${target}${RESET}${CYAN}...${RESET}"
+
+    # Check if branch exists remotely
+    if git rev-parse --verify "origin/$target" >/dev/null 2>&1; then
+        # Branch exists on remote — track it
+        git worktree add "$wt_path" -b "$target" "origin/$target" 2>/dev/null || \
+        git worktree add "$wt_path" "$target" 2>/dev/null || {
+            echo -e "${RED}Failed to create worktree${RESET}" >&2
+            exit 1
+        }
+    elif git rev-parse --verify "$target" >/dev/null 2>&1; then
+        # Branch exists locally
+        git worktree add "$wt_path" "$target" 2>/dev/null || {
+            echo -e "${RED}Failed to create worktree${RESET}" >&2
+            exit 1
+        }
+    else
+        # New branch — create from origin/main
+        echo -e "${YELLOW}Branch '${target}' doesn't exist. Creating from origin/main...${RESET}"
+        git fetch origin main 2>/dev/null || true
+        git worktree add "$wt_path" -b "$target" origin/main || {
+            echo -e "${RED}Failed to create worktree${RESET}" >&2
+            exit 1
+        }
+    fi
+
+    echo -e "${GREEN}Worktree created at:${RESET} ${BOLD}${wt_path}${RESET}"
+    echo -e "  ${CYAN}cd ${wt_path}${RESET}"
+    echo "$wt_path"
+}
+
+cmd_create() {
+    local branch="$1"
+    local base="${2:-origin/main}"
+
+    git fetch origin main 2>/dev/null || true
+
+    local base_dir
+    base_dir=$(worktree_base)
+    mkdir -p "$base_dir"
+
+    local dir_name
+    dir_name=$(sanitize_name "$branch")
+    local wt_path="${base_dir}/${dir_name}"
+
+    echo -e "${CYAN}Creating worktree ${BOLD}${branch}${RESET}${CYAN} from ${base}...${RESET}"
+    git worktree add "$wt_path" -b "$branch" "$base" || {
+        echo -e "${RED}Failed to create worktree${RESET}" >&2
+        exit 1
+    }
+
+    echo -e "${GREEN}Worktree created at:${RESET} ${BOLD}${wt_path}${RESET}"
+    echo -e "  ${CYAN}cd ${wt_path}${RESET}"
+    echo "$wt_path"
+}
+
+cmd_remove() {
+    local target="$1"
+
+    # Find worktree path for the branch
+    local wt_path
+    wt_path=$(git worktree list --porcelain | awk -v branch="refs/heads/$target" '
+        /^worktree / { path=$2 }
+        /^branch /   { if ($2 == branch) print path }
+    ')
+
+    if [ -z "$wt_path" ]; then
+        echo -e "${RED}No worktree found for branch '${target}'${RESET}" >&2
+        exit 1
+    fi
+
+    echo -e "${YELLOW}Removing worktree at ${wt_path}...${RESET}"
+    git worktree remove "$wt_path" --force 2>/dev/null || {
+        echo -e "${RED}Failed to remove worktree. Try: git worktree remove --force ${wt_path}${RESET}" >&2
+        exit 1
+    }
+
+    echo -e "${GREEN}Worktree removed.${RESET}"
+
+    read -rp "Delete branch '${target}' too? [y/N] " confirm
+    if [[ "$confirm" =~ ^[Yy]$ ]]; then
+        git branch -D "$target" 2>/dev/null && \
+            echo -e "${GREEN}Branch '${target}' deleted.${RESET}" || \
+            echo -e "${YELLOW}Could not delete branch '${target}'.${RESET}"
+    fi
+}
+
+cmd_sync() {
+    local branch
+    branch=$(git branch --show-current 2>/dev/null)
+
+    if [ -z "$branch" ]; then
+        echo -e "${RED}HEAD is detached. Switch to a branch first.${RESET}" >&2
+        exit 1
+    fi
+
+    if [ "$branch" = "main" ] || [ "$branch" = "master" ]; then
+        echo -e "${RED}You're on ${branch}. Sync is for feature branches.${RESET}" >&2
+        exit 1
+    fi
+
+    # Stash if dirty
+    local stashed=false
+    if [ -n "$(git status --porcelain)" ]; then
+        echo -e "${YELLOW}Stashing uncommitted changes...${RESET}"
+        git stash push -m "wt-sync: auto-stash before rebase"
+        stashed=true
+    fi
+
+    echo -e "${CYAN}Fetching origin/main...${RESET}"
+    git fetch origin main
+
+    echo -e "${CYAN}Rebasing ${branch} onto origin/main...${RESET}"
+    if ! git rebase origin/main; then
+        echo -e "${RED}Rebase conflict! Resolve conflicts then run:${RESET}"
+        echo -e "  ${CYAN}git rebase --continue${RESET}"
+        echo -e "  ${CYAN}# or: git rebase --abort${RESET}"
+        if $stashed; then
+            echo -e "${YELLOW}Stashed changes will be restored after rebase completes.${RESET}"
+        fi
+        exit 1
+    fi
+
+    if $stashed; then
+        echo -e "${YELLOW}Restoring stashed changes...${RESET}"
+        git stash pop
+    fi
+
+    local ahead
+    ahead=$(git rev-list --count origin/main..HEAD 2>/dev/null || echo "?")
+    echo -e "${GREEN}Synced! ${branch} is ${ahead} commit(s) ahead of main.${RESET}"
+}
+
+cmd_push() {
+    local branch
+    branch=$(git branch --show-current 2>/dev/null)
+
+    if [ -z "$branch" ]; then
+        echo -e "${RED}HEAD is detached. Cannot push.${RESET}" >&2
+        exit 1
+    fi
+
+    if [ "$branch" = "main" ] || [ "$branch" = "master" ]; then
+        echo -e "${RED}Cannot push directly to ${branch}.${RESET}" >&2
+        exit 1
+    fi
+
+    echo -e "${CYAN}Pushing ${branch} with upstream tracking...${RESET}"
+    git push -u origin HEAD
+
+    echo -e "${GREEN}Pushed!${RESET}"
+    git branch -vv --no-color | grep '^\*'
+}
+
+cmd_clean() {
+    echo -e "${CYAN}Pruning stale worktrees...${RESET}"
+    local pruned
+    pruned=$(git worktree prune -v 2>&1)
+    if [ -n "$pruned" ]; then
+        echo -e "${GREEN}${pruned}${RESET}"
+    else
+        echo -e "  ${GREEN}No stale worktrees found.${RESET}"
+    fi
+
+    echo -e "${CYAN}Cleaning up merged branches...${RESET}"
+    if command -v gh &>/dev/null; then
+        gh poi 2>/dev/null && echo -e "${GREEN}Merged branches cleaned up.${RESET}" || \
+            echo -e "${YELLOW}gh-poi not available or no branches to clean.${RESET}"
+    else
+        echo -e "${YELLOW}Install gh-poi for automatic branch cleanup: gh extension install seachicken/gh-poi${RESET}"
+    fi
+}
+
+cmd_status() {
+    echo -e "${BOLD}${PURPLE}Worktree Status${RESET}"
+    echo -e "${CYAN}════════════════════════════════════════${RESET}"
+
+    # Current worktree info
+    local current_branch
+    current_branch=$(git branch --show-current 2>/dev/null || echo "DETACHED")
+    local is_worktree="MAIN REPO"
+    [ -f .git ] && is_worktree="WORKTREE"
+
+    echo -e "  ${BOLD}Location:${RESET}  $(pwd)"
+    echo -e "  ${BOLD}Branch:${RESET}    ${current_branch}"
+    echo -e "  ${BOLD}Type:${RESET}      ${is_worktree}"
+
+    # Upstream tracking
+    local upstream
+    upstream=$(git rev-parse --abbrev-ref "@{u}" 2>/dev/null || echo "NONE")
+    echo -e "  ${BOLD}Upstream:${RESET}  ${upstream}"
+
+    # Ahead/behind main
+    local counts
+    counts=$(git rev-list --left-right --count origin/main...HEAD 2>/dev/null || echo "? ?")
+    local behind ahead
+    behind=$(echo "$counts" | awk '{print $1}')
+    ahead=$(echo "$counts" | awk '{print $2}')
+    echo -e "  ${BOLD}vs main:${RESET}   ${ahead} ahead, ${behind} behind"
+
+    # Dirty state
+    local dirty
+    dirty=$(git status --porcelain 2>/dev/null | wc -l)
+    echo -e "  ${BOLD}Dirty:${RESET}     ${dirty} file(s)"
+
+    # Stash
+    local stash_count
+    stash_count=$(git stash list 2>/dev/null | wc -l)
+    echo -e "  ${BOLD}Stashed:${RESET}   ${stash_count} entries"
+
+    echo ""
+    echo -e "${BOLD}All Worktrees:${RESET}"
+    cmd_list
+}
+
+# --- Main ---
+
+usage() {
+    echo -e "${BOLD}wt${RESET} — git worktree manager"
+    echo ""
+    echo -e "${BOLD}Usage:${RESET}"
+    echo "  wt list                    List all worktrees"
+    echo "  wt checkout <branch>       Switch to (or create) worktree for branch"
+    echo "  wt checkout pr:<number>    Checkout a PR into a worktree"
+    echo "  wt create <branch> [base]  Create new worktree from base (default: origin/main)"
+    echo "  wt remove <branch>         Remove a worktree and optionally its branch"
+    echo "  wt sync                    Fetch + rebase current worktree onto origin/main"
+    echo "  wt push                    Push with upstream tracking (-u origin HEAD)"
+    echo "  wt clean                   Prune stale worktrees and delete merged branches"
+    echo "  wt status                  Health check of all worktrees"
+}
+
+case "${1:-help}" in
+    list|ls)       cmd_list ;;
+    checkout|co)   cmd_checkout "${2:?Branch or pr:<number> required}" ;;
+    create|new)    cmd_create "${2:?Branch name required}" "${3:-}" ;;
+    remove|rm)     cmd_remove "${2:?Branch name required}" ;;
+    sync)          cmd_sync ;;
+    push)          cmd_push ;;
+    clean|prune)   cmd_clean ;;
+    status|st)     cmd_status ;;
+    help|--help|-h) usage ;;
+    *)
+        echo -e "${RED}Unknown command: $1${RESET}" >&2
+        usage
+        exit 1
+        ;;
+esac
