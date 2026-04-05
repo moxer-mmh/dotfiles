@@ -11,6 +11,7 @@ blocks:
   - name
 color:
   when: always
+  theme: custom
 date: relative
 dereference: false
 display: all

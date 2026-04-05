@@ -218,3 +218,7 @@ export CHROME_EXECUTABLE=chromium
 
 # opencode
 export PATH=/home/moxer_mmh/.opencode/bin:$PATH
+
+# >>> dmux openrouter >>>
+export OPENROUTER_API_KEY='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'
+# <<< dmux openrouter <<<

@@ -1,0 +1,22 @@
+/* Clipboard picker — inherits space-station theme */
+@import "space-station.rasi"
+
+window {
+    width: 600px;
+}
+
+mainbox {
+    children: [ inputbar, listview ];
+}
+
+inputbar {
+    children: [ prompt, entry ];
+}
+
+prompt {
+    str: "  Clipboard";
+}
+
+listview {
+    lines: 10;
+}

@@ -1,3 +1,6 @@
+/* Import theme colors */
+@import "colors.css";
+
 * {
   font-family: "JetBrains Mono Nerd Font", "Hack Nerd Font", monospace;
   font-size: 13px;
@@ -10,40 +13,33 @@
 window#waybar {
   background: linear-gradient(
     135deg,
-    rgba(16, 4, 42, 0.95) 0%,
-    rgba(30, 12, 68, 0.95) 25%,
-    rgba(45, 25, 85, 0.95) 50%,
-    rgba(30, 12, 68, 0.95) 75%,
-    rgba(16, 4, 42, 0.95) 100%
+    alpha(#10042a, 0.95) 0%,
+    alpha(#1e0c44, 0.95) 25%,
+    alpha(#2d1955, 0.95) 50%,
+    alpha(#1e0c44, 0.95) 75%,
+    alpha(#10042a, 0.95) 100%
   );
-
-  color: #e0e1e5;
+  color: @color_fg;
   border-radius: 12px;
-
   box-shadow:
-    0 8px 32px rgba(138, 43, 226, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 0 0 1px rgba(138, 43, 226, 0.2);
-
-  border: 1px solid rgba(138, 43, 226, 0.3);
+    0 8px 32px alpha(@color_primary, 0.3),
+    inset 0 1px 0 alpha(white, 0.1),
+    0 0 0 1px alpha(@color_primary, 0.2);
+  border: 1px solid alpha(@color_primary, 0.3);
 }
 
+/* ── Workspaces ─────────────────────────────────────────── */
 #workspaces {
-  background: linear-gradient(
-    90deg,
-    rgba(138, 43, 226, 0.2),
-    rgba(0, 191, 255, 0.2)
-  );
-
+  background: linear-gradient(90deg, alpha(@color_primary, 0.2), alpha(@color_secondary, 0.2));
   border-radius: 10px;
   margin: 3px 0 3px 6px;
   padding: 0 8px;
-  border: 1px solid rgba(0, 255, 255, 0.3);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid alpha(#00ffff, 0.3);
+  box-shadow: inset 0 1px 0 alpha(white, 0.1);
 }
 
 #workspaces button {
-  color: #b4a7d6;
+  color: @color_fg_dim;
   background: transparent;
   border-radius: 6px;
   margin: 2px 1px;
@@ -53,444 +49,250 @@ window#waybar {
 }
 
 #workspaces button:hover {
-  background: linear-gradient(
-    45deg,
-    rgba(138, 43, 226, 0.3),
-    rgba(0, 191, 255, 0.3)
-  );
-
-  color: #00ffff;
-  border: 1px solid rgba(0, 255, 255, 0.5);
-  box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
+  background: linear-gradient(45deg, alpha(@color_primary, 0.3), alpha(@color_secondary, 0.3));
+  color: @color_secondary;
+  border: 1px solid alpha(#00ffff, 0.5);
+  box-shadow: 0 0 12px alpha(#00ffff, 0.4);
 }
 
 #workspaces button.active {
-  background: linear-gradient(45deg, #8a2be2, #00bfff);
+  background: linear-gradient(45deg, @color_primary, @color_secondary);
   color: #ffffff;
   border: 1px solid #00ffff;
-
-  box-shadow:
-    0 0 16px rgba(138, 43, 226, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 16px alpha(@color_primary, 0.6), inset 0 1px 0 alpha(white, 0.2);
 }
 
 #workspaces button.urgent {
   background: linear-gradient(45deg, #ff1493, #ff6b35);
   color: #ffffff;
   border: 1px solid #ff1493;
-  box-shadow: 0 0 16px rgba(255, 20, 147, 0.6);
-  animation: pulse 1s infinite;
+  box-shadow: 0 0 16px alpha(#ff1493, 0.6);
 }
 
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
+/* ── Window Title ───────────────────────────────────────── */
 #window {
-  background: linear-gradient(
-    90deg,
-    rgba(0, 255, 127, 0.15),
-    rgba(148, 0, 211, 0.15)
-  );
-
-  color: #00ff7f;
+  background: linear-gradient(90deg, alpha(@color_accent, 0.15), alpha(#9400d3, 0.15));
+  color: @color_accent;
   border-radius: 8px;
   margin: 3px 6px;
   padding: 0 12px;
-  border: 1px solid rgba(0, 255, 127, 0.3);
+  border: 1px solid alpha(@color_accent, 0.3);
   font-style: italic;
 }
 
+/* ── Clock ──────────────────────────────────────────────── */
 #clock {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 105, 180, 0.2),
-    rgba(138, 43, 226, 0.2)
-  );
-
-  color: #ff69b4;
+  background: linear-gradient(135deg, alpha(@color_pink, 0.2), alpha(@color_primary, 0.2));
+  color: @color_pink;
   border-radius: 10px;
   margin: 3px 6px;
   padding: 0 16px;
-  border: 1px solid rgba(255, 105, 180, 0.4);
+  border: 1px solid alpha(@color_pink, 0.4);
   font-weight: bold;
-
-  box-shadow:
-    0 0 12px rgba(255, 105, 180, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 12px alpha(@color_pink, 0.3), inset 0 1px 0 alpha(white, 0.1);
 }
 
-#pulseaudio,
-#pulseaudio.microphone,
+/* ── Common module style ────────────────────────────────── */
 #custom-audio,
 #custom-microphone,
-#custom-fn-keys,
+#custom-audio-output,
 #custom-camera,
+#custom-nvidia,
+#custom-spotify,
+#custom-weather,
+#custom-updates,
+#custom-vpn,
+#custom-swaync,
 #network,
+#bluetooth,
 #cpu,
 #memory,
 #temperature,
 #battery,
-#custom-spotify {
-  background: linear-gradient(
-    45deg,
-    rgba(0, 191, 255, 0.15),
-    rgba(138, 43, 226, 0.15)
-  );
-
-  color: #e0e1e5;
+#backlight {
+  background: linear-gradient(45deg, alpha(@color_secondary, 0.15), alpha(@color_primary, 0.15));
+  color: @color_fg;
   border-radius: 8px;
   margin: 3px 2px;
   padding: 0 10px;
-  border: 1px solid rgba(0, 191, 255, 0.3);
+  border: 1px solid alpha(@color_secondary, 0.3);
   transition: all 0.3s ease;
 }
 
-#pulseaudio:hover,
-#pulseaudio.microphone:hover,
 #custom-audio:hover,
 #custom-microphone:hover,
-#custom-fn-keys:hover,
+#custom-audio-output:hover,
 #custom-camera:hover,
+#custom-nvidia:hover,
+#custom-spotify:hover,
+#custom-weather:hover,
+#custom-updates:hover,
+#custom-vpn:hover,
+#custom-swaync:hover,
 #network:hover,
+#bluetooth:hover,
 #cpu:hover,
 #memory:hover,
 #temperature:hover,
 #battery:hover,
-#custom-spotify:hover {
-  background: linear-gradient(
-    45deg,
-    rgba(0, 191, 255, 0.3),
-    rgba(138, 43, 226, 0.3)
-  );
-
-  box-shadow: 0 0 12px rgba(0, 191, 255, 0.4);
-  border: 1px solid rgba(0, 191, 255, 0.5);
-  color: #00bfff;
+#backlight:hover {
+  background: linear-gradient(45deg, alpha(@color_secondary, 0.3), alpha(@color_primary, 0.3));
+  box-shadow: 0 0 12px alpha(@color_secondary, 0.4);
+  border: 1px solid alpha(@color_secondary, 0.5);
+  color: @color_secondary;
 }
 
+/* ── Spotify ────────────────────────────────────────────── */
 #custom-spotify {
-  background: linear-gradient(
-    45deg,
-    rgba(30, 215, 96, 0.2),
-    rgba(138, 43, 226, 0.2)
-  );
-
+  background: linear-gradient(45deg, alpha(#1ed760, 0.2), alpha(@color_primary, 0.2));
   color: #1ed760;
-  border: 1px solid rgba(30, 215, 96, 0.4);
+  border: 1px solid alpha(#1ed760, 0.4);
 }
-
 #custom-spotify:hover {
-  background: linear-gradient(
-    45deg,
-    rgba(30, 215, 96, 0.3),
-    rgba(138, 43, 226, 0.3)
-  );
-
-  box-shadow: 0 0 12px rgba(30, 215, 96, 0.4);
+  background: linear-gradient(45deg, alpha(#1ed760, 0.3), alpha(@color_primary, 0.3));
+  box-shadow: 0 0 12px alpha(#1ed760, 0.4);
 }
 
-#pulseaudio {
-  color: #ffd700;
-  border-color: rgba(255, 215, 0, 0.3);
-}
+/* ── Audio ──────────────────────────────────────────────── */
+#custom-audio { color: @color_warn; border-color: alpha(@color_warn, 0.3); }
+#custom-audio.muted { color: @color_crit; border-color: alpha(@color_crit, 0.3); }
+#custom-microphone { color: #00ced1; border-color: alpha(#00ced1, 0.3); }
+#custom-microphone.muted { color: @color_crit; border-color: alpha(@color_crit, 0.3); }
+#custom-audio-output { color: @color_secondary; border-color: alpha(@color_secondary, 0.3); }
 
-#pulseaudio.muted {
-  color: #ff6347;
-  border-color: rgba(255, 99, 71, 0.3);
-}
-
-#pulseaudio.microphone {
-  color: #00ced1;
-  border-color: rgba(0, 206, 209, 0.3);
-}
-
-#pulseaudio.microphone.source-muted {
-  color: #ff4500;
-  border-color: rgba(255, 69, 0, 0.3);
-  animation: flash 0.8s infinite;
-}
-
-#custom-audio {
-  color: #ffff00;
-  border-color: rgba(255, 215, 0, 0.3);
-}
-
-#custom-audio:hover {
-  background: linear-gradient(
-    45deg,
-    rgba(255, 215, 0, 0.3),
-    rgba(138, 43, 226, 0.3)
-  );
-
-  box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
-  border: 1px solid rgba(255, 215, 0, 0.5);
-  color: #ffff00;
-}
-
-#custom-audio.muted {
-  color: #ff4500;
-  border-color: rgba(255, 69, 0, 0.3);
-}
-
-#custom-audio.muted:hover {
-  background: linear-gradient(
-    45deg,
-    rgba(255, 69, 0, 0.3),
-    rgba(138, 43, 226, 0.3)
-  );
-
-  box-shadow: 0 0 12px rgba(255, 69, 0, 0.4);
-  border: 1px solid rgba(255, 69, 0, 0.5);
-  color: #ff4500;
-}
-
-#custom-microphone {
-  color: #00ced1;
-  border-color: rgba(0, 206, 209, 0.3);
-}
-
-#custom-microphone:hover {
-  background: linear-gradient(
-    45deg,
-    rgba(0, 206, 209, 0.3),
-    rgba(138, 43, 226, 0.3)
-  );
-
-  box-shadow: 0 0 12px rgba(0, 206, 209, 0.4);
-  border: 1px solid rgba(0, 206, 209, 0.5);
-  color: #00ced1;
-}
-
-#custom-microphone.muted {
-  color: #ff4500;
-  border-color: rgba(255, 69, 0, 0.3);
-}
-
-#custom-microphone.muted:hover {
-  background: linear-gradient(
-    45deg,
-    rgba(255, 69, 0, 0.3),
-    rgba(138, 43, 226, 0.3)
-  );
-
-  box-shadow: 0 0 12px rgba(255, 69, 0, 0.4);
-  color: #ff4500;
-}
-
-#network {
-  color: #00ff7f;
-  border-color: rgba(0, 255, 127, 0.3);
-}
-
-#network.disconnected {
-  color: #ff6347;
-  border-color: rgba(255, 99, 71, 0.3);
-}
-
-#cpu {
-  color: #ff69b4;
-  border-color: rgba(255, 105, 180, 0.3);
-}
-
-#memory {
-  color: #9370db;
-  border-color: rgba(147, 112, 219, 0.3);
-}
-
-#temperature {
-  color: #87ceeb;
-  border-color: rgba(135, 206, 235, 0.3);
-}
+/* ── Hardware ───────────────────────────────────────────── */
+#cpu { color: @color_pink; border-color: alpha(@color_pink, 0.3); }
+#memory { color: #9370db; border-color: alpha(#9370db, 0.3); }
+#temperature { color: #87ceeb; border-color: alpha(#87ceeb, 0.3); }
+#backlight { color: @color_warn; border-color: alpha(@color_warn, 0.3); }
 
 #temperature.critical {
-  color: #ff4500;
-  background: linear-gradient(
-    45deg,
-    rgba(255, 69, 0, 0.3),
-    rgba(255, 0, 0, 0.3)
-  );
-
-  border-color: rgba(255, 69, 0, 0.5);
-  animation: flash 0.5s infinite;
+  color: @color_crit;
+  background: linear-gradient(45deg, alpha(@color_crit, 0.3), alpha(#ff0000, 0.3));
+  border-color: alpha(@color_crit, 0.5);
 }
 
-@keyframes flash {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
+/* ── Battery ────────────────────────────────────────────── */
+#battery { color: #32cd32; border-color: alpha(#32cd32, 0.3); }
+#battery.charging { color: @color_warn; border-color: alpha(@color_warn, 0.3); }
+#battery.warning { color: #ffa500; border-color: alpha(#ffa500, 0.3); }
+#battery.critical { color: @color_crit; border-color: alpha(@color_crit, 0.3); }
+
+/* ── Network & Bluetooth ────────────────────────────────── */
+#network { color: @color_accent; border-color: alpha(@color_accent, 0.3); }
+#network.disconnected { color: @color_crit; border-color: alpha(#ff6347, 0.3); }
+#bluetooth { color: #4169e1; border-color: alpha(#4169e1, 0.3); }
+
+/* ── System Control Buttons ─────────────────────────────── */
+#custom-nightlight,
+#custom-caffeine,
+#custom-gamemode,
+#custom-screenrecord {
+  background: linear-gradient(45deg, alpha(@color_secondary, 0.1), alpha(@color_primary, 0.1));
+  border-radius: 8px;
+  margin: 3px 1px;
+  padding: 0 8px;
+  border: 1px solid alpha(@color_secondary, 0.2);
+  transition: all 0.3s ease;
+  font-size: 14px;
 }
 
-#battery {
-  color: #32cd32;
-  border-color: rgba(50, 205, 50, 0.3);
-}
+#custom-nightlight.on { color: #ffb347; border-color: alpha(#ffb347, 0.4); }
+#custom-nightlight.off { color: @color_fg_dim; }
+#custom-caffeine.active { color: #ffd700; border-color: alpha(#ffd700, 0.4); }
+#custom-caffeine.inactive { color: @color_fg_dim; }
+#custom-gamemode.on { color: @color_accent; border-color: alpha(@color_accent, 0.4); }
+#custom-gamemode.off { color: @color_fg_dim; }
+#custom-screenrecord.recording { color: #ff4444; border-color: alpha(#ff4444, 0.5); }
+#custom-screenrecord.idle { color: @color_fg_dim; }
 
-#battery.charging {
-  color: #ffd700;
-  border-color: rgba(255, 215, 0, 0.3);
-  animation: charging 2s infinite;
-}
+/* ── Notification Badge ─────────────────────────────────── */
+#custom-swaync { color: @color_secondary; }
+#custom-swaync.unread { color: @color_accent; border-color: alpha(@color_accent, 0.4); }
+#custom-swaync.dnd { color: @color_crit; }
 
-@keyframes charging {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-  100% {
-    opacity: 1;
-  }
-}
+/* ── Updates ────────────────────────────────────────────── */
+#custom-updates.updates { color: @color_warn; border-color: alpha(@color_warn, 0.3); }
+#custom-updates.up-to-date { color: @color_fg_dim; }
 
-#battery.warning {
-  color: #ffa500;
-  border-color: rgba(255, 165, 0, 0.3);
-}
-
-#battery.critical {
-  color: #ff4500;
-  border-color: rgba(255, 69, 0, 0.3);
-  animation: flash 0.5s infinite;
-}
-
-#tray {
-  background: linear-gradient(
-    90deg,
-    rgba(138, 43, 226, 0.15),
-    rgba(0, 191, 255, 0.15)
-  );
-
+/* ── Power Button ───────────────────────────────────────── */
+#custom-power {
+  background: linear-gradient(45deg, alpha(@color_crit, 0.2), alpha(#ff1493, 0.2));
+  color: @color_crit;
   border-radius: 8px;
   margin: 3px 6px 3px 2px;
-  padding: 0 8px;
-  border: 1px solid rgba(138, 43, 226, 0.3);
-  color: #00ff7f;
-  border-color: rgba(0, 255, 127, 0.3);
-}
-
-#tray > .passive {
-  -gtk-icon-effect: dim;
-}
-
-#tray > .needs-attention {
-  -gtk-icon-effect: highlight;
-  background-color: rgba(255, 20, 147, 0.3);
-  border-radius: 4px;
-}
-
-tooltip {
-  background: linear-gradient(
-    135deg,
-    rgba(16, 4, 42, 0.95),
-    rgba(45, 25, 85, 0.95)
-  );
-
-  color: #e0e1e5;
-  border-radius: 8px;
-  border: 1px solid rgba(138, 43, 226, 0.4);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-}
-
-tooltip label {
-  color: #e0e1e5;
-  padding: 8px;
-}
-
-.glow {
-  box-shadow:
-    0 0 5px currentColor,
-    0 0 10px currentColor,
-    0 0 15px currentColor,
-    0 0 20px currentColor;
-}
-
-#custom-fn-keys {
-  color: #b4a7d6;
-  border-color: rgba(180, 167, 214, 0.3);
-  font-size: 14px;
-  min-width: 60px;
-}
-
-#custom-fn-keys:hover {
-  background: linear-gradient(
-    45deg,
-    rgba(180, 167, 214, 0.3),
-    rgba(138, 43, 226, 0.3)
-  );
-
-  box-shadow: 0 0 12px rgba(180, 167, 214, 0.4);
-  border: 1px solid rgba(180, 167, 214, 0.5);
-  color: #e0e1e5;
-}
-
-#custom-camera {
-  color: #ff6b35;
-  border-color: rgba(255, 107, 53, 0.3);
-  font-size: 16px;
-}
-
-#custom-camera:hover {
-  background: linear-gradient(
-    45deg,
-    rgba(255, 107, 53, 0.3),
-    rgba(138, 43, 226, 0.3)
-  );
-
-  box-shadow: 0 0 12px rgba(255, 107, 53, 0.4);
-  border: 1px solid rgba(255, 107, 53, 0.5);
-  color: #ff4500;
-}
-
-#custom-nvidia {
-  /* <-- add this line */
-  background: linear-gradient(
-    45deg,
-    rgba(0, 191, 255, 0.15),
-    rgba(138, 43, 226, 0.15)
-  );
-  color: #e0e1e5;
-  border-radius: 8px;
-  margin: 3px 2px;
   padding: 0 10px;
-  border: 1px solid rgba(0, 191, 255, 0.3);
+  border: 1px solid alpha(@color_crit, 0.3);
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+#custom-power:hover {
+  background: linear-gradient(45deg, alpha(@color_crit, 0.4), alpha(#ff1493, 0.4));
+  box-shadow: 0 0 16px alpha(@color_crit, 0.5);
+  border-color: alpha(@color_crit, 0.6);
+}
+
+/* ── Camera ─────────────────────────────────────────────── */
+#custom-camera { color: #ff6b35; border-color: alpha(#ff6b35, 0.3); font-size: 16px; }
+
+/* ── NVIDIA ─────────────────────────────────────────────── */
+#custom-nvidia { color: #76b900; border-color: alpha(#76b900, 0.3); }
+
+/* ── Weather ────────────────────────────────────────────── */
+#custom-weather { color: #87ceeb; border-color: alpha(#87ceeb, 0.3); }
+
+/* ── Groups (drawer containers) ─────────────────────────── */
+#group-audio,
+#group-hardware,
+#group-network,
+#group-system {
+  background: linear-gradient(45deg, alpha(@color_secondary, 0.1), alpha(@color_primary, 0.1));
+  border-radius: 10px;
+  margin: 3px 2px;
+  padding: 0 2px;
+  border: 1px solid alpha(@color_border, 0.25);
   transition: all 0.3s ease;
 }
 
-#custom-nvidia:hover {
-  /* <-- add this line */
-  background: linear-gradient(
-    45deg,
-    rgba(0, 191, 255, 0.3),
-    rgba(138, 43, 226, 0.3)
-  );
-  box-shadow: 0 0 12px rgba(0, 191, 255, 0.4);
-  border: 1px solid rgba(0, 191, 255, 0.5);
-  color: #00bfff;
+#group-audio:hover,
+#group-hardware:hover,
+#group-network:hover,
+#group-system:hover {
+  border-color: alpha(@color_border, 0.5);
+  box-shadow: 0 0 8px alpha(@color_primary, 0.3);
 }
 
-/* When the script returns "class": "off" or "on" */
-#custom-nvidia.off {
-  color: #b4a7d6; /* matches your lavender accents */
-  border-color: rgba(180, 167, 214, 0.3);
+.drawer-child {
+  padding: 0 2px;
 }
 
-#custom-nvidia.on {
-  color: #00ff7f; /* same green you use elsewhere */
-  border-color: rgba(0, 255, 127, 0.3);
+/* ── System Trigger Icon ───────────────────────────────── */
+#custom-system-trigger {
+  color: @color_fg_dim;
+  padding: 0 8px;
+  font-size: 15px;
 }
+#custom-system-trigger:hover {
+  color: @color_secondary;
+}
+
+/* ── Tray ───────────────────────────────────────────────── */
+#tray {
+  background: linear-gradient(90deg, alpha(@color_primary, 0.15), alpha(@color_secondary, 0.15));
+  border-radius: 8px;
+  margin: 3px 6px 3px 2px;
+  padding: 0 8px;
+  border: 1px solid alpha(@color_primary, 0.3);
+}
+#tray > .passive { -gtk-icon-effect: dim; }
+#tray > .needs-attention { -gtk-icon-effect: highlight; background-color: alpha(#ff1493, 0.3); border-radius: 4px; }
+
+/* ── Tooltip ────────────────────────────────────────────── */
+tooltip {
+  background: linear-gradient(135deg, alpha(#10042a, 0.95), alpha(#2d1955, 0.95));
+  color: @color_fg;
+  border-radius: 8px;
+  border: 1px solid alpha(@color_primary, 0.4);
+  box-shadow: 0 8px 32px alpha(black, 0.5);
+}
+tooltip label { color: @color_fg; padding: 8px; }

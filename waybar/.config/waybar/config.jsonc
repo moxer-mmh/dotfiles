@@ -7,25 +7,92 @@
   "margin-bottom": 0,
   "margin-left": 12,
   "margin-right": 12,
+
+  // ── Module Layout ────────────────────────────────────────
   "modules-left": [
     "hyprland/workspaces",
     "hyprland/window"
   ],
   "modules-center": [
-    "clock"
+    "clock",
+    "custom/spotify"
   ],
   "modules-right": [
-    "custom/spotify",
-    "custom/audio",
-    "custom/microphone",
-    "custom/camera",
-    "tray",
-    "custom/nvidia",
-    "cpu",
-    "memory",
-    "temperature",
+    "group/audio",
+    "group/hardware",
+    "group/network",
     "battery",
+    "backlight",
+    "group/system",
+    "tray",
+    "custom/swaync",
+    "custom/power"
   ],
+
+  // ── Groups (drawer = click to expand) ────────────────────
+
+  "group/audio": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "drawer-child",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/audio",
+      "custom/microphone",
+      "custom/audio-output",
+      "custom/camera"
+    ]
+  },
+
+  "group/hardware": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "drawer-child",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "cpu",
+      "memory",
+      "temperature",
+      "custom/nvidia"
+    ]
+  },
+
+  "group/network": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "drawer-child",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "network",
+      "bluetooth",
+      "custom/updates"
+    ]
+  },
+
+  "group/system": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "drawer-child",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/system-trigger",
+      "custom/nightlight",
+      "custom/caffeine",
+      "custom/gamemode",
+      "custom/screenrecord",
+      "custom/weather"
+    ]
+  },
+
+  // ── Left Modules ─────────────────────────────────────────
   "hyprland/workspaces": {
     "format": "{icon}",
     "format-icons": {
@@ -41,28 +108,22 @@
       "10": "󰿉",
       "urgent": "󰀪",
       "active": "󰮯",
-      "default": "󰧞",
+      "default": "󰧞"
     },
     "swap-icon-label": false,
     "persistent-workspaces": {
-      "1": [],
-      "2": [],
-      "3": [],
-      "4": [],
-      "5": [],
-      "6": [],
-      "7": [],
-      "8": [],
-      "9": [],
-      "10": [],
+      "1": [], "2": [], "3": [], "4": [], "5": [],
+      "6": [], "7": [], "8": [], "9": [], "10": []
     },
-    "on-click": "activate",
+    "on-click": "activate"
   },
   "hyprland/window": {
     "format": "󰖲 {}",
-    "max-length": 50,
-    "separate-outputs": true,
+    "max-length": 40,
+    "separate-outputs": true
   },
+
+  // ── Center Modules ───────────────────────────────────────
   "clock": {
     "format": "󰥔 {:%H:%M}",
     "format-alt": "󰃭 {:%A, %B %d, %Y}",
@@ -77,81 +138,31 @@
         "days": "<span color='#ecc6d9'><b>{}</b></span>",
         "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
         "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-        "today": "<span color='#ff6699'><b><u>{}</u></b></span>",
-      },
-    },
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    }
   },
   "custom/spotify": {
-    "format": "󰎇 {}",
-    "max-length": 40,
-    "interval": 2,
+    "exec": "~/.config/waybar/scripts/spotify.sh",
+    "format": "{}",
+    "return-type": "json",
+    "max-length": 35,
     "on-click": "playerctl play-pause",
     "on-click-right": "playerctl next",
     "on-scroll-up": "playerctl volume 0.1+",
-    "on-scroll-down": "playerctl volume 0.1-",
+    "on-scroll-down": "playerctl volume 0.1-"
   },
-  "custom/camera": {
-    "exec": "~/.config/waybar/scripts/camera.sh",
-    "interval": 1,
-    "tooltip": true,
-    "on-click": "~/.config/waybar/scripts/camera.sh",
-    "return-type": "text",
-  },
-  "tray": {
-    "icon-size": 18,
-    "spacing": 8,
-    "show-passive-items": false,
-    "reverse-direction": false,
-  },
-  "cpu": {
-    "format": "󰻠 {usage}%",
-    "interval": 2,
-    "on-click": "alacritty -e htop",
-  },
-  "memory": {
-    "format": "󰍛 {percentage}%",
-    "tooltip-format": "Used: {used:0.1f}GiB\nAvailable: {avail:0.1f}GiB\nTotal: {total:0.1f}GiB",
-    "on-click": "alacritty -e htop",
-  },
-  "temperature": {
-    "thermal-zone": 2,
-    "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-    "critical-threshold": 80,
-    "format": "󰔏 {temperatureC}°C",
-    "format-critical": "󰈸 {temperatureC}°C",
-  },
-  "battery": {
-    "states": {
-      "warning": 30,
-      "critical": 15,
-    },
-    "format": "{icon} {capacity}%",
-    "format-charging": "󰂄 {capacity}%",
-    "format-plugged": "󰚥 {capacity}%",
-    "format-alt": "{icon} {time}",
-    "format-icons": [
-      "󰁺",
-      "󰁻",
-      "󰁼",
-      "󰁽",
-      "󰁾",
-      "󰁿",
-      "󰂀",
-      "󰂁",
-      "󰂂",
-      "󰁹"
-    ],
-    "tooltip-format": "{timeTo}, {capacity}%",
-  },
+
+  // ── Audio Group Modules ──────────────────────────────────
   "custom/audio": {
     "exec": "~/.config/waybar/scripts/pipewire-volume.sh",
     "format": "{text}",
     "return-type": "json",
-    "on-click": "pavucontrol",
+    "on-click": "~/.config/waybar/scripts/dropdown-audio.sh",
     "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
     "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
     "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
-    "tooltip": false,
+    "tooltip": false
   },
   "custom/microphone": {
     "exec": "~/.config/waybar/scripts/pipewire-mic.sh",
@@ -161,13 +172,152 @@
     "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
     "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+",
     "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
-    "tooltip": false,
+    "tooltip": false
+  },
+  "custom/audio-output": {
+    "exec": "~/.config/waybar/scripts/audio-output.sh status",
+    "interval": 5,
+    "return-type": "json",
+    "on-click": "~/.config/waybar/scripts/audio-output.sh switch",
+    "tooltip": true
+  },
+  "custom/camera": {
+    "exec": "~/.config/waybar/scripts/camera.sh",
+    "interval": 1,
+    "tooltip": true,
+    "on-click": "~/.config/hypr/scripts/camera-toggle.sh",
+    "return-type": "text"
+  },
+
+  // ── Hardware Group Modules ───────────────────────────────
+  "cpu": {
+    "format": "󰻠 {usage}%",
+    "interval": 2,
+    "on-click": "~/.config/waybar/scripts/dropdown-hardware.sh"
+  },
+  "memory": {
+    "format": "󰍛 {percentage}%",
+    "tooltip-format": "Used: {used:0.1f}GiB\nAvailable: {avail:0.1f}GiB\nTotal: {total:0.1f}GiB",
+    "on-click": "kitty -e htop"
+  },
+  "temperature": {
+    "exec": "~/.config/waybar/scripts/temperature.sh",
+    "interval": 5,
+    "return-type": "json",
+    "tooltip": true
   },
   "custom/nvidia": {
     "exec": "~/.config/waybar/scripts/nvidia.sh",
     "interval": 5,
     "return-type": "json",
     "tooltip": true,
-    "on-click": "kitty -e watch -n1 nvidia-smi",
+    "on-click": "kitty -e watch -n1 nvidia-smi"
   },
+
+  // ── Network Group Modules ────────────────────────────────
+  "network": {
+    "format-wifi": "󰤨 {essid}",
+    "format-ethernet": "󰈀 {ifname}",
+    "format-disconnected": "󰤭",
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}\nUp: {bandwidthUpBits}\nDown: {bandwidthDownBits}",
+    "on-click": "~/.config/waybar/scripts/dropdown-network.sh"
+  },
+  "bluetooth": {
+    "format-on": "󰂯",
+    "format-off": "󰂲",
+    "format-connected": "󰂱 {device_alias}",
+    "tooltip-format": "{controller_alias}\n{num_connections} connected",
+    "on-click": "blueman-manager"
+  },
+  "custom/updates": {
+    "exec": "~/.config/waybar/scripts/updates.sh",
+    "interval": 1800,
+    "return-type": "json",
+    "tooltip": true,
+    "on-click": "kitty -e paru"
+  },
+
+  // ── Standalone Modules ───────────────────────────────────
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰚥 {capacity}%",
+    "format-alt": "{icon} {time}",
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "tooltip-format": "{timeTo}, {capacity}%"
+  },
+  "backlight": {
+    "format": "󰃟 {percent}%",
+    "on-scroll-up": "brightnessctl set 5%+",
+    "on-scroll-down": "brightnessctl set 5%-",
+    "tooltip-format": "Brightness: {percent}%"
+  },
+
+  // ── System Group Modules ─────────────────────────────────
+  "custom/system-trigger": {
+    "format": "󰒓",
+    "tooltip-format": "System Controls",
+    "on-click": "~/.config/waybar/scripts/dropdown-system.sh",
+    "interval": "once"
+  },
+  "custom/nightlight": {
+    "exec": "~/.config/waybar/scripts/nightlight.sh status",
+    "interval": 5,
+    "return-type": "json",
+    "on-click": "~/.config/waybar/scripts/nightlight.sh toggle",
+    "on-scroll-up": "~/.config/waybar/scripts/nightlight.sh temp-up",
+    "on-scroll-down": "~/.config/waybar/scripts/nightlight.sh temp-down",
+    "tooltip": true
+  },
+  "custom/caffeine": {
+    "exec": "~/.config/waybar/scripts/caffeine.sh status",
+    "interval": 5,
+    "return-type": "json",
+    "on-click": "~/.config/waybar/scripts/caffeine.sh toggle",
+    "tooltip": true
+  },
+  "custom/gamemode": {
+    "exec": "~/.config/waybar/scripts/gamemode.sh status",
+    "interval": 5,
+    "return-type": "json",
+    "on-click": "~/.config/waybar/scripts/gamemode.sh toggle",
+    "tooltip": true
+  },
+  "custom/screenrecord": {
+    "exec": "~/.config/waybar/scripts/screenrecord.sh status",
+    "interval": 2,
+    "return-type": "json",
+    "on-click": "~/.config/waybar/scripts/screenrecord.sh toggle",
+    "tooltip": true
+  },
+  "custom/weather": {
+    "exec": "~/.config/waybar/scripts/weather.sh",
+    "interval": 1800,
+    "return-type": "json",
+    "tooltip": true
+  },
+
+  // ── Notification & Power ─────────────────────────────────
+  "custom/swaync": {
+    "exec": "~/.config/waybar/scripts/swaync.sh",
+    "interval": 3,
+    "return-type": "json",
+    "on-click": "swaync-client -t",
+    "tooltip": false
+  },
+  "custom/power": {
+    "format": "󰐥",
+    "on-click": "~/.config/waybar/scripts/power.sh",
+    "tooltip-format": "Power Menu"
+  },
+  "tray": {
+    "icon-size": 16,
+    "spacing": 6,
+    "show-passive-items": false,
+    "reverse-direction": false
+  }
 }

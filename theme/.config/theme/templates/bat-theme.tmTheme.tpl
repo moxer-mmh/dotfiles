@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>name</key>
+  <string>Space Station Theme</string>
+  <key>settings</key>
+  <array>
+    <dict>
+      <key>settings</key>
+      <dict>
+        <key>background</key>
+        <string>{{COLOR_BG}}</string>
+        <key>foreground</key>
+        <string>{{COLOR_FG}}</string>
+        <key>caret</key>
+        <string>{{COLOR_ACCENT}}</string>
+        <key>selection</key>
+        <string>{{COLOR_SURFACE}}</string>
+        <key>lineHighlight</key>
+        <string>{{COLOR_BG_ALT}}</string>
+        <key>gutterForeground</key>
+        <string>{{COLOR_FG_DIM}}</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Comment</string>
+      <key>scope</key><string>comment</string>
+      <key>settings</key><dict><key>foreground</key><string>{{COLOR_FG_DIM}}</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>String</string>
+      <key>scope</key><string>string</string>
+      <key>settings</key><dict><key>foreground</key><string>{{COLOR_ACCENT}}</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Keyword</string>
+      <key>scope</key><string>keyword</string>
+      <key>settings</key><dict><key>foreground</key><string>{{COLOR_PRIMARY}}</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Function</string>
+      <key>scope</key><string>entity.name.function</string>
+      <key>settings</key><dict><key>foreground</key><string>{{COLOR_SECONDARY}}</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Type</string>
+      <key>scope</key><string>entity.name.type, support.type</string>
+      <key>settings</key><dict><key>foreground</key><string>{{COLOR_WARN}}</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Number</string>
+      <key>scope</key><string>constant.numeric</string>
+      <key>settings</key><dict><key>foreground</key><string>{{COLOR_PINK}}</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Error</string>
+      <key>scope</key><string>invalid</string>
+      <key>settings</key><dict><key>foreground</key><string>{{COLOR_CRIT}}</string></dict>
+    </dict>
+  </array>
+</dict>
+</plist>

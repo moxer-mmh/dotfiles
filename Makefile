@@ -13,7 +13,7 @@ RESET := \033[0m
 BOLD := \033[1m
 
 # Cosmic configuration modules
-MODULES := alacritty btop Code gh-dash gtk hypr lazydocker lazygit nvim pavucontrol rofi starship waybar zsh
+MODULES := alacritty btop Code gh-dash gtk hypr lazydocker lazygit nvim pavucontrol rofi starship swaync theme waybar wlogout zsh
 OPTIONAL_MODULES := grub
 
 # System info
@@ -173,13 +173,35 @@ hypr-reload:
 
 wallpaper-fix:
 	@echo "$(CYAN)🖼️  Fixing cosmic wallpaper cycling...$(RESET)"
+	@pkill -f wallpaper-daemon || true
 	@pkill -f wallpaper-cycle || true
 	@pkill awww-daemon || true
 	@sleep 2
 	@awww-daemon &
 	@sleep 1
-	@~/.config/hypr/scripts/wallpaper-cycle.sh &
+	@~/.config/hypr/scripts/wallpaper/wallpaper-daemon.sh &
 	@echo "$(GREEN)✅ Wallpaper cycling restored!$(RESET)"
+
+theme-apply:
+	@echo "$(CYAN)🎨 Applying theme...$(RESET)"
+	@if [ -n "$(THEME)" ]; then \
+		~/.config/theme/scripts/apply-theme.sh $(THEME); \
+	else \
+		echo "$(YELLOW)Usage: make theme-apply THEME=<name>$(RESET)"; \
+		echo "$(CYAN)Available themes:$(RESET)"; \
+		ls ~/.config/theme/colors/themes/ 2>/dev/null | sed 's/.conf//'; \
+	fi
+
+theme-picker:
+	@echo "$(CYAN)🎨 Opening theme picker...$(RESET)"
+	@~/.config/theme/scripts/theme-picker.sh
+
+swaync-restart:
+	@echo "$(CYAN)🔔 Restarting notification daemon...$(RESET)"
+	@pkill swaync 2>/dev/null || true
+	@sleep 1
+	@swaync &
+	@echo "$(GREEN)✅ SwayNC restarted!$(RESET)"
 
 # GRUB theme installation
 grub-theme:

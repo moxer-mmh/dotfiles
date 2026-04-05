@@ -1,0 +1,126 @@
+general {
+    disable_loading_bar = true
+    grace = 0
+    hide_cursor = true
+    no_fade_in = false
+    no_fade_out = false
+    ignore_empty_input = false
+    immediate_render = true
+}
+
+background {
+    path = ~/.config/hypr/current_wallpaper
+    blur_passes = 3
+    blur_size = 7
+    noise = 0.0117
+    contrast = 0.8916
+    brightness = 0.6
+    vibrancy = 0.1696
+    vibrancy_darkness = 0.0
+    reload_time = 10
+    crossfade_time = 0.5
+}
+
+# Clock
+label {
+    monitor =
+    text = cmd[update:1000] echo "$(date +"%H:%M")"
+    color = rgb({{COLOR_ACCENT_RAW}})
+    font_size = 120
+    font_family = JetBrains Mono Bold
+    position = 0, 300
+    halign = center
+    valign = center
+    shadow_passes = 3
+    shadow_size = 6
+    shadow_color = rgba(0, 0, 0, 0.9)
+}
+
+# Date
+label {
+    monitor =
+    text = cmd[update:43200000] echo "$(date +"%A, %B %d")"
+    color = rgb({{COLOR_PRIMARY_RAW}})
+    font_size = 28
+    font_family = JetBrains Mono
+    position = 0, 200
+    halign = center
+    valign = center
+    shadow_passes = 2
+    shadow_size = 4
+    shadow_color = rgba(0, 0, 0, 0.8)
+}
+
+# Locked label
+label {
+    monitor =
+    text = STATION LOCKED
+    color = rgb({{COLOR_FG_RAW}})
+    font_size = 24
+    font_family = JetBrains Mono Bold
+    position = 0, 100
+    halign = center
+    valign = center
+    shadow_passes = 2
+    shadow_size = 4
+    shadow_color = rgba(0, 0, 0, 0.8)
+}
+
+# Username
+label {
+    monitor =
+    text = moxer_mmh
+    color = rgba({{COLOR_FG_RAW}}, 0.7)
+    font_size = 18
+    font_family = JetBrains Mono
+    position = 0, 50
+    halign = center
+    valign = center
+    shadow_passes = 2
+    shadow_size = 3
+    shadow_color = rgba(0, 0, 0, 0.7)
+}
+
+# Password input
+input-field {
+    monitor =
+    size = 400, 60
+    outline_thickness = 3
+    dots_size = 0.25
+    dots_spacing = 0.3
+    dots_center = true
+    dots_rounding = -1
+    outer_color = rgb({{COLOR_PRIMARY_RAW}})
+    inner_color = rgba({{COLOR_BG_RAW}}, 0.95)
+    font_color = rgb({{COLOR_ACCENT_RAW}})
+    fade_on_empty = false
+    fade_timeout = 1000
+    placeholder_text = <span foreground="##{{COLOR_FG_DIM_RAW}}">Enter Password</span>
+    hide_input = false
+    rounding = 15
+    check_color = rgb({{COLOR_ACCENT_RAW}})
+    fail_color = rgb({{COLOR_CRIT_RAW}})
+    fail_text = <span foreground="##{{COLOR_CRIT_RAW}}">Access Denied</span>
+    fail_transition = 300
+    position = 0, -120
+    halign = center
+    valign = center
+    shadow_passes = 3
+    shadow_size = 5
+    shadow_color = rgba(0, 0, 0, 0.9)
+}
+
+# Battery
+label {
+    monitor =
+    text = cmd[update:30000] echo "$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null || echo 'AC')%"
+    color = rgb({{COLOR_SECONDARY_RAW}})
+    font_size = 16
+    font_family = JetBrains Mono
+    position = -30, -30
+    halign = right
+    valign = bottom
+    shadow_passes = 2
+    shadow_size = 3
+    shadow_color = rgba(0, 0, 0, 0.7)
+}

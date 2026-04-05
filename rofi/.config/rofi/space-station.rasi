@@ -1,12 +1,13 @@
-* {
-    bg0: #0a0a0f90;
-    bg1: #1e1e2e;
-    bg2: #2a2a40;
+@import "colors.rasi"
 
-    fg0: #00ff88;
-    fg1: #8844ff;
-    fg2: #00aaff;
-    accent: #ff0088;
+* {
+    bg0: @bg;
+    bg1: @bg-alt;
+    bg2: @bg-alt;
+
+    fg0: @fg;
+    fg1: @border-color;
+    fg2: @accent;
 
     background-color: transparent;
     text-color: @fg0;

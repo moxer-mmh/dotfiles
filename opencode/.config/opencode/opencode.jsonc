@@ -19,7 +19,6 @@
   "agent": {
     "build": {
       "mode": "primary",
-      "prompt": "{file:./prompts/build.txt}",
       "tools": {
         "write": true,
         "edit": true,

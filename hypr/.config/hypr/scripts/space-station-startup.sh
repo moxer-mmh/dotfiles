@@ -57,15 +57,21 @@ echo "$(date '+%Y-%m-%d %H:%M:%S') - ⏳ Allowing SWWW daemon initialization..."
 sleep 1
 
 
-echo "$(date '+%Y-%m-%d %H:%M:%S') - 🖼️  Starting dynamic wallpaper cycling service..."
-WALLPAPER_SCRIPT="$HOME/.config/hypr/scripts/wallpaper-cycle.sh"
+echo "$(date '+%Y-%m-%d %H:%M:%S') - 🖼️  Starting wallpaper daemon..."
+WALLPAPER_SCRIPT="$HOME/.config/hypr/scripts/wallpaper/wallpaper-daemon.sh"
 
 if [[ -x "$WALLPAPER_SCRIPT" ]]; then
     "$WALLPAPER_SCRIPT" &
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - ✅ Wallpaper cycling service started successfully"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - ✅ Wallpaper daemon started successfully"
 else
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - ⚠️  Warning: Wallpaper cycling script not found or not executable"
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - 📍 Expected location: $WALLPAPER_SCRIPT"
+    # Fallback to old cycle script
+    LEGACY_SCRIPT="$HOME/.config/hypr/scripts/wallpaper-cycle.sh"
+    if [[ -x "$LEGACY_SCRIPT" ]]; then
+        "$LEGACY_SCRIPT" &
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - ⚠️  Using legacy wallpaper cycle (wallpaper-daemon not found)"
+    else
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - ⚠️  Warning: No wallpaper script found"
+    fi
 fi
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') - 🎮 Starting Space Station Control Panel (Waybar)..."
@@ -97,14 +103,7 @@ else
     echo "$(date '+%Y-%m-%d %H:%M:%S') - 💡 Install with: sudo pacman -S swaync"
 fi
 
-#echo "$(date '+%Y-%m-%d %H:%M:%S') - ⏰ Starting intelligent idle management (Hypridle)..."
-#if command -v hypridle >/dev/null 2>&1; then
-#    hypridle &
-#    echo "$(date '+%Y-%m-%d %H:%M:%S') - ✅ Idle management system activated"
-#else
-#    echo "$(date '+%Y-%m-%d %H:%M:%S') - ⚠️  Warning: Hypridle not found - automatic power management disabled"
-#    echo "$(date '+%Y-%m-%d %H:%M:%S') - 💡 Install with: sudo pacman -S hypridle"
-#fi
+# Hypridle is started via autostart.conf exec-once, not here (avoids duplicates)
 
 
 udiskie -A -n &
@@ -173,13 +172,13 @@ else
     services_status+=("notifications:inactive")
 fi
 
-#if pgrep hypridle > /dev/null; then
-#    echo "$(date '+%Y-%m-%d %H:%M:%S') - ⏰ Idle Management: ✅ ACTIVE"
-#    services_status+=("idle:active")
-#else
-#    echo "$(date '+%Y-%m-%d %H:%M:%S') - ⏰ Idle Management: ❌ INACTIVE"
-#    services_status+=("idle:inactive")
-#fi
+if pgrep hypridle > /dev/null; then
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - ⏰ Idle Management: ✅ ACTIVE"
+    services_status+=("idle:active")
+else
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - ⏰ Idle Management: ❌ INACTIVE"
+    services_status+=("idle:inactive")
+fi
 
 if pgrep -f wallpaper-cycle > /dev/null; then
     echo "$(date '+%Y-%m-%d %H:%M:%S') - 🖼️  Wallpaper Cycling: ✅ ACTIVE"
