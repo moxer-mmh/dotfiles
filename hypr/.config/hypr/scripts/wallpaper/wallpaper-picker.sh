@@ -37,56 +37,48 @@ generate_thumbnail() {
     echo "$thumb"
 }
 
-# ── Build rofi entries ────────────────────────────────────────────────────────
+# ── Build wallpaper list and rofi entries ─────────────────────────────────────
 
-build_entries() {
-    while IFS= read -r -d '' wallpaper; do
-        local name thumb
-        name=$(basename "$wallpaper")
-        thumb=$(generate_thumbnail "$wallpaper")
+# Store full paths in an array for index-based lookup
+mapfile -d '' WALLPAPERS < <(
+    find -L "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -print0 | sort -z
+)
 
-        # Rofi icon mode: "display_text\x00icon\x1fpath_to_icon"
-        printf "%s\x00icon\x1f%s\n" "$name" "$thumb"
-    done < <(
-        find -L "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -print0 | sort -z
-    )
-}
-
-# ── Resolve selection back to full path ───────────────────────────────────────
-
-resolve_path() {
-    local name="$1"
-    find -L "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) \
-        | awk -F'/' -v n="$name" '{ if ($NF == n) print }' \
-        | head -1
-}
-
-# ── Main ──────────────────────────────────────────────────────────────────────
-
-entries=$(build_entries)
-
-if [[ -z "$entries" ]]; then
+if [[ ${#WALLPAPERS[@]} -eq 0 ]]; then
     notify-send "wallpaper-picker" "No wallpapers found in $WALLPAPER_DIR" 2>/dev/null
     exit 1
 fi
 
-selected=$(
-    printf '%s' "$entries" \
+build_entries() {
+    for wallpaper in "${WALLPAPERS[@]}"; do
+        local name thumb
+        name=$(basename "$wallpaper")
+        thumb=$(generate_thumbnail "$wallpaper")
+        printf "%s\x00icon\x1f%s\n" "$name" "$thumb"
+    done
+}
+
+# ── Main ──────────────────────────────────────────────────────────────────────
+
+# Use -format i to get the selected INDEX, avoiding name-matching issues
+selected_idx=$(
+    build_entries \
         | rofi \
             -dmenu \
             -p "Wallpaper" \
+            -format i \
             -display-columns 1 \
             -show-icons \
             -theme "$ROFI_THEME" \
             -theme-str 'window { width: 800px; } listview { columns: 4; lines: 4; }'
 )
 
-[[ -z "$selected" ]] && exit 0
+[[ -z "$selected_idx" ]] && exit 0
 
-full_path=$(resolve_path "$selected")
+full_path="${WALLPAPERS[$selected_idx]}"
 
-if [[ -z "$full_path" ]]; then
-    notify-send "wallpaper-picker" "Could not resolve path for: $selected" 2>/dev/null
+if [[ -z "$full_path" || ! -f "$full_path" ]]; then
+    notify-send "wallpaper-picker" "Invalid selection (index: $selected_idx)" 2>/dev/null
     exit 1
 fi
 

@@ -37,51 +37,40 @@ image_filter = "lanczos3"
 image_quality = 80
 
 [opener]
-# Text editor - explicitly use neovim
 edit = [
-    { run = '/usr/bin/nvim "$@"', block = true, desc = "Edit with Neovim" },
+    { run = '$EDITOR "$@"', block = true, desc = "Edit with Neovim" },
 ]
-
-# Image viewer
+open = [
+    { run = 'xdg-open "$@"', desc = "Open" },
+]
 view = [
-    { run = 'imv "$@"', orphan = true, desc = "View with imv" },
+    { run = 'swayimg "$@"', orphan = true, desc = "View with swayimg" },
 ]
-
-# Archive extractor
 extract = [
-    { run = 'aunpack "$@"', desc = "Extract archive" },
+    { run = 'ya pub extract --list "$@"', desc = "Extract here" },
 ]
-
-# Video player
 play = [
     { run = 'mpv "$@"', orphan = true, desc = "Play with mpv" },
 ]
-
-# Browser
 browser = [
     { run = 'brave "$@"', orphan = true, desc = "Open in Brave" },
 ]
 
 [open]
-# File associations
-rules = [
-    # Text and code files - open with neovim
-    { name = "*.{md,txt,json,toml,yaml,yml,conf,sh,zsh,bash,fish}", use = "edit" },
-    { name = "*.{rs,py,js,ts,jsx,tsx,go,java,c,cpp,h,hpp,lua,vim}", use = "edit" },
-    { name = "*.{css,scss,sass,html,htm,xml,svg}", use = "edit" },
-    { name = "*.{env,gitignore,gitconfig,cfg,ini}", use = "edit" },
-    { name = "Dockerfile", use = "edit" },
-    { name = "Makefile", use = "edit" },
-    { name = "README*", use = "edit" },
-    { name = "LICENSE*", use = "edit" },
-
-    # Media files
-    { name = "*.{jpg,jpeg,png,gif,bmp,webp}", use = "view" },
-    { name = "*.{mp4,mkv,avi,mov,webm}", use = "play" },
-    { name = "*.{mp3,flac,wav,ogg}", use = "play" },
-
+prepend_rules = [
+    # PDF
+    { url = "*.pdf", use = "browser" },
+    # Images
+    { mime = "image/*", use = "view" },
+    # Video/audio
+    { mime = "video/*", use = "play" },
+    { mime = "audio/*", use = "play" },
     # Archives
-    { name = "*.{zip,tar,gz,bz2,xz,7z,rar}", use = "extract" },
+    { url = "*.{zip,tar,gz,bz2,xz,7z,rar}", use = "extract" },
+]
+append_rules = [
+    # Fallback — everything else opens in editor
+    { url = "*", use = "edit" },
 ]
 
 [tasks]

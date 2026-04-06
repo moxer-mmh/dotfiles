@@ -248,6 +248,15 @@ mkdir -p "$HOME/.config/tmux"
 apply_template "$TEMPLATES_DIR/tmux-colors.conf.tpl" \
     "$HOME/.config/tmux/theme.conf"
 
+# GTK4/libadwaita (Nautilus, etc.)
+apply_template "$TEMPLATES_DIR/gtk4-colors.css.tpl" \
+    "$HOME/.config/gtk-4.0/style.css"
+
+# swayimg colors
+mkdir -p "$HOME/.config/swayimg"
+apply_template "$TEMPLATES_DIR/swayimg-colors.lua.tpl" \
+    "$HOME/.config/swayimg/colors.lua"
+
 # ── Live reload (parallelized — target <2s total) ────────
 
 # Instant: terminal colors via OSC escape sequences (no restart needed)

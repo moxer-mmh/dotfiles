@@ -1,0 +1,61 @@
+/* Theme-generated GTK4/libadwaita overrides — do not edit manually */
+
+/* Accent color */
+@define-color accent_bg_color #8844ff;
+@define-color accent_fg_color #e0e1e5;
+@define-color accent_color #8844ff;
+
+/* Window/surface backgrounds */
+@define-color window_bg_color #1a1a2e;
+@define-color window_fg_color #e0e1e5;
+@define-color view_bg_color #1e1e2e;
+@define-color view_fg_color #e0e1e5;
+@define-color headerbar_bg_color #1a1a2e;
+@define-color headerbar_fg_color #e0e1e5;
+@define-color card_bg_color #2a2a40;
+@define-color card_fg_color #e0e1e5;
+@define-color popover_bg_color #2a2a40;
+@define-color popover_fg_color #e0e1e5;
+@define-color dialog_bg_color #1e1e2e;
+@define-color dialog_fg_color #e0e1e5;
+@define-color sidebar_bg_color #1a1a2e;
+@define-color sidebar_fg_color #b4a7d6;
+
+/* Borders and separators */
+@define-color borders alpha(#8844ff, 0.3);
+@define-color shade_color rgba(0, 0, 0, 0.25);
+
+/* Semantic colors */
+@define-color destructive_bg_color #ff0088;
+@define-color destructive_fg_color #e0e1e5;
+@define-color warning_bg_color #ffaa00;
+@define-color warning_fg_color #1a1a2e;
+@define-color success_bg_color #00ff88;
+@define-color success_fg_color #1a1a2e;
+
+/* Selection */
+@define-color selected_bg_color alpha(#8844ff, 0.3);
+@define-color selected_fg_color #e0e1e5;
+
+/* Scrollbar */
+scrollbar slider {
+  background-color: alpha(#8844ff, 0.5);
+  border-radius: 99px;
+}
+scrollbar slider:hover {
+  background-color: alpha(#8844ff, 0.7);
+}
+
+/* Sidebar row hover/selected */
+.navigation-sidebar row:selected {
+  background-color: alpha(#8844ff, 0.2);
+}
+.navigation-sidebar row:hover {
+  background-color: alpha(#8844ff, 0.1);
+}
+
+/* Path bar active segment */
+.path-bar button:checked {
+  background-color: alpha(#8844ff, 0.25);
+  color: #00ff88;
+}
