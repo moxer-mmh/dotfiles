@@ -108,6 +108,12 @@ fi
 # ── Load current colors ───────────────────────────────────
 source "$CURRENT"
 
+# User overrides (survives theme switches — e.g. opacity preference)
+USER_OVERRIDES="$COLORS_DIR/user-overrides.conf"
+if [[ -f "$USER_OVERRIDES" ]]; then
+    source "$USER_OVERRIDES"
+fi
+
 # Strip # from hex for Hyprland rgba format
 COLOR_BG_RAW="${COLOR_BG#\#}"
 COLOR_BG_ALT_RAW="${COLOR_BG_ALT#\#}"
