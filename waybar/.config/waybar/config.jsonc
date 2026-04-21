@@ -11,7 +11,8 @@
   // ── Module Layout ────────────────────────────────────────
   "modules-left": [
     "hyprland/workspaces",
-    "hyprland/window"
+    "hyprland/window",
+    "custom/gromit-draw"
   ],
   "modules-center": [
     "clock",
@@ -121,6 +122,14 @@
     "format": "󰖲 {}",
     "max-length": 40,
     "separate-outputs": true
+  },
+  "custom/gromit-draw": {
+    "exec": "~/.config/waybar/scripts/gromit-status.sh",
+    "return-type": "json",
+    "interval": "once",
+    "signal": 8,
+    "on-click": "~/.config/hypr/scripts/gromit-exit.sh",
+    "tooltip": true
   },
 
   // ── Center Modules ───────────────────────────────────────

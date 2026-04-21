@@ -206,6 +206,18 @@ window#waybar {
 #custom-screenrecord.recording { color: #ff4444; border-color: alpha(#ff4444, 0.5); }
 #custom-screenrecord.idle { color: @color_fg_dim; }
 
+/* ── Gromit Draw-Mode Indicator ─────────────────────────── */
+#custom-gromit-draw.active {
+  background: linear-gradient(45deg, alpha(#33aaff, 0.25), alpha(#ff3366, 0.25));
+  color: #ffffff;
+  border: 1px solid alpha(#33aaff, 0.6);
+  border-radius: 8px;
+  margin: 3px 4px;
+  padding: 0 10px;
+  font-weight: bold;
+}
+#custom-gromit-draw.inactive { background: transparent; border: none; padding: 0; margin: 0; }
+
 /* ── Notification Badge ─────────────────────────────────── */
 #custom-swaync { color: @color_secondary; }
 #custom-swaync.unread { color: @color_accent; border-color: alpha(@color_accent, 0.4); }
