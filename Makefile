@@ -13,8 +13,13 @@ RESET := \033[0m
 BOLD := \033[1m
 
 # Cosmic configuration modules
-MODULES := alacritty btop Code gh-dash gtk hypr lazydocker lazygit nvim pavucontrol rofi starship swaync theme waybar wlogout zsh
+MODULES := alacritty btop Code gh-dash gromit-mpx gtk hypr lazydocker lazygit nvim pavucontrol rofi starship swaync theme waybar wlogout zsh
 OPTIONAL_MODULES := grub
+
+# External tool sources
+GROMIT_FORK := https://github.com/moxer-mmh/gromit-mpx.git
+GROMIT_BRANCH := hyprland-patches
+GROMIT_SRC := $(HOME)/code/gromit-mpx
 
 # System info
 HOSTNAME := $(shell hostname)
@@ -45,6 +50,7 @@ help:
 	@echo "  $(GREEN)hypr-reload$(RESET)    - Reload hyprland configuration"
 	@echo "  $(GREEN)wallpaper-fix$(RESET)  - Fix wallpaper cycling"
 	@echo "  $(GREEN)grub-theme$(RESET)     - Install GRUB cosmic themes"
+	@echo "  $(GREEN)install-gromit$(RESET) - Build + install patched gromit-mpx from fork"
 	@echo ""
 	@echo "$(BOLD)📊 Available Modules:$(RESET)"
 	@echo "  $(CYAN)$(MODULES)$(RESET)"
@@ -202,6 +208,35 @@ swaync-restart:
 	@sleep 1
 	@swaync &
 	@echo "$(GREEN)✅ SwayNC restarted!$(RESET)"
+
+# gromit-mpx — build the patched binary from the moxer-mmh fork and stow the cfg.
+# Needed on fresh installs because upstream gromit-mpx misbehaves under
+# Hyprland/Xwayland (blurry strokes, --reload is a no-op, double-free on COPY
+# cfg entries). Patches live on the hyprland-patches branch of the fork.
+# Dependencies (Arch): base-devel cmake gtk3 libxi libappindicator-gtk3
+install-gromit:
+	@echo "$(CYAN)🖊️  Building gromit-mpx (patched for Hyprland)...$(RESET)"
+	@if [ ! -d "$(GROMIT_SRC)/.git" ]; then \
+		echo "$(YELLOW)📥 Cloning $(GROMIT_FORK) -> $(GROMIT_SRC)$(RESET)"; \
+		mkdir -p $(HOME)/code; \
+		git clone -b $(GROMIT_BRANCH) $(GROMIT_FORK) $(GROMIT_SRC) || exit 1; \
+	else \
+		echo "$(YELLOW)🔄 Fork already present, syncing $(GROMIT_BRANCH)...$(RESET)"; \
+		git -C $(GROMIT_SRC) fetch origin $(GROMIT_BRANCH) >/dev/null 2>&1 || true; \
+		git -C $(GROMIT_SRC) checkout $(GROMIT_BRANCH) >/dev/null 2>&1 || exit 1; \
+		git -C $(GROMIT_SRC) pull --ff-only origin $(GROMIT_BRANCH) >/dev/null 2>&1 || true; \
+	fi
+	@echo "$(YELLOW)⚙️  Configuring cmake (clean build)...$(RESET)"
+	@rm -rf $(GROMIT_SRC)/build
+	@mkdir -p $(GROMIT_SRC)/build
+	@cd $(GROMIT_SRC)/build && cmake .. >/dev/null
+	@echo "$(YELLOW)🔨 Building (nproc=$(shell nproc))...$(RESET)"
+	@cd $(GROMIT_SRC)/build && make -j$(shell nproc) >/dev/null
+	@echo "$(YELLOW)📦 Installing binary to /usr/local/bin (requires sudo)...$(RESET)"
+	@cd $(GROMIT_SRC)/build && sudo make install >/dev/null
+	@echo "$(YELLOW)🔗 Linking gromit-mpx.cfg via stow...$(RESET)"
+	@$(MAKE) install-gromit-mpx
+	@echo "$(GREEN)✅ gromit-mpx ready: $$(command -v gromit-mpx)$(RESET)"
 
 # GRUB theme installation
 grub-theme:
