@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>name</key>
+  <string>Space Station Theme</string>
+  <key>settings</key>
+  <array>
+    <dict>
+      <key>settings</key>
+      <dict>
+        <key>background</key>
+        <string>#1a1a2e</string>
+        <key>foreground</key>
+        <string>#e0e1e5</string>
+        <key>caret</key>
+        <string>#00ff88</string>
+        <key>selection</key>
+        <string>#2a2a40</string>
+        <key>lineHighlight</key>
+        <string>#1e1e2e</string>
+        <key>gutterForeground</key>
+        <string>#b4a7d6</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Comment</string>
+      <key>scope</key><string>comment</string>
+      <key>settings</key><dict><key>foreground</key><string>#b4a7d6</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>String</string>
+      <key>scope</key><string>string</string>
+      <key>settings</key><dict><key>foreground</key><string>#00ff88</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Keyword</string>
+      <key>scope</key><string>keyword</string>
+      <key>settings</key><dict><key>foreground</key><string>#8844ff</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Function</string>
+      <key>scope</key><string>entity.name.function</string>
+      <key>settings</key><dict><key>foreground</key><string>#00aaff</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Type</string>
+      <key>scope</key><string>entity.name.type, support.type</string>
+      <key>settings</key><dict><key>foreground</key><string>#ffaa00</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Number</string>
+      <key>scope</key><string>constant.numeric</string>
+      <key>settings</key><dict><key>foreground</key><string>#ff44aa</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Error</string>
+      <key>scope</key><string>invalid</string>
+      <key>settings</key><dict><key>foreground</key><string>#ff0088</string></dict>
+    </dict>
+  </array>
+</dict>
+</plist>
