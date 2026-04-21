@@ -234,8 +234,13 @@ install-gromit:
 	@cd $(GROMIT_SRC)/build && make -j$(shell nproc) >/dev/null
 	@echo "$(YELLOW)📦 Installing binary to /usr/local/bin (requires sudo)...$(RESET)"
 	@cd $(GROMIT_SRC)/build && sudo make install >/dev/null
-	@echo "$(YELLOW)🔗 Linking gromit-mpx.cfg via stow...$(RESET)"
+	@echo "$(YELLOW)🔗 Linking gromit-mpx.cfg + .ini via stow...$(RESET)"
 	@$(MAKE) install-gromit-mpx
+	@# gromit-mpx rewrites its .ini on exit (would reset Opacity=1.0 back to
+	@# 0.75). chattr +i on the dotfiles inode is shared across the stow link
+	@# and blocks that rewrite. Idempotent — safe to re-run.
+	@echo "$(YELLOW)🔒 Setting chattr +i on gromit-mpx.ini (prevents opacity reset)...$(RESET)"
+	@sudo chattr +i $(PWD)/gromit-mpx/.config/gromit-mpx.ini 2>/dev/null || true
 	@echo "$(GREEN)✅ gromit-mpx ready: $$(command -v gromit-mpx)$(RESET)"
 
 # GRUB theme installation
