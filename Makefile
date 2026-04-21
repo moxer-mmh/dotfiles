@@ -241,6 +241,12 @@ install-gromit:
 	@# and blocks that rewrite. Idempotent — safe to re-run.
 	@echo "$(YELLOW)🔒 Setting chattr +i on gromit-mpx.ini (prevents opacity reset)...$(RESET)"
 	@sudo chattr +i $(PWD)/gromit-mpx/.config/gromit-mpx.ini 2>/dev/null || true
+	@# gromit-tool.sh rewrites the cfg's "default" line on every tool switch.
+	@# Without skip-worktree the working tree would be permanently dirty.
+	@# Toggle off with `git update-index --no-skip-worktree <file>` if you
+	@# need to commit a real cfg change, then re-enable.
+	@echo "$(YELLOW)🙈 Marking gromit-mpx.cfg skip-worktree (hides runtime writes from git)...$(RESET)"
+	@git update-index --skip-worktree gromit-mpx/.config/gromit-mpx.cfg 2>/dev/null || true
 	@echo "$(GREEN)✅ gromit-mpx ready: $$(command -v gromit-mpx)$(RESET)"
 
 # GRUB theme installation
