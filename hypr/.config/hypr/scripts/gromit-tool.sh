@@ -26,7 +26,7 @@ COLOR_STATE=/tmp/gromit-color
 SUBMAP_STATE=/tmp/gromit-submap-state
 CANVAS_STATE=/tmp/gromit-canvas-state
 
-MODE="${1:?Usage: gromit-tool.sh {shape|color|eraser} [VALUE]}"
+MODE="${1:?Usage: gromit-tool.sh (shape|color|eraser) [VALUE]}"
 
 [[ -f "$CFG" ]] || exit 1
 grep -qE '^"default"[[:space:]]+=' "$CFG" || exit 1
