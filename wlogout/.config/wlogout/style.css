@@ -4,9 +4,9 @@ window {
 }
 
 button {
-  background-color: #1e1e2e;
-  color: #e0e1e5;
-  border: 2px solid #2a2a40;
+  background-color: #313244;
+  color: #cdd6f4;
+  border: 2px solid #45475a;
   border-radius: 16px;
   margin: 10px;
   padding: 20px;
@@ -18,16 +18,16 @@ button {
 }
 
 button:hover {
-  background-color: #8844ff;
-  color: #1a1a2e;
-  border-color: #8844ff;
-  box-shadow: 0 0 20px #8844ff;
+  background-color: #cba6f7;
+  color: #1e1e2e;
+  border-color: #cba6f7;
+  box-shadow: 0 0 20px #cba6f7;
 }
 
 button:focus {
-  background-color: #00aaff;
-  color: #1a1a2e;
-  border-color: #00aaff;
+  background-color: #89b4fa;
+  color: #1e1e2e;
+  border-color: #89b4fa;
 }
 
 #lock {

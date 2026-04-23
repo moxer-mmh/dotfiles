@@ -263,6 +263,11 @@ mkdir -p "$HOME/.config/swayimg"
 apply_template "$TEMPLATES_DIR/swayimg-colors.lua.tpl" \
     "$HOME/.config/swayimg/colors.lua"
 
+# sysdx TUI colors
+mkdir -p "$HOME/.config/sysdx"
+apply_template "$TEMPLATES_DIR/sysdx-config.toml.tpl" \
+    "$HOME/.config/sysdx/config.toml"
+
 # ── Live reload (parallelized — target <2s total) ────────
 
 # Instant: terminal colors via OSC escape sequences (no restart needed)
