@@ -13,7 +13,7 @@ RESET := \033[0m
 BOLD := \033[1m
 
 # Cosmic configuration modules
-MODULES := alacritty btop Code gh-dash gromit-mpx gtk hypr lazydocker lazygit nvim pavucontrol rofi starship swaync theme waybar wlogout zsh
+MODULES := alacritty btop Code gh-dash gromit-mpx gtk hypr lazydocker lazygit nvim pavucontrol rofi starship swaync sysdx theme waybar wlogout zsh
 OPTIONAL_MODULES := grub
 
 # External tool sources

@@ -1,0 +1,23 @@
+# sysdx personal config — space-station palette
+# Managed via dotfiles stow: ~/dotfiles/sysdx/
+
+[display]
+journal_lines    = 60
+show_description = true
+list_width_pct   = 38
+tick_rate_ms     = 200
+
+[colors]
+background     = "#0a0a0f"
+surface        = "#1a1a2e"
+border         = "#8844ff"
+border_focused = "#00ff88"
+text           = "#e0e1e5"
+text_dim       = "#b4a7d6"
+selection_bg   = "#2a2a40"
+selection_fg   = "#ffffff"
+active         = "#00ff88"
+inactive       = "#b4a7d6"
+failed         = "#ff0088"
+filter_bar     = "#ffaa00"
+header         = "#8844ff"
