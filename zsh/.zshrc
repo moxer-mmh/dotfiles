@@ -31,12 +31,12 @@ ll() {
   local GREY=$'\033[38;5;242m'
   local RESET=$'\033[0m'
   local BOLD=$'\033[1m'
-  
+
   # Box drawing characters (single line)
   local H='─' V='│'
   local TL='┌' TR='┐' BL='└' BR='┘'
   local CROSS='┼' T_DOWN='┬' T_UP='┴' T_RIGHT='├' T_LEFT='┤'
-  
+
   # Column widths
   local W_NUM=3
   local W_NAME=25
@@ -72,10 +72,10 @@ ll() {
   # Convert permission string to readable format (owner only, since that's what matters)
   _perm_to_readable() {
     local perm="$1"
-    
+
     # Owner permissions (most relevant)
     local owner=$(_perm_bits "${perm:1:1}" "${perm:2:1}" "${perm:3:1}")
-    
+
     echo "$owner"
   }
 
@@ -117,15 +117,15 @@ ll() {
     local unit=$(echo "$line" | awk '{print $3}')
     local date=$(echo "$line" | sed -E 's/^[^ ]+ +[^ ]+ +[^ ]+ +//' | rev | cut -d' ' -f2- | rev)
     local name=$(echo "$line" | rev | cut -d' ' -f1 | rev)
-    
+
     # Convert permissions to readable format
     local readable_perms=$(_perm_to_readable "$perms")
-    
+
     # Determine type
     local type="file"
     [[ $perms =~ ^d ]] && type="dir"
     [[ $perms =~ ^l ]] && type="link"
-    
+
     # Color for name
     local name_color="$RESET"
     [[ $type == "dir" ]] && name_color="$CYAN"
@@ -144,12 +144,12 @@ ll() {
     printf "${PURPLE}${V}${RESET}${PINK}%-${W_SIZE}s${RESET}" "$size $unit"
     printf "${PURPLE}${V}${RESET}${CYAN}%-${W_DATE}s${RESET}" "$date"
     printf "${PURPLE}${V}${RESET}\n"
-    
+
     idx=$((idx + 1))
   done < "$tmpfile"
-  
+
   rm -f "$tmpfile"
-  
+
   # Bottom border
   printf "${CYAN}${BL}"
   _rep $W_NUM "$H"; printf "${T_UP}"
@@ -218,6 +218,9 @@ export CHROME_EXECUTABLE=chromium
 
 # opencode
 export PATH=/home/moxer_mmh/.opencode/bin:$PATH
+
+# Dart and Flutter
+export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 # >>> dmux openrouter >>>
 export OPENROUTER_API_KEY='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'

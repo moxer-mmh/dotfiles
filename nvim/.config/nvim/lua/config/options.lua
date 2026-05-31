@@ -47,6 +47,6 @@ opt.lazyredraw = true
 opt.hidden = true
 
 opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldlevel = 99 -- start with all folds open
 opt.foldenable = true -- enable folding

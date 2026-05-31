@@ -72,13 +72,6 @@ autocmd("FileType", {
     vim.opt_local.expandtab = false 
   end,
 })
-
-local treesitter_group = augroup("TreesitterSettings", { clear = true })
-
-autocmd("FileType", {
-  group = treesitter_group,
-  pattern = { "python", "javascript", "typescript", "lua", "bash", "c", "java", "rust", "go", "php", "html", "css", "yaml", "json" },
-  callback = function()
-    vim.cmd("TSBufEnable highlight")
-  end,
-})
+-- Treesitter highlighting & indent are enabled in plugins/treesitter.lua
+-- via the native vim.treesitter API (the old TSBufEnable command was removed
+-- when nvim-treesitter moved to its `main` branch).
