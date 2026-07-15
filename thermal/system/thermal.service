@@ -1,0 +1,15 @@
+[Unit]
+Description=Thermal/power limits (MSI Katana GF66 12UC)
+Documentation=file:///home/moxer_mmh/dotfiles/thermal/README.md
+# Both a cold boot and a resume from suspend reset the RAPL registers to BIOS
+# defaults, so this has to re-run on each. Ordering After=suspend.target while
+# also being WantedBy=suspend.target is the systemd idiom for "run on resume".
+After=multi-user.target suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/bin/thermal-apply
+
+[Install]
+WantedBy=multi-user.target suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target

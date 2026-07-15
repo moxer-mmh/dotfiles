@@ -1,0 +1,6 @@
+# Only .config/thermal/ gets symlinked into $HOME. The script and unit below
+# are installed root-owned by `make thermal-install` — a root service must not
+# execute a file that lives behind a symlink into a user-writable homedir.
+^/bin
+^/system
+^/README\.md

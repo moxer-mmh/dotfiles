@@ -13,7 +13,7 @@ RESET := \033[0m
 BOLD := \033[1m
 
 # Cosmic configuration modules
-MODULES := alacritty btop Code gh-dash gromit-mpx gtk hypr lazydocker lazygit mpv nvim pavucontrol rofi starship swaync sysdx theme waybar wlogout zsh
+MODULES := alacritty btop Code gh-dash gromit-mpx gtk hypr lazydocker lazygit mpv nvim pavucontrol rofi starship swaync sysdx theme thermal waybar wlogout zsh
 OPTIONAL_MODULES := grub
 
 # External tool sources
@@ -26,7 +26,8 @@ HOSTNAME := $(shell hostname)
 USER := $(shell whoami)
 OS := $(shell uname -s)
 
-.PHONY: help install install-manual backup check-deps clean status
+.PHONY: help install install-manual backup check-deps clean status \
+        thermal-install thermal-reload thermal-status thermal-uninstall
 
 # Default target - show cosmic help
 help:
@@ -51,6 +52,12 @@ help:
 	@echo "  $(GREEN)wallpaper-fix$(RESET)  - Fix wallpaper cycling"
 	@echo "  $(GREEN)grub-theme$(RESET)     - Install GRUB cosmic themes"
 	@echo "  $(GREEN)install-gromit$(RESET) - Build + install patched gromit-mpx from fork"
+	@echo ""
+	@echo "$(BOLD)🌡️  Thermal Commands:$(RESET)"
+	@echo "  $(GREEN)thermal-install$(RESET)   - Install power limits + fan control (sudo)"
+	@echo "  $(GREEN)thermal-reload$(RESET)    - Re-apply after editing thermal.conf"
+	@echo "  $(GREEN)thermal-status$(RESET)    - Show live temps, fans, power limits"
+	@echo "  $(GREEN)thermal-uninstall$(RESET) - Revert to BIOS defaults"
 	@echo ""
 	@echo "$(BOLD)📊 Available Modules:$(RESET)"
 	@echo "  $(CYAN)$(MODULES)$(RESET)"
@@ -248,6 +255,60 @@ install-gromit:
 	@echo "$(YELLOW)🙈 Marking gromit-mpx.cfg skip-worktree (hides runtime writes from git)...$(RESET)"
 	@git update-index --skip-worktree gromit-mpx/.config/gromit-mpx.cfg 2>/dev/null || true
 	@echo "$(GREEN)✅ gromit-mpx ready: $$(command -v gromit-mpx)$(RESET)"
+
+# thermal — CPU power limits + MSI EC fan/shift control.
+# The BIOS leaves PL1 unlimited (200W on a 45W i5-12500H), so the CPU boosts
+# until it thermal throttles at 100°C. Capping PL1 fixes the heat at its
+# source. Config is stowed to ~/.config/thermal/thermal.conf; the script and
+# unit are installed root-owned because a root service must not execute a file
+# reachable through a user-writable symlink.
+# Note: `isw` has no profile for this board (MS-1584) — see thermal/README.md.
+thermal-install:
+	@echo "$(CYAN)🌡️  Installing thermal module...$(RESET)"
+	@$(MAKE) install-thermal
+	@echo "$(YELLOW)📦 Installing thermal-apply to /usr/local/bin (requires sudo)...$(RESET)"
+	@sudo install -Dm755 thermal/bin/thermal-apply /usr/local/bin/thermal-apply
+	@echo "$(YELLOW)⚙️  Installing thermal.service (requires sudo)...$(RESET)"
+	@sudo install -Dm644 thermal/system/thermal.service /etc/systemd/system/thermal.service
+	@sudo systemctl daemon-reload
+	@sudo systemctl enable --now thermal.service
+	@echo "$(GREEN)✅ Thermal limits active and will persist across boot + resume$(RESET)"
+	@$(MAKE) thermal-status
+
+# Re-apply after editing ~/.config/thermal/thermal.conf
+thermal-reload:
+	@echo "$(CYAN)🔄 Re-applying thermal config...$(RESET)"
+	@sudo systemctl restart thermal.service
+	@$(MAKE) thermal-status
+
+thermal-status:
+	@echo "$(BOLD)$(PURPLE)🌡️  Thermal Status$(RESET)"
+	@echo "$(CYAN)================================$(RESET)"
+	@printf "  PL1 (sustained) : $(GREEN)%sW$(RESET)\n" \
+		$$(( $$(cat /sys/class/powercap/intel-rapl/intel-rapl:0/constraint_0_power_limit_uw) / 1000000 ))
+	@printf "  PL2 (burst)     : $(GREEN)%sW$(RESET)\n" \
+		$$(( $$(cat /sys/class/powercap/intel-rapl/intel-rapl:0/constraint_1_power_limit_uw) / 1000000 ))
+	@printf "  EPP             : $(GREEN)%s$(RESET)\n" \
+		$$(cat /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference)
+	@printf "  shift_mode      : $(GREEN)%s$(RESET)\n" $$(cat /sys/devices/platform/msi-ec/shift_mode)
+	@printf "  fan_mode        : $(GREEN)%s$(RESET)\n" $$(cat /sys/devices/platform/msi-ec/fan_mode)
+	@printf "  cooler_boost    : $(GREEN)%s$(RESET)\n" $$(cat /sys/devices/platform/msi-ec/cooler_boost)
+	@printf "  CPU temp        : $(YELLOW)%s°C$(RESET)  fan %s%%\n" \
+		$$(cat /sys/devices/platform/msi-ec/cpu/realtime_temperature) \
+		$$(cat /sys/devices/platform/msi-ec/cpu/realtime_fan_speed)
+	@printf "  GPU temp        : $(YELLOW)%s°C$(RESET)  fan %s%%\n" \
+		$$(cat /sys/devices/platform/msi-ec/gpu/realtime_temperature) \
+		$$(cat /sys/devices/platform/msi-ec/gpu/realtime_fan_speed)
+	@printf "  service         : %s\n" $$(systemctl is-active thermal.service 2>/dev/null || echo inactive)
+
+# Revert to BIOS defaults (unlimited PL1). Mostly useful for A/B testing heat.
+thermal-uninstall:
+	@echo "$(YELLOW)🗑️  Disabling thermal service...$(RESET)"
+	@sudo systemctl disable --now thermal.service 2>/dev/null || true
+	@sudo rm -f /etc/systemd/system/thermal.service /usr/local/bin/thermal-apply
+	@sudo systemctl daemon-reload
+	@$(MAKE) remove-thermal
+	@echo "$(GREEN)✅ Removed. Reboot to restore BIOS power defaults.$(RESET)"
 
 # GRUB theme installation
 grub-theme:

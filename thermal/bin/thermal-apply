@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+# thermal-apply — apply CPU power limits and MSI EC settings from thermal.conf
+#
+# Installed to /usr/local/bin by `make thermal-install`. Runs as root from
+# thermal.service at boot and on resume from suspend (both reset RAPL).
+#
+# Source lives in ~/dotfiles/thermal/bin/. Don't edit the installed copy.
+
+set -uo pipefail
+
+CONF="${THERMAL_CONF:-/home/moxer_mmh/.config/thermal/thermal.conf}"
+RAPL=/sys/class/powercap/intel-rapl/intel-rapl:0
+MSI_EC=/sys/devices/platform/msi-ec
+
+log() { echo "thermal-apply: $*"; }
+warn() { echo "thermal-apply: WARNING: $*" >&2; }
+
+[[ -r $CONF ]] || { warn "no config at $CONF, nothing to do"; exit 0; }
+
+# The conf is deliberately plain KEY=VALUE so it stays greppable and editable.
+# Parse it rather than sourcing it: this file is read by root, and sourcing
+# would execute anything a stray edit introduced.
+declare -A cfg
+while IFS='=' read -r key val; do
+	key="${key%%[[:space:]]*}"
+	[[ -z $key || $key == \#* ]] && continue
+	val="${val%%#*}"
+	val="${val//[[:space:]]/}"
+	cfg[$key]="$val"
+done < "$CONF"
+
+get() { echo "${cfg[$1]:-}"; }
+
+# write_sysfs <path> <value> <label> [tolerance_pct] — report rather than fail;
+# a locked register on one knob shouldn't abort the rest of the run.
+#
+# tolerance_pct exists because RAPL quantizes some registers to hardware-
+# representable steps: a 28s time window reads back as 27.983872s. That's the
+# hardware agreeing, not rejecting, so an exact-match check would cry wolf on
+# every boot. Power limits are exact and pass 0.
+write_sysfs() {
+	local path=$1 val=$2 label=$3 tol=${4:-0}
+	[[ -w $path ]] || { warn "$label: $path not writable, skipping"; return 1; }
+	if ! echo "$val" > "$path" 2>/dev/null; then
+		warn "$label: kernel rejected '$val'"
+		return 1
+	fi
+	local got; got=$(cat "$path" 2>/dev/null)
+	if [[ $got != "$val" ]]; then
+		if (( tol > 0 )) && [[ $got =~ ^[0-9]+$ ]] &&
+		   awk -v g="$got" -v v="$val" -v t="$tol" \
+		       'BEGIN{d=(g>v?g-v:v-g); exit !(v>0 && d*100/v <= t)}'; then
+			log "$label = $val (hw rounded to $got)"
+			return 0
+		fi
+		warn "$label: wrote '$val' but reads back '$got'"
+		return 1
+	fi
+	log "$label = $val"
+}
+
+# ─── CPU power limits ────────────────────────────────────────────────────────
+if [[ -d $RAPL ]]; then
+	pl1=$(get PL1_WATTS)
+	[[ -n $pl1 && $pl1 != 0 ]] &&
+		write_sysfs "$RAPL/constraint_0_power_limit_uw" "$((pl1 * 1000000))" "PL1 (sustained) ${pl1}W"
+
+	pl2=$(get PL2_WATTS)
+	[[ -n $pl2 && $pl2 != 0 ]] &&
+		write_sysfs "$RAPL/constraint_1_power_limit_uw" "$((pl2 * 1000000))" "PL2 (burst) ${pl2}W"
+
+	win=$(get PL1_TIME_WINDOW_SEC)
+	[[ -n $win && $win != 0 ]] &&
+		write_sysfs "$RAPL/constraint_0_time_window_us" "$((win * 1000000))" "PL1 window ${win}s" 5
+else
+	warn "no intel-rapl at $RAPL — power limits unavailable"
+fi
+
+# ─── Governor / EPP — per-core, every core needs its own write ───────────────
+gov=$(get GOVERNOR)
+if [[ -n $gov ]]; then
+	for f in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do
+		[[ -w $f ]] && echo "$gov" > "$f" 2>/dev/null
+	done
+	log "governor = $gov"
+fi
+
+epp=$(get EPP)
+if [[ -n $epp ]]; then
+	for f in /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference; do
+		[[ -w $f ]] && echo "$epp" > "$f" 2>/dev/null
+	done
+	log "EPP = $epp"
+fi
+
+# ─── MSI EC ──────────────────────────────────────────────────────────────────
+if [[ -d $MSI_EC ]]; then
+	shift_mode=$(get SHIFT_MODE)
+	[[ -n $shift_mode ]] && write_sysfs "$MSI_EC/shift_mode" "$shift_mode" "shift_mode"
+
+	fan_mode=$(get FAN_MODE)
+	[[ -n $fan_mode ]] && write_sysfs "$MSI_EC/fan_mode" "$fan_mode" "fan_mode"
+
+	boost=$(get COOLER_BOOST)
+	[[ -n $boost ]] && write_sysfs "$MSI_EC/cooler_boost" "$boost" "cooler_boost"
+else
+	warn "msi-ec not loaded — EC settings skipped (modprobe msi-ec)"
+fi
+
+log "done"
