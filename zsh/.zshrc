@@ -225,3 +225,6 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 # >>> dmux openrouter >>>
 export OPENROUTER_API_KEY='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'
 # <<< dmux openrouter <<<
+
+# npm global bin (mcporter, firebase-tools, flutterfire) — added for Agent Reach
+export PATH="$HOME/.npm-global/bin:$PATH"
