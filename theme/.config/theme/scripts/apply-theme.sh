@@ -268,10 +268,16 @@ mkdir -p "$HOME/.config/sysdx"
 apply_template "$TEMPLATES_DIR/sysdx-config.toml.tpl" \
     "$HOME/.config/sysdx/config.toml"
 
-# mpv / uosc UI colors (only if mpv-uosc is installed)
-if [[ -d "$HOME/.config/mpv/script-opts" ]] && pacman -Qq mpv-uosc &>/dev/null; then
-    apply_template "$TEMPLATES_DIR/mpv-uosc.conf.tpl" \
-        "$HOME/.config/mpv/script-opts/uosc.conf"
+# mpv player colors (pulled in by `include=~~/colors.conf` in mpv.conf)
+if [[ -d "$HOME/.config/mpv" ]]; then
+    apply_template "$TEMPLATES_DIR/mpv-colors.conf.tpl" \
+        "$HOME/.config/mpv/colors.conf"
+
+    # uosc UI colors (only if mpv-uosc is installed)
+    if [[ -d "$HOME/.config/mpv/script-opts" ]] && pacman -Qq mpv-uosc &>/dev/null; then
+        apply_template "$TEMPLATES_DIR/mpv-uosc.conf.tpl" \
+            "$HOME/.config/mpv/script-opts/uosc.conf"
+    fi
 fi
 
 # ── Live reload (parallelized — target <2s total) ────────

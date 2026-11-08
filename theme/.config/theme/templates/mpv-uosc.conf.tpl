@@ -4,30 +4,109 @@
 # DO NOT EDIT — changes will be overwritten on next theme apply.
 # =============================================================
 
-# Colors (uosc expects raw hex without leading #)
-# foreground = controls + active text   → accent (neon green)
-# background = bar/menu fill             → bg_alt
-# success    = positive states           → accent
-# error      = errors                    → crit (hot pink)
-# match      = highlight on search       → secondary (cyan)
-# heatmap    = chapter density viz       → primary (purple)
+# ---------- Colors ----------
+# uosc expects raw hex without a leading #
+#   foreground  = controls + active timeline fill  → accent
+#   background  = bar / menu fill                  → bg_alt
+#   success     = positive states                  → accent
+#   error       = errors                           → crit
+#   match       = search highlight                 → secondary
+#   heatmap     = chapter density viz              → primary
 color=foreground={{COLOR_ACCENT_RAW}},foreground_text={{COLOR_BG_RAW}},background={{COLOR_BG_ALT_RAW}},background_text={{COLOR_FG_RAW}},curtain={{COLOR_BG_RAW}},success={{COLOR_ACCENT_RAW}},error={{COLOR_CRIT_RAW}},match={{COLOR_SECONDARY_RAW}},heatmap={{COLOR_PRIMARY_RAW}}
 
-# Opacity tweaks — slightly punchier than defaults to read on bright video
+# Opacity — punchier than stock so the UI reads over bright video.
+# `controls=0` keeps the button row transparent (icons float over the picture).
 opacity=timeline=0.92,position=1,chapters=0.85,slider=0.92,slider_gauge=1,controls=0,speed=0.7,menu=0.97,submenu=0.5,border=1,title=1,tooltip=1,thumbnail=1,curtain=0.85,idle_indicator=0.8,audio_indicator=0.5,buffering_indicator=0.3,playlist_position=0.85,heatmap=0.45
 
-# Sizing
-font_scale=1.05
-font_bold=no
-timeline_size=38
-controls_size=30
-controls_margin=8
-volume_size=36
+# ---------- Shape ----------
+# Rounds buttons, menus, tooltips and thumbnails. The timeline itself is
+# edge-anchored by uosc's design and cannot be detached into a floating island.
+border_radius=10
 
-# Behavior
-autoload=yes
-top_bar=no-border
-top_bar_size=40
+# ---------- Timeline ----------
+# `bar` = solid filled progress (reads better than the thin `line` style).
+timeline_style=bar
+timeline_size=44
+timeline_border=0
+timeline_step=5
+timeline_cache=yes
+timeline_heatmap=overlay
+# Music has no picture to look at — keep the bar up permanently for audio,
+# and whenever playback is paused so you can see where you are.
+timeline_persistency=audio,paused
+
+# Thin always-on progress line when the full timeline is hidden.
+progress=windowed
+progress_size=3
+progress_line_width=20
+
+# ---------- Controls ----------
+# Two distinct layouts driven by uosc dispositions, so music and video get
+# different button rows from a single config:
+#
+#   <video> → menu · subtitles · tracks · quality · speed · loop · prev/playlist/next · fullscreen
+#   <audio> → centered transport (shuffle · prev · play/pause · next · loop) + playlist/menu right
+#
+# `space` fills available room; two spaces split it evenly, which centers the
+# group between them.
+controls=<video>menu,<video>gap,<video>subtitles,<has_many_audio>audio,<has_many_video>video,<has_many_edition>editions,<stream>stream-quality,<video>space,<video>speed,<video>space,<video>shuffle,<video>loop-playlist,<video>loop-file,<video>gap,<video>prev,<video>items,<video>next,<video>gap,<video>fullscreen,<audio>space,<audio>shuffle,<audio>prev,<audio>play-pause,<audio>next,<audio>loop-playlist,<audio>space,<audio>items,<audio>menu
+controls_size=32
+controls_margin=10
+controls_spacing=4
+controls_persistency=audio,paused
+
+# ---------- Volume ----------
+volume=right
+volume_size=38
+volume_border=0
+volume_step=5
+volume_persistency=audio
+
+# ---------- Top bar ----------
+# `always` rather than `no-border`: under Hyprland there are no window
+# decorations at all, so this bar is the only place the track title appears —
+# and `no-border` was not reliably enabling it in a windowed audio session.
+top_bar=always
+top_bar_size=44
 top_bar_controls=right
 top_bar_title=yes
+# Click the bar to swap between the tag title and the actual filename.
+top_bar_alt_title=${filename}
+top_bar_alt_title_place=toggle
+top_bar_flash_on=video,audio
+# Music: the title *is* the interface, so never hide it.
+top_bar_persistency=audio
+window_border_size=1
+
+# ---------- Text ----------
+font_scale=1.05
+font_bold=no
+# Slightly heavier outline so labels survive on bright/busy frames.
+text_border=1.4
+
+# ---------- Menus ----------
+menu_item_height=34
+menu_min_width=300
+menu_padding=6
+menu_type_to_search=yes
+
+# ---------- Motion & reveal ----------
+animation_duration=150
+proximity_in=40
+proximity_out=120
+# Fade the UI out together with the mouse cursor (timing = `cursor-autohide`
+# in mpv.conf). The persistency rules above override this for audio/paused.
+autohide=yes
+pause_indicator=flash
+
+# ---------- Behavior ----------
+autoload=yes
+shuffle=yes
+# Show elapsed / total rather than counting down.
+destination_time=total
+time_precision=0
+adjust_osd_margins=yes
+default_directory=~/
+
+# ---------- Chapter range tinting ----------
 chapter_ranges=openings:{{COLOR_PRIMARY_RAW}}50,endings:{{COLOR_PINK_RAW}}50,ads:{{COLOR_CRIT_RAW}}80
