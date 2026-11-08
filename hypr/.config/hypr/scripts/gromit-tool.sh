@@ -60,7 +60,7 @@ sed -i -E "s|^\"default\"([[:space:]]+)=([[:space:]]+)\"[^\"]+\";|\"default\"\\1
 # Bail early if the daemon is dead — otherwise we'd silently rewrite the cfg
 # with nothing to pick it up, and leave the user stuck in the submap.
 if ! pgrep -f "/usr/local/bin/gromit-mpx" >/dev/null 2>&1; then
-    hyprctl dispatch submap reset >/dev/null 2>&1 || true
+    hyprctl dispatch 'hl.dsp.submap("reset")' >/dev/null 2>&1 || true
     rm -f "$SUBMAP_STATE" "$CANVAS_STATE"
     pkill -RTMIN+8 waybar 2>/dev/null || true
     exit 1

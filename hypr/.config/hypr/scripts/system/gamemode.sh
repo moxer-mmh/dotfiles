@@ -26,21 +26,18 @@ cmd_toggle() {
     current=$(get_state)
 
     if [[ "$current" == "false" ]]; then
-        hyprctl --batch \
-            "keyword decoration:blur:enabled false ; \
-             keyword animations:enabled false ; \
-             keyword general:gaps_in 0 ; \
-             keyword general:gaps_out 0 ; \
-             keyword general:border_size 2"
+        # hyprctl keyword is gone since Hyprland 0.57: options are set via Lua.
+        hyprctl eval 'hl.config({
+            decoration = { blur = { enabled = false } },
+            animations = { enabled = false },
+            general    = { gaps_in = 0, gaps_out = 0, border_size = 2 },
+        })' >/dev/null
         echo "ENABLED=true" > "$STATE_FILE"
         notify-send -i applications-games "Game Mode" "Game Mode: ON — performance optimized" -t 3000
     else
-        hyprctl --batch \
-            "keyword decoration:blur:enabled true ; \
-             keyword animations:enabled true ; \
-             keyword general:gaps_in 12 ; \
-             keyword general:gaps_out 20 ; \
-             keyword general:border_size 4"
+        # Reloading restores every value from the config (and the theme),
+        # instead of hardcoding them a second time here.
+        hyprctl reload >/dev/null
         echo "ENABLED=false" > "$STATE_FILE"
         notify-send -i applications-games "Game Mode" "Game Mode: OFF — normal mode restored" -t 3000
     fi

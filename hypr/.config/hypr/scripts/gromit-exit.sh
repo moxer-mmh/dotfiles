@@ -15,7 +15,7 @@ if [[ -f "$CANVAS_STATE" ]] && pgrep -f "$GROMIT" >/dev/null 2>&1; then
     env GDK_BACKEND=x11 "$GROMIT" --toggle >/dev/null 2>&1 || true
 fi
 
-hyprctl dispatch submap reset >/dev/null 2>&1 || true
+hyprctl dispatch 'hl.dsp.submap("reset")' >/dev/null 2>&1 || true
 
 rm -f "$CANVAS_STATE" "$SUBMAP_STATE"
 pkill -RTMIN+8 waybar 2>/dev/null || true

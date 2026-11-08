@@ -10,6 +10,6 @@ set -euo pipefail
 
 SUBMAP_STATE=/tmp/gromit-submap-state
 
-hyprctl dispatch submap reset >/dev/null 2>&1 || true
+hyprctl dispatch 'hl.dsp.submap("reset")' >/dev/null 2>&1 || true
 rm -f "$SUBMAP_STATE"
 pkill -RTMIN+8 waybar 2>/dev/null || true

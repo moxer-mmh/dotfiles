@@ -15,7 +15,12 @@ if [[ -z "$OPACITY" ]]; then
     exit 0
 fi
 
-# Validate range
+# Validate format, then range. The format check matters: the value is inlined
+# into a Lua snippet for hyprctl eval below.
+if ! [[ "$OPACITY" =~ ^[0-9]*\.?[0-9]+$ ]]; then
+    echo "Error: opacity must be a number between 0.0 and 1.0"
+    exit 1
+fi
 if ! awk "BEGIN{exit !($OPACITY >= 0.0 && $OPACITY <= 1.0)}" 2>/dev/null; then
     echo "Error: opacity must be between 0.0 and 1.0"
     exit 1
@@ -35,6 +40,8 @@ if pgrep kitty &>/dev/null; then
 fi
 
 # Live-apply: hyprland active opacity
-hyprctl keyword decoration:active_opacity "$OPACITY" 2>/dev/null || true
+# (hyprctl keyword is gone since Hyprland 0.57; options are set through Lua.
+# $OPACITY is already validated as a number above, so it is safe to inline.)
+hyprctl eval "hl.config({ decoration = { active_opacity = $OPACITY } })" >/dev/null 2>&1 || true
 
 echo "Opacity set to $OPACITY (persisted in user-overrides.conf)"

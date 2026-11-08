@@ -40,7 +40,7 @@ if [[ ! -f "$CANVAS_STATE" ]]; then
     : > "$CANVAS_STATE"
 fi
 
-hyprctl dispatch submap draw >/dev/null 2>&1 || true
+hyprctl dispatch 'hl.dsp.submap("draw")' >/dev/null 2>&1 || true
 
 # Initialize shape/color state on first entry (or after /tmp clears on reboot).
 [[ -f "$SHAPE_STATE" ]] || printf 'Pen' > "$SHAPE_STATE"

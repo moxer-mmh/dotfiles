@@ -167,8 +167,8 @@ apply_template() {
 }
 
 # Hyprland appearance
-apply_template "$TEMPLATES_DIR/hyprland-appearance.conf.tpl" \
-    "$HOME/.config/hypr/conf.d/appearance.conf"
+apply_template "$TEMPLATES_DIR/hyprland-appearance.lua.tpl" \
+    "$HOME/.config/hypr/modules/appearance.lua"
 
 # Waybar colors (injected into style.css as :root block)
 apply_template "$TEMPLATES_DIR/waybar-colors.css.tpl" \
@@ -312,7 +312,7 @@ swaync-client --reload-css 2>/dev/null || true
     if pgrep waybar &>/dev/null; then
         pkill waybar 2>/dev/null
         sleep 0.3
-        hyprctl dispatch exec waybar 2>/dev/null || waybar &
+        hyprctl dispatch 'hl.dsp.exec_cmd("waybar")' 2>/dev/null || waybar &
     fi
 } &disown
 
