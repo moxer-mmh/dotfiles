@@ -31,6 +31,45 @@ done < "$CONF"
 
 get() { echo "${cfg[$1]:-}"; }
 
+# Every value is checked before use. Parsing instead of sourcing is not enough
+# on its own: this runs as root on a file the user can write, and bash
+# arithmetic evaluates its operands, so PL1_WATTS='a[$(cmd)]' fed to $(( ))
+# would run cmd as root. Numbers must be plain digits within a sane range;
+# words must be one the kernel itself lists as available.
+
+# get_uint KEY MIN MAX: the value, or empty (with a warning) if invalid.
+# 0 and unset both mean "leave this knob alone" and come back empty, silently.
+get_uint() {
+	local key=$1 min=$2 max=$3 val
+	val=$(get "$key")
+	[[ -z $val || $val == 0 ]] && return 0
+	if [[ ! $val =~ ^[0-9]{1,4}$ ]] || (( 10#$val < min || 10#$val > max )); then
+		warn "$key='$val' is not an integer in [$min, $max], skipping"
+		return 0
+	fi
+	echo "$(( 10#$val ))"
+}
+
+# get_choice KEY ALLOWED_FILE [EXTRA...]: the value if it is one of the words in
+# ALLOWED_FILE (a kernel "available_*" list) or in EXTRA, else empty + warning.
+get_choice() {
+	local key=$1 allowed_file=$2 val word
+	shift 2
+	val=$(get "$key")
+	[[ -z $val ]] && return 0
+	local -a allowed=("$@") file_words=()
+	if [[ -r $allowed_file ]]; then
+		# -d '' reads the whole file: msi-ec lists one mode per line, cpufreq
+		# all on one line. read returns 1 at EOF even on success, hence || true.
+		read -r -d '' -a file_words < "$allowed_file" || true
+		allowed+=("${file_words[@]}")
+	fi
+	for word in "${allowed[@]}"; do
+		[[ $val == "$word" ]] && { echo "$val"; return 0; }
+	done
+	warn "$key='$val' is not one of: ${allowed[*]:-<none available>}, skipping"
+}
+
 # write_sysfs <path> <value> <label> [tolerance_pct] — report rather than fail;
 # a locked register on one knob shouldn't abort the rest of the run.
 #
@@ -61,23 +100,24 @@ write_sysfs() {
 
 # ─── CPU power limits ────────────────────────────────────────────────────────
 if [[ -d $RAPL ]]; then
-	pl1=$(get PL1_WATTS)
-	[[ -n $pl1 && $pl1 != 0 ]] &&
+	pl1=$(get_uint PL1_WATTS 1 150)
+	[[ -n $pl1 ]] &&
 		write_sysfs "$RAPL/constraint_0_power_limit_uw" "$((pl1 * 1000000))" "PL1 (sustained) ${pl1}W"
 
-	pl2=$(get PL2_WATTS)
-	[[ -n $pl2 && $pl2 != 0 ]] &&
+	pl2=$(get_uint PL2_WATTS 1 150)
+	[[ -n $pl2 ]] &&
 		write_sysfs "$RAPL/constraint_1_power_limit_uw" "$((pl2 * 1000000))" "PL2 (burst) ${pl2}W"
 
-	win=$(get PL1_TIME_WINDOW_SEC)
-	[[ -n $win && $win != 0 ]] &&
+	win=$(get_uint PL1_TIME_WINDOW_SEC 1 120)
+	[[ -n $win ]] &&
 		write_sysfs "$RAPL/constraint_0_time_window_us" "$((win * 1000000))" "PL1 window ${win}s" 5
 else
 	warn "no intel-rapl at $RAPL — power limits unavailable"
 fi
 
 # ─── Governor / EPP — per-core, every core needs its own write ───────────────
-gov=$(get GOVERNOR)
+CPUFREQ0=/sys/devices/system/cpu/cpu0/cpufreq
+gov=$(get_choice GOVERNOR "$CPUFREQ0/scaling_available_governors")
 if [[ -n $gov ]]; then
 	for f in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do
 		[[ -w $f ]] && echo "$gov" > "$f" 2>/dev/null
@@ -85,7 +125,7 @@ if [[ -n $gov ]]; then
 	log "governor = $gov"
 fi
 
-epp=$(get EPP)
+epp=$(get_choice EPP "$CPUFREQ0/energy_performance_available_preferences")
 if [[ -n $epp ]]; then
 	for f in /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference; do
 		[[ -w $f ]] && echo "$epp" > "$f" 2>/dev/null
@@ -95,13 +135,14 @@ fi
 
 # ─── MSI EC ──────────────────────────────────────────────────────────────────
 if [[ -d $MSI_EC ]]; then
-	shift_mode=$(get SHIFT_MODE)
+	shift_mode=$(get_choice SHIFT_MODE "$MSI_EC/available_shift_modes")
 	[[ -n $shift_mode ]] && write_sysfs "$MSI_EC/shift_mode" "$shift_mode" "shift_mode"
 
-	fan_mode=$(get FAN_MODE)
+	fan_mode=$(get_choice FAN_MODE "$MSI_EC/available_fan_modes")
 	[[ -n $fan_mode ]] && write_sysfs "$MSI_EC/fan_mode" "$fan_mode" "fan_mode"
 
-	boost=$(get COOLER_BOOST)
+	# cooler_boost has no available_* file; msi-ec accepts on/off.
+	boost=$(get_choice COOLER_BOOST /dev/null on off)
 	[[ -n $boost ]] && write_sysfs "$MSI_EC/cooler_boost" "$boost" "cooler_boost"
 else
 	warn "msi-ec not loaded — EC settings skipped (modprobe msi-ec)"

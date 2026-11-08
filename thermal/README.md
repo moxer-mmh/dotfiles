@@ -106,7 +106,15 @@ defaults, so the unit is `WantedBy=` **and** `After=suspend.target` — the
 systemd idiom for "run this on resume".
 
 `thermal-apply` parses `thermal.conf` rather than sourcing it: it runs as root,
-and sourcing would execute whatever a stray edit introduced.
+and sourcing would execute whatever a stray edit introduced. Parsing alone is
+not enough, though: bash arithmetic evaluates its operands, so a value like
+`PL1_WATTS=a[$(cmd)]` would still run `cmd` as root. Every value is therefore
+validated before use. Numbers must be plain digits within a range (watts 1 to
+150, window 1 to 120 s). Words must appear in the kernel's own list
+(`scaling_available_governors`, `energy_performance_available_preferences`,
+msi-ec `available_shift_modes` / `available_fan_modes`, `on`/`off` for
+cooler boost). Anything else is skipped with a warning in
+`journalctl -u thermal`.
 
 ## Reverting
 
