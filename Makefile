@@ -3,14 +3,16 @@
 # Professional dotfiles management with cosmic flair
 # =====================================================
 
-# Colors for cosmic output
-CYAN := \033[36m
-PURPLE := \033[35m
-GREEN := \033[32m
-YELLOW := \033[33m
-RED := \033[31m
-RESET := \033[0m
-BOLD := \033[1m
+# Colors for cosmic output. ESC holds the real escape byte: a literal "\033"
+# only works where printf interprets it, and every @echo here prints it raw.
+ESC := $(shell printf '\033')
+CYAN := $(ESC)[36m
+PURPLE := $(ESC)[35m
+GREEN := $(ESC)[32m
+YELLOW := $(ESC)[33m
+RED := $(ESC)[31m
+RESET := $(ESC)[0m
+BOLD := $(ESC)[1m
 
 # Cosmic configuration modules
 MODULES := alacritty btop Code dclean gh-dash gromit-mpx gtk hypr lazydocker lazygit mpv nautilus nvim pavucontrol rofi starship swaync sysdx theme thermal waybar wlogout zsh
@@ -22,7 +24,7 @@ GROMIT_BRANCH := hyprland-patches
 GROMIT_SRC := $(HOME)/code/gromit-mpx
 
 # System info
-HOSTNAME := $(shell hostname)
+HOSTNAME := $(shell uname -n)
 USER := $(shell whoami)
 OS := $(shell uname -s)
 
@@ -92,16 +94,22 @@ backup:
 # Check system dependencies
 check-deps:
 	@echo "$(CYAN)🔍 Checking cosmic space station dependencies...$(RESET)"
-	@deps="stow hyprland waybar alacritty neovim rofi dunst"; \
-	missing=""; \
-	for dep in $$deps; do \
-		if ! command -v $$dep >/dev/null 2>&1; then \
-			missing="$$missing $$dep"; \
-		fi; \
-	done; \
-	if [ -n "$$missing" ]; then \
-		echo "$(RED)❌ Missing dependencies:$$missing$(RESET)"; \
-		echo "$(YELLOW)📦 Install with: sudo pacman -S$$missing$(RESET)"; \
+	@# Each entry is binary:package (package defaults to the binary name), so
+	@# the install hint names what pacman/yay actually want (nvim -> neovim).
+	@# Only what the Hyprland Lua config, its scripts and the theme pipeline
+	@# call at runtime. gromit-mpx is built from a fork: make install-gromit.
+	@repo="stow Hyprland:hyprland hyprlock hypridle waybar kitty rofi swaync \
+	      wlogout awww jq grim slurp wl-copy:wl-clipboard cliphist brightnessctl \
+	      playerctl wpctl:wireplumber notify-send:libnotify nvim:neovim zsh starship"; \
+	aur="wallust:wallust-git"; \
+	check() { for e in $$1; do \
+		command -v "$${e%%:*}" >/dev/null 2>&1 || printf ' %s' "$${e#*:}"; \
+	done; }; \
+	miss_repo=$$(check "$$repo"); miss_aur=$$(check "$$aur"); \
+	if [ -n "$$miss_repo$$miss_aur" ]; then \
+		echo "$(RED)❌ Missing dependencies:$$miss_repo$$miss_aur$(RESET)"; \
+		[ -n "$$miss_repo" ] && echo "$(YELLOW)📦 sudo pacman -S$$miss_repo$(RESET)"; \
+		[ -n "$$miss_aur" ] && echo "$(YELLOW)📦 yay -S$$miss_aur$(RESET)"; \
 		exit 1; \
 	else \
 		echo "$(GREEN)✅ All dependencies found!$(RESET)"; \
