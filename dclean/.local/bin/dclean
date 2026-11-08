@@ -34,7 +34,13 @@
 set -uo pipefail
 
 SELF="$(readlink -f "${BASH_SOURCE[0]}")"
-SCAN_FILE="${XDG_RUNTIME_DIR:-/tmp}/dclean-scan.$(id -u)"
+# Scan cache, shared with the fzf callbacks (they re-run this script and land
+# on the same path). Never a predictable name in /tmp: another local user could
+# pre-create it as a symlink and have `sort >` clobber the target. Fallback is a
+# directory only we can write to.
+SCAN_DIR="${XDG_RUNTIME_DIR:-${XDG_CACHE_HOME:-$HOME/.cache}/dclean}"
+[[ -d "$SCAN_DIR" ]] || mkdir -p -m 700 "$SCAN_DIR"
+SCAN_FILE="$SCAN_DIR/dclean-scan.$(id -u)"
 DRY=0; PRESELECT_SAFE=0; LIST_ONLY=0
 
 # ─── target registry ─────────────────────────────────────────────────────────
