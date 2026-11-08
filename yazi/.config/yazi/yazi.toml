@@ -38,22 +38,22 @@ image_quality = 80
 
 [opener]
 edit = [
-    { run = '$EDITOR "$@"', block = true, desc = "Edit with Neovim" },
+    { run = '$EDITOR %s', block = true, desc = "Edit with Neovim" },
 ]
 open = [
-    { run = 'xdg-open "$@"', desc = "Open" },
+    { run = 'xdg-open %s', desc = "Open" },
 ]
 view = [
-    { run = 'swayimg "$@"', orphan = true, desc = "View with swayimg" },
+    { run = 'swayimg %s', orphan = true, desc = "View with swayimg" },
 ]
 extract = [
-    { run = 'ya pub extract --list "$@"', desc = "Extract here" },
+    { run = 'ya pub extract --list %s', desc = "Extract here" },
 ]
 play = [
-    { run = 'mpv "$@"', orphan = true, desc = "Play with mpv" },
+    { run = 'mpv %s', orphan = true, desc = "Play with mpv" },
 ]
 browser = [
-    { run = 'brave "$@"', orphan = true, desc = "Open in Brave" },
+    { run = 'brave %s', orphan = true, desc = "Open in Brave" },
 ]
 
 [open]
