@@ -172,7 +172,7 @@ alias ngpu='prime-run'
 alias n='nvim'
 alias y='yazi'
 alias dt='cd ~/dotfiles && yazi .'
-alias tdt="tmux new-session -A -s Dragon-Config \; send-keys -t Dragon-Config 'cd ~/dotfiles && yazi .' Enter \; attach-session -t Dragon-Config"Copied!
+alias tdt="tmux new-session -A -s Dragon-Config \; send-keys -t Dragon-Config 'cd ~/dotfiles && yazi .' Enter \; attach-session -t Dragon-Config"
 alias vl='cd ~/gdrive/Dragon-Vault && yazi .'
 alias tvl="tmux new-session -A -s Dragon-Vault \; send-keys -t Dragon-Vault 'cd ~/gdrive/Dragon-Vault && yazi .' Enter \; attach-session -t Dragon-Vault"
 alias ta='tmux attach'
@@ -222,9 +222,7 @@ export PATH=/home/moxer_mmh/.opencode/bin:$PATH
 # Dart and Flutter
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 
-# >>> dmux openrouter >>>
-export OPENROUTER_API_KEY='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'
-# <<< dmux openrouter <<<
+# OPENROUTER_API_KEY lives in ~/.zshrc.local (sourced above), never in this repo.
 
 # npm global bin (mcporter, firebase-tools, flutterfire) — added for Agent Reach
 export PATH="$HOME/.npm-global/bin:$PATH"

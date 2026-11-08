@@ -140,3 +140,9 @@ docs/build/
 # If you have machine-specific configs:
 # **/local.*
 # **/$(hostname).*
+
+# =============================================================================
+# Secrets (this repo is public)
+# =============================================================================
+# opencode server credentials, generated locally
+opencode/.config/opencode/service.json
