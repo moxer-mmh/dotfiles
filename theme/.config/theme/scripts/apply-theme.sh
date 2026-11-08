@@ -268,6 +268,11 @@ mkdir -p "$HOME/.config/sysdx"
 apply_template "$TEMPLATES_DIR/sysdx-config.toml.tpl" \
     "$HOME/.config/sysdx/config.toml"
 
+# fzf colors (sourced by .zshrc and dclean, so every picker matches)
+mkdir -p "$HOME/.config/theme"
+apply_template "$TEMPLATES_DIR/fzf-colors.sh.tpl" \
+    "$HOME/.config/theme/fzf-colors.sh"
+
 # mpv player colors (pulled in by `include=~~/colors.conf` in mpv.conf)
 if [[ -d "$HOME/.config/mpv" ]]; then
     apply_template "$TEMPLATES_DIR/mpv-colors.conf.tpl" \
